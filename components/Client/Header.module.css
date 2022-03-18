@@ -1,0 +1,44 @@
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow:  0px 0px 9px -7px #000000;
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.top-header-left, .top-header-right {
+  padding: 10px 0px;
+}
+
+.top-header-left > *  {
+  margin-right: 10px;
+}
+
+.top-header-right > * {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 800px){
+  .top-header {
+    display: block;
+    text-align: center;
+  }
+}
