@@ -1,12 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Header from '../components/Client/Header'
-import styles from '../styles/Home.module.css'
+import Header from '../components/Client/Header';
+import Footer from '../components/Client/Footer';
+import Home from '../components/Client/home/index';
 
-export default function Home() {
+
+export default function HomePage() {
   return (
     <>
       <Header />
+      <Home />
+      <Footer />
     </>
   )
 }
