@@ -1,0 +1,33 @@
+.sub-banner {
+  margin-top: 40px;
+
+}
+
+.item-sub-banner {
+  position: relative;
+}
+
+.content-item-sub-banner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 30px;
+  color: gray;
+  z-index: 1;
+}
+
+.content-item-sub-banner h2 {
+  color: black;
+}
+
+.content-item-sub-banner h3 {
+  color: var(--primary_color);
+  font-size: 25px;
+}
+
+.img-item-sub-banner {
+  top: 0px;
+  width: 100%;
+  height: 200px;
+  z-index: 2;
+}

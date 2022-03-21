@@ -1,12 +1,14 @@
 import { Container } from '@mui/material';
-import Banner from './Banner';
+import MainBanner from './MainBanner';
 import React from 'react';
+import SubBanner from './SubBanner';
 
 const Home = (props) => {
   return (
     <main>
       <Container>
-        <Banner />
+        <MainBanner />
+        <SubBanner />
       </Container>
     </main>
   )

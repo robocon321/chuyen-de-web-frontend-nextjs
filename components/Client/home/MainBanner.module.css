@@ -1,8 +1,7 @@
 .banner {
   margin-top: 50px;
-  height: 600px;
+  height: 500px;
   position: relative;
-  overflow: auto;
 }
 
 .item-banner {
@@ -11,7 +10,19 @@
   background-repeat: no-repeat;
   position: absolute;
   width: 100%;
-  top: 0
+  top: 0;
+  animation-name: opacityBanner;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes opacityBanner {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .content {
@@ -43,4 +54,27 @@
   border: none;
   border-radius: 5px;
   margin-top: 30px;
+}
+
+.switch-banner {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  background-color: white;
+  border: 50%;
+  border-radius: 10px;
+  width: 80px;
+  height: 20px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.switch-banner span {
+  display: inline-block;
+  background-color: gray;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-top: 3px;
 }
