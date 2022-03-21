@@ -58,7 +58,7 @@ const Header = props => {
       <Container>
         <div className={styles['center-header']}>
           <div className={styles['left-center-header']}>
-            <img className={styles['logo-header']} src='http://localhost:3000/logo.webp' />
+            <img className={styles['logo-header']} src='http://localhost:3000/logo.webp'/>
             <div className={styles['searchbar-header']}>
               <input placeholder='Search enter store here ...'/>
               <button>
