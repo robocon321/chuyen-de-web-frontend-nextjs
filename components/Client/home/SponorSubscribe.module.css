@@ -1,0 +1,71 @@
+.sponor {
+  margin: 20px 0px;
+}
+
+.subscribe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0px;
+  height: 200px;
+  background-color: var(--primary_color);
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.subscribe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://template.hasthemes.com/alula/alula/assets/img/newsletter/newsletter2.webp);
+  background-size: 100% 180%;
+  background-position: 0% 80%;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.left-subscribe, .right-subscribe {
+  z-index: 2;
+}
+
+.left-subscribe {
+  margin-right: 20px;
+}
+
+.right-subscribe {
+  margin-left: 20px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.subscribe h3 {
+  font-size: 25px;
+}
+
+.subscribe p {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.subscribe input, .subscribe button {
+  padding: 15px;
+  font-size: 15px;
+  border: none;
+  outline: none
+}
+
+.subscribe input {
+ color: gray; 
+ width: 400px;
+}
+
+.subscribe button {
+  background-color: yellow;
+  font-weight: bold;
+}

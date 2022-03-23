@@ -1,0 +1,22 @@
+.feature {
+  margin: 20px 0px;
+}
+
+.item-feature {
+  display: flex;
+  align-items: center;
+}
+
+.content-item-feature {
+  margin-left: 10px;
+}
+
+.content-item-feature h4 {
+  color: var(--primary_color);
+}
+
+.content-item-feature p {
+  margin-top: 5px;
+  color: gray;
+  font-size: 12px;
+}

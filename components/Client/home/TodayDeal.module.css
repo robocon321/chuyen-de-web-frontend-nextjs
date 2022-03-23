@@ -1,0 +1,154 @@
+.today-deal {
+  margin-top: 40px;
+}
+
+.today-deal .title-today-deal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.today-deal .title-today-deal button {
+  background-color: var(--bg_color);
+  border: none;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.today-deal .title-today-deal button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: var(--primary_color);
+}
+
+.list-today-deal {
+  margin-top: 20px;
+}
+
+.item-today-deal {
+  padding: 20px;
+  border: 1px solid var(--bg_color);
+  display: flex;
+}
+
+.item-today-deal .active-image {
+  border: 0.5px solid var(--primary_color);
+}
+
+.item-today-deal .right {
+  margin-left: 20px;
+}
+
+.item-today-deal .title {
+  margin-bottom: 20px;
+}
+
+.item-today-deal .description {
+  color: gray;
+  font-size: 13px;
+  margin: 20px 0px;
+}
+
+.item-today-deal .progress {
+  margin-top: 20px;
+  height: 10px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-today-deal .progress div {
+  height: 100%;
+}
+
+.item-today-deal .progress div:nth-child(1) {
+  background-color: var(--bg_color);
+  position: absolute;
+  width: 100%;
+}
+
+.item-today-deal .progress div:nth-child(2) {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(255, 255, 62);
+}
+
+.item-today-deal .star-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-today-deal .star {
+  color: var(--bg_color);
+  margin-top: 10px;
+}
+
+.item-today-deal .star .active {
+  color: rgb(255, 255, 62);
+}
+
+.item-today-deal .cart {
+  cursor: pointer;
+  display: inline-block;
+  background-color: var(--bg_color);
+  width: 40px;
+  height: 40px;
+  position: relative;
+  border-radius: 50%;
+}
+
+.item-today-deal .cart:hover {
+  background-color: var(--primary_color);
+  color: white;
+}
+
+.item-today-deal .cart span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.item-today-deal .discount {
+  display: inline-block;
+  background-image: url(https://template.hasthemes.com/alula/alula/assets/img/icons/green-discount-label.webp);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-top: 10px;
+  width: 60px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  padding-top: 2px;
+  font-size: 13px;
+}
+
+.item-today-deal .status {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.item-today-deal .price {
+  margin-top: 20px;
+  display: flex;
+}
+
+.item-today-deal .price p {
+  font-weight: bold;
+  color: var(--primary_color);
+  font-size: 20px;
+}
+
+.item-today-deal .price div {
+  align-self: flex-end;
+  margin-left: 20px;
+  font-size: 15px;
+  opacity: 0.5;
+  text-decoration: line-through;
+}
