@@ -62,10 +62,34 @@
 
 .subscribe input {
  color: gray; 
- width: 400px;
+ width: 380px;
 }
 
 .subscribe button {
   background-color: yellow;
   font-weight: bold;
+}
+
+@media only screen and (max-width: 1024px) {
+  .subscribe {
+    flex-direction: column;
+  }
+
+  .left-subscribe, .right-subscribe {
+    margin: 0;
+  }
+
+  .left-subscribe {
+    text-align: center;
+  }
+
+  .right-subscribe {
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .right-subscribe input {
+    width: 300px;
+  }
 }

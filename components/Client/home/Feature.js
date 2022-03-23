@@ -53,7 +53,7 @@ const Feature = props => {
       <Grid container spacing={2} columns={12}>
         {
           features.map(item => 
-            <Grid key={item.id} item xs={3}>
+            <Grid key={item.id} item xs={6} md={3}>
               <ItemFeature item={item} />
             </Grid>
           )

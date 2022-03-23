@@ -33,12 +33,13 @@ const SponorSubscribe = props => {
     <div className={styles['sponor-subscribe']}>
       <div className={styles['sponor']}>
         <Swiper
-          pagination={{
-            clickable: true,
-          }}
           breakpoints={{
-            640: {
+            220: {
               slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            400: {
+              slidesPerView: 3,
               spaceBetween: 20,
             },
             768: {
