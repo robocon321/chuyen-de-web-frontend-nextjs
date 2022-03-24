@@ -1,0 +1,13 @@
+.breadcrumb {
+  padding: 20px 10px;
+  font-size: 13px;
+  color: gray;
+}
+
+.breadcrumb > a {
+  margin-right: 10px;
+}
+
+.breadcrumb > a > span {
+  margin-left: 10px;
+}
