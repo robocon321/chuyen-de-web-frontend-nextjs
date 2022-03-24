@@ -1,0 +1,122 @@
+.newProduct {
+    margin-top: 20px;
+}
+
+.newProduct-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.newProduct-lable {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.newProduct-page-control {}
+
+.newProduct-page-btn {
+    padding: 7px 10px;
+    background-color: #f6f6f6;
+    margin-left: 4px;
+    border-radius: 5px;
+}
+
+.newProduct-page-icon {}
+
+.newProduct-list-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.newProduct-item {
+    width: 19%;
+    border: 1px solid #e9e9e9;
+    border-radius: 2px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.newProduct-info {
+    padding: 0 10px;
+    position: relative;
+}
+
+.newProduct-img {}
+
+.newProduct-title {
+    color: var(--subtext_color);
+    font-size: large;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.newProduct-ratting {
+    margin-bottom: 10px;
+    color: #dddddd;
+}
+
+.newProduct-new-price {
+    color: #49b14d;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.newProduct-old-price {
+    color: var(--subtext_color);
+    text-decoration: line-through;
+}
+
+.newProduct-cart {
+    background: #e9e9e9;
+    position: absolute;
+    top: 40px;
+    right: 2px;
+    padding: 7px;
+    border-radius: 17px;
+}
+
+.newPRoduct-sale-off {
+    position: absolute;
+    color: white;
+    text-align: center;
+    top: 10px;
+    left: 20px;
+    padding-top: 2px;
+    width: 25%;
+    height: 6%;
+    background-image: url(https://template.hasthemes.com/alula/alula/assets/img/icons/green-discount-label.webp);
+}
+
+.newProduct-option {
+    position: absolute;
+    right: 5px;
+    top: 50px;
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    border-radius: 10px;
+    animation: fadeIn linear 0.7s;
+}
+
+.icon {
+    padding: 8px 5px;
+}
+
+.newProduct-item:hover .newProduct-option {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

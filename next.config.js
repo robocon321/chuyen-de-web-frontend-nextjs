@@ -4,6 +4,8 @@ const nextConfig = {
   images: {
     domains: ['template.hasthemes.com']
   }
+    reactStrictMode: true,
+
 }
 
 module.exports = nextConfig

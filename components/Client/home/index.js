@@ -6,6 +6,9 @@ import Feature from './Feature';
 import TodayDeal from './TodayDeal';
 import LatestBlog from './LatestBlog';
 import SponorSubscribe from './SponorSubscribe';
+import NewProduct from './NewProduct';
+import Discover from './Discover';
+import SellerAndRelated from './SellerAndRelated';
 
 const Home = (props) => {
   return (
@@ -20,6 +23,10 @@ const Home = (props) => {
         <LatestBlog />
         <hr />
         <SponorSubscribe />
+        <Banner />
+        <NewProduct/>
+        <Discover/>
+        <SellerAndRelated/>
       </Container>
     </main>
   )
