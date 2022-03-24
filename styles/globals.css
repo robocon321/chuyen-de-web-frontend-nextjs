@@ -2,6 +2,7 @@
   --primary_color: #49b14d;
   --warning_color: #ffdd20;
   --subtext_color: #a4a4a4;
+  --bg_color: rgb(248, 248, 248);
 
   --subtext_weight: 300;
   --primary_weight: 400;
@@ -38,3 +39,11 @@ ul {
 h1, h2, h3, h4, h5, h6, p {
   margin: 0px;
 }
+
+/* .swiper-button-prev {
+  background-image: url("https://st2.depositphotos.com/47577860/45949/v/380/depositphotos_459490406-stock-illustration-back-backward-prev-icon-solid.jpg?forcejpeg=true")!important;
+}
+
+.swiper-button-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%234c71ae'%2F%3E%3C%2Fsvg%3E") !important;
+} */
