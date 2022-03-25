@@ -159,8 +159,10 @@
 .inner-navbar {
   display: none;
   position: absolute;
+  background-color: white;
   color: black;
   box-shadow: 0px 0px 12px -11px #000000;
+  z-index: 10;
 }
 
 .navbar > li:hover .inner-navbar {

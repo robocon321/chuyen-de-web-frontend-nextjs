@@ -1,0 +1,1 @@
+export const SHIPPING_TOKEN = 'b0ef466f-ab92-11ec-bc89-6623f36c3aa5';

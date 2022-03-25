@@ -23,7 +23,7 @@ const Home = (props) => {
         <LatestBlog />
         <hr />
         <SponorSubscribe />
-        <Banner />
+        {/* <Banner /> */}
         <NewProduct/>
         <Discover/>
         <SellerAndRelated/>

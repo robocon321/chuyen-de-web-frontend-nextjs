@@ -79,7 +79,7 @@ const ItemTodayDeal = props => {
           {
             props.item.images.map((itemImage, index) => (
                 <SwiperSlide style={{width: '300px'}} key={index}>
-                  <div className={imageSelected === index && styles['active-image']}>
+                  <div className={[imageSelected === index && styles['active-image']]}>
                     <Image
                       onClick={() => onChangeMainImage(index)}
                       src={itemImage}
