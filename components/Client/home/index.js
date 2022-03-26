@@ -17,16 +17,17 @@ const Home = (props) => {
         <MainBanner />
         <SubBanner />
         <hr />
+        <NewProduct/>
         <Feature />
         <hr />
         <TodayDeal />
+        <Discover/>
+        <SellerAndRelated/>
         <LatestBlog />
         <hr />
         <SponorSubscribe />
-        {/* <Banner /> */}
-        <NewProduct/>
-        <Discover/>
-        <SellerAndRelated/>
+
+
       </Container>
     </main>
   )
