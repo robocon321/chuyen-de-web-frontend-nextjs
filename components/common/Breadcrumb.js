@@ -7,9 +7,9 @@ const Breadcrumb = props => {
       {
         props.links.map((item, index) => {
           return index === 0 ? (
-            <a href='#'>{item}</a>
+            <a key={index} href='#'>{item}</a>
           ) : (
-            <a href='#'><i className="fa-solid fa-angle-right"></i><span>{item}</span></a>
+            <a key={index} href='#'><i className="fa-solid fa-angle-right"></i><span>{item}</span></a>
           )
         })
       }

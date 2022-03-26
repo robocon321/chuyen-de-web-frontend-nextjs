@@ -1,0 +1,76 @@
+.wishlist {
+  margin: 40px 0px;
+}
+
+.wishlist table {
+  padding: 40px 0px;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  box-shadow: 0px 0px 13px -8px rgba(0,0,0,0.72);
+}
+
+.wishlist th {
+  background-color: var(--bg_color);
+  padding: 10px 0px;
+}
+
+.wishlist td {
+  padding: 5px 0px;
+  text-align: center;
+}
+
+.wishlist td:nth-child(2) {
+  text-align: left;
+}
+
+
+.counter {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.counter input {
+  width: 150px;
+  height: 50px;
+  border: 0.5px solid rgb(218, 216, 216);
+  outline: none;
+  padding: 5px;
+}
+
+.counter button {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border: 0.5px solid rgb(218, 216, 216);
+  border-left: none;
+}
+
+.counter button:hover {
+  background-color: var(--primary_color);
+  color: white;
+  cursor: pointer;
+}
+
+.counter button:nth-child(2) {
+  top: 0%;
+}
+
+.counter button:nth-child(3) {
+  border-top: none;
+  top: 50%
+}
+
+
+@media only screen and (max-width: 1000px) {
+  .wishlist {
+    padding: 20px;
+    overflow-x: auto;
+  }
+
+  .wishlist table {
+    width: 1000px;
+  }
+}

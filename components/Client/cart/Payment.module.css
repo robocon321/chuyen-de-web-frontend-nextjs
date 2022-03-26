@@ -1,0 +1,107 @@
+.payment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0px;
+}
+
+.payment button:hover {
+  background-color: var(--primary_color)!important;
+  color: white!important;
+  border: 0.5px solid var(--primary_color)!important;
+  cursor: pointer!important;
+}
+
+.payment h3 {
+  text-decoration: underline;
+}
+
+.calculate h3 {
+  margin-bottom: 10px;
+}
+
+.calculate select, .calculate input {
+  margin: 20px 0px;
+  padding: 10px 10px;
+  width: 300px;
+  margin-right: 10px;
+  border: 0.5px solid rgb(196, 196, 196);
+  border-radius: 5px;
+  color: gray;
+  outline: none;
+}
+
+.calculate button, .btn-checkout button:nth-child(2) {
+  padding: 10px;
+  width: 20%;
+  background-color: black;
+  color: white;
+  border: 0.5px solid black;
+  outline: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+
+.cart-summary {
+  padding: 50px;
+  background-color: var(--bg_color);
+  width: 400px;
+}
+
+.cart-summary h3 {
+  margin-bottom: 40px;
+}
+
+.cart-summary div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cart-summary .total {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.btn-checkout {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.btn-checkout button {
+  padding: 10px;
+  width: 150px!important;
+}
+
+.btn-checkout button:nth-child(1) {
+  margin-right: 10px;
+  background-color: white;
+  border: 0.5px solid rgb(196, 196, 196);
+  border-radius: 5px;
+  color: gray;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 1024px) {
+  .payment {
+    display: block;
+  }
+  .cart-summary {
+    width: 100%
+  }
+
+  .btn-checkout {
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .calculate button, .calculate select, .calculate input {
+    display: block;
+    width: 100%;
+  }
+  .calculate button {
+    margin-bottom: 40px;
+  }
+}

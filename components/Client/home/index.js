@@ -26,6 +26,8 @@ const Home = (props) => {
         <LatestBlog />
         <hr />
         <SponorSubscribe />
+
+
       </Container>
     </main>
   )

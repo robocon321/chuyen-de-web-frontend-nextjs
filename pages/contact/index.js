@@ -2,19 +2,19 @@ import React from 'react';
 
 import Header from '../../components/Client/Header';
 import Footer from '../../components/Client/Footer';
-import Shop from '../../components/Client/shop/index';
+import Contact from '../../components/Client/contact/index';
 
 
-const ShopPage = props => {
+const ContactPage = props => {
   return (
     <>
       <Header />    
       <main>
-        <Shop />
+        <Contact />
       </main>
       <Footer />
     </>
   )
 }
 
-export default ShopPage;
+export default ContactPage;

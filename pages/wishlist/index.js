@@ -2,19 +2,16 @@ import React from 'react';
 
 import Header from '../../components/Client/Header';
 import Footer from '../../components/Client/Footer';
-import Shop from '../../components/Client/shop/index';
+import WishList from '../../components/Client/wishlist/index';
 
-
-const ShopPage = props => {
-  return (
-    <>
+const WishlistPage = props => {
+  return <>
       <Header />    
       <main>
-        <Shop />
+        <WishList />
       </main>
       <Footer />
-    </>
-  )
+  </>
 }
 
-export default ShopPage;
+export default WishlistPage;

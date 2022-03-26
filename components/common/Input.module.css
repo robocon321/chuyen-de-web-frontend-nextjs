@@ -1,0 +1,30 @@
+.input {
+  margin: 20px 0px;
+}
+
+.input label {
+  display: inline-block;
+  color: rgb(0, 0, 0);
+  position: relative;
+}
+
+.active label::before {
+  content: '*';
+  color: red;
+  position: absolute;
+  left: 105%
+}
+
+.input input, .input textarea {
+  display: inline-block;
+  width: 100%;
+  font-size: 20px;
+  border: 0.5px solid rgb(194, 194, 194);
+  padding: 15px;
+  margin-top: 15px;
+  outline: none;
+}
+
+.input textarea {
+  height: 200px;
+}
