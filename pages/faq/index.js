@@ -2,19 +2,18 @@ import React from 'react';
 
 import Header from '../../components/Client/Header';
 import Footer from '../../components/Client/Footer';
-import Shop from '../../components/Client/shop/index';
+import FAQ from '../../components/Client/faq/index';
 
-
-const ShopPage = props => {
+const FAQPage = props => {
   return (
     <>
       <Header />    
       <main>
-        <Shop />
+        <FAQ />
       </main>
       <Footer />
     </>
   )
 }
 
-export default ShopPage;
+export default FAQPage;

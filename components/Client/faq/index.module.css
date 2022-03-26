@@ -1,0 +1,63 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faq {
+  margin: 40px 0px;
+  width: 700px;
+}
+
+.question {
+  margin-bottom: 10px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+  background-color: var(--bg_color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.title.active {
+  background-color: var(--primary_color);
+  color: white;
+}
+
+.content {
+  overflow: hidden;
+  animation-name: showless;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.content.active {
+  animation-name: showmore;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showmore {
+  0% {
+    padding: 0px 10px;
+    height: 0px;
+  }
+  100% {
+    padding: 15px 10px;
+    height: auto;
+  }
+}
+
+@keyframes showless {
+  0% {
+    padding: 15px 10px;
+    height: auto;
+  }
+  100% {
+    padding: 0px 10px;
+    height: 0px;
+  }  
+}
