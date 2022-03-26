@@ -1,0 +1,33 @@
+.feedback {
+  margin: 40px 0px;
+}
+
+.right-feedback {
+  padding: 40px;
+  background-color: var(--bg_color);
+  border-radius: 5px;
+}
+
+.right-feedback h1 {
+  font-size: 30px;
+  font-weight: 100;
+}
+
+.right-feedback p {
+  margin: 20px 0px;
+  font-size: 14px;
+  color: gray;
+}
+
+.right-feedback h2 {
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.right-feedback h2 span {
+  margin-right: 10px;
+}
+
+.group-info {
+  margin-top: 10px;
+}
