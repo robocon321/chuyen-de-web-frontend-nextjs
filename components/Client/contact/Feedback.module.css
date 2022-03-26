@@ -2,6 +2,19 @@
   margin: 40px 0px;
 }
 
+.feedback button {
+  background-color: black;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.feedback button:hover {
+  background-color: var(--primary_color);
+}
+
 .right-feedback {
   padding: 40px;
   background-color: var(--bg_color);
