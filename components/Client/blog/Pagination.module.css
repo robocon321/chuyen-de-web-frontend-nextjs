@@ -1,0 +1,25 @@
+.pagination {
+  padding: 10px;
+  border-radius: 5px;
+  border: 0.5px solid rgb(204, 204, 204);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  font-size: 14px;
+}
+
+.pagination .pages a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  margin-right: 5px;
+  padding-top: 5px;
+}
+
+.pagination .pages a:hover {
+  color: white;
+  background-color: var(--primary_color);
+}
