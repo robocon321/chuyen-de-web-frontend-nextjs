@@ -2,19 +2,19 @@ import React from 'react';
 
 import Header from '../../components/Client/Header';
 import Footer from '../../components/Client/Footer';
-import Blog from '../../components/Client/blog/index';
+import BlogDetail from '../../components/Client/blogs/blog-detail/index';
 
 
-const BlogPage = props => {
+const DetailBlogPage = props => {
   return (
     <>
       <Header />    
       <main>
-        <Blog />
+        <BlogDetail />
       </main>
       <Footer />
     </>
   )
 }
 
-export default BlogPage;
+export default DetailBlogPage;
