@@ -1,0 +1,20 @@
+.sidebar {
+  border: 0.5px solid rgb(230, 230, 230);
+  border-radius: 5px;
+  margin: 40px 0px;
+}
+
+.sidebar a {
+  display: inline-block;
+  width: 100%;
+  padding: 20px 40px;
+}
+
+.sidebar a:hover {
+  background-color: var(--primary_color);
+  color: white;
+}
+
+.sidebar a span:nth-child(2) {
+  margin-left: 10px;
+}
