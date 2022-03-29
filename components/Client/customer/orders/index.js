@@ -1,23 +1,16 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Container, Grid } from '@mui/material';
 
 import styles from './index.module.css';
 import Breadcrumb from '../../../common/Breadcrumb';
 import Sidebar from '../Sidebar';
-import Address from './Address';
-import ModelAddress from './ModelAddress';
+import Order from './Order';
 
 const Index = (props) => {
-  const [visible, setVisible] = useState(true);
-  
-  const toggleModel = () => {
-    setVisible(!visible);
-  } 
-
   return (
     <div className={styles.contact}>
       <Container>
-        <Breadcrumb links={['Home', 'Addresses']}/>
+        <Breadcrumb links={['Home', 'Orders']}/>
       </Container>
       <hr />
       <Container>
@@ -26,10 +19,7 @@ const Index = (props) => {
             <Sidebar />
           </Grid>
           <Grid item xs={12} md={9}>
-            <Address toggleModel={toggleModel} />
-            {
-              visible && <ModelAddress toggleModel={toggleModel} />
-            }
+            <Order />
           </Grid>
         </Grid>
       </Container>
