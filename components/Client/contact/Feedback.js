@@ -28,7 +28,7 @@ const Feedback = (props) => {
               title='Message'
               require={true}
               name='message'
-              isTextArea={true}
+              type='textarea'
             />
             <button>Send</button>
         </Grid>

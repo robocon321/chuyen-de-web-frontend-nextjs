@@ -5,25 +5,39 @@ const defaultFunc = () => {};
 
 const Input = ({
   onChange=defaultFunc,
-  require=false,
+  require='false',
   title='',
   name='',
   placeholder='',
   type='text',
-  isTextArea = false
+  arrayObj=[],
+  valueObj='',
+  textInnerObj=''
 }) => {
-  return (
-    <div className={(require ? styles.active + ' ' : '') + styles.input}>
-      <label>{title}</label>
-      {
-        isTextArea ? (
+  const renderSwitch = () => {
+    switch(type) {
+      case 'textarea':
+        return (
           <textarea 
-            require={require} 
+            require={require}
             name={name}
             placeholder={placeholder}
             onChange={onChange}
           />
-        ) : (
+        );
+      case 'select':
+        return (
+          <select name={name} defaultValue='' onChange={onChange}>
+            <option value='' disabled hidden>{placeholder}</option>
+            {
+              arrayObj.map((item, index) => (
+                <option key={index} value={item[valueObj]}>{item[textInnerObj]}</option>
+              ))
+            }
+          </select>
+        );
+      default:
+        return (
           <input
             type={type}
             require={require} 
@@ -32,7 +46,12 @@ const Input = ({
             onChange={onChange}
           />
         )
-      }
+    }
+  }
+  return (
+    <div className={(require == 'true' ? styles.active + ' ' : '') + styles.input}>
+      <label>{title}</label>
+      {renderSwitch()}
     </div>
   )
 }

@@ -1,0 +1,46 @@
+.container-model {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0px;
+  animation-name: toggleModel;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+.model-address {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: 0px 2px 15px -8px rgba(0,0,0,0.61);
+}
+
+.close {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  color: rgb(105, 105, 105);
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+@keyframes toggleModel {
+  0% {
+    top: 20%;
+    opacity: 0;
+  }
+  100% {
+    top: 0%;
+    opacity: 1;
+  }
+}

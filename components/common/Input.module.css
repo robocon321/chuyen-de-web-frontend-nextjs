@@ -16,7 +16,7 @@
   left: 105%
 }
 
-.input input, .input textarea {
+.input input, .input textarea, .input select {
   display: inline-block;
   width: 100%;
   font-size: 15px;

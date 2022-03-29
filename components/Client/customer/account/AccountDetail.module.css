@@ -17,3 +17,7 @@
 .account-detail button:hover {
   background-color: var(--primary_color);
 }
+
+.account-detail input[type='radio'] {
+  margin: 20px 0px;
+}

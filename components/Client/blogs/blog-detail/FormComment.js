@@ -12,7 +12,7 @@ const FormComment = (props) => {
       <Input 
         title='Comment'
         require={false} 
-        isTextArea={true}
+        type='textarea'
          />
       <Grid container spacing={5} columns={12}>
         <Grid item xs={12} md={4}>
