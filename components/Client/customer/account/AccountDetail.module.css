@@ -1,0 +1,23 @@
+.account-detail {
+  border: 0.5px solid rgb(230, 230, 230);
+  padding: 40px;
+  border-radius: 5px;
+  margin: 40px 0px;
+}
+
+.account-detail button {
+  padding: 15px 20px;
+  border: none;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.account-detail button:hover {
+  background-color: var(--primary_color);
+}
+
+.account-detail input[type='radio'] {
+  margin: 20px 0px;
+}

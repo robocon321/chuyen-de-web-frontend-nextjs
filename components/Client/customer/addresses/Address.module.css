@@ -1,0 +1,35 @@
+.container-address {
+  margin: 40px 0px;
+}
+
+.container-address h1 {
+  margin-bottom: 20px;
+  font-size: 25px;
+  font-weight: 100;
+}
+
+.container-address .address {
+  border: 0.5px solid rgb(201, 201, 201);
+  padding: 20px;
+  margin: 20px 0px;
+  border-radius: 5px;
+}
+
+.container-address .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.address p {
+  font-size: bold;
+}
+
+.address div span:nth-child(1) {
+  color: rgb(59, 59, 59);
+}
+
+.address p span {
+  color: green;
+}

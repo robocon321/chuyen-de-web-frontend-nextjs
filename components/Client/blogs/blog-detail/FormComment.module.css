@@ -1,0 +1,27 @@
+.form-comment {
+  margin: 40px 0px;
+}
+
+.form-comment h2 {
+  margin-bottom: 20px;
+}
+
+.form-comment p {
+  color: gray;
+  font-size: 14px;
+}
+
+.form-comment button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-comment button:hover {
+  background-color: var(--primary_color);
+  border-color: var(--primary_color);
+}
+

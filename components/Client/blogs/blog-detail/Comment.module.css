@@ -1,0 +1,44 @@
+.comments h1 {
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.comments .comment {
+  margin: 20px 0px;
+  border: 0.5px solid rgb(226, 226, 226);
+  border-radius: 5px;
+  padding: 40px;
+  box-shadow: 3px 9px 15px -6px rgba(0,0,0,0.14);  
+}
+
+.comments .comment .main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comments .comment .main .time {
+  color: gray;
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.comments .comment .main button {
+  padding: 10px 20px;
+  background-color: white;
+  border: 0.5px solid var(--primary_color);
+  color: var(--primary_color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comments .comment .main button:hover {
+  color: white;
+  background-color: var(--primary_color);
+}
+
+.comments .comment p {
+  font-size: 15px;
+  margin-top: 10px;
+}

@@ -28,8 +28,9 @@ const Feedback = (props) => {
               title='Message'
               require={true}
               name='message'
-              isTextArea={true}
+              type='textarea'
             />
+            <button>Send</button>
         </Grid>
         <Grid item md={6} sm={12}>
           <div className={styles['right-feedback']}>

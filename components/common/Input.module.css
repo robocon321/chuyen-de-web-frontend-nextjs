@@ -6,6 +6,7 @@
   display: inline-block;
   color: rgb(0, 0, 0);
   position: relative;
+  margin-bottom: 15px;
 }
 
 .active label::before {
@@ -15,13 +16,12 @@
   left: 105%
 }
 
-.input input, .input textarea {
+.input input, .input textarea, .input select {
   display: inline-block;
   width: 100%;
-  font-size: 20px;
+  font-size: 15px;
   border: 0.5px solid rgb(194, 194, 194);
   padding: 15px;
-  margin-top: 15px;
   outline: none;
 }
 
