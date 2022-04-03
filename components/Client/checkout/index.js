@@ -1,9 +1,11 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import Bill from './Bill';
 
 import Breadcrumb from '../../common/Breadcrumb';
+import Total from './Total';
 
-const Index = props =>{
+const Checkout = props =>{
     return(
         <>
         <Container>
@@ -12,11 +14,11 @@ const Index = props =>{
         <hr/>
         <Container>
             <Grid container columns={12} spacing={2}>
-                <Grid item xs={8}>
-
+                <Grid item xs={7} >
+                    <Bill/>
                 </Grid>
-                <Grid item xs={4}>
-
+                <Grid item xs={5}>
+                    <Total/>
                 </Grid>
             </Grid>
         </Container>
@@ -24,3 +26,4 @@ const Index = props =>{
 
     )
 }
+export default Checkout;
