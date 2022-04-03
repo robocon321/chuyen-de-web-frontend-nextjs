@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from 'next/image';
 import React from "react";
-import styles from './NewProduct.module.css'
+import styles from './NewProduct.module.css';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const products = [
     {
@@ -49,6 +50,15 @@ const products = [
         image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
         sale:'20'
     },
+    {
+        id:4,
+        title: 'Cillum dolore garden tools',
+        numStart: 4,
+        newPrice: '100.00',
+        oldPrice: '120.00',
+        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
+        sale:'20'
+    }
 ]
 
 const NewProduct = props => {
@@ -68,10 +78,16 @@ const NewProduct = props => {
             </div>
             <div className={styles['newProduct-list']}>
                 <div className={styles['newProduct-list-row']}>
-                    {
-                        products.map(item=>{
-                            return(
-                                <div key={item.id} className={styles['newProduct-item']}>
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={5}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    >
+                        {
+                            products.map(item=>(
+                            <SwiperSlide key={item.id}>
+                                 <div  className={styles['newProduct-item']}>
                                     <Image
                                         className={styles['newProduct-img']}
                                         src="/medium1.webp"
@@ -112,16 +128,23 @@ const NewProduct = props => {
                                         </a>
                                     </div>
                                 </div>
-                            )
-                        })
-                    }
+                            </SwiperSlide>))
                     
+                   
+                        }
+                    </Swiper>
                 </div>
                 <div className={styles['newProduct-list-row']}>
-                {
-                        products.map(item=>{
-                            return(
-                                <div key={item.id} className={styles['newProduct-item']}>
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={5}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    >
+                        {
+                            products.map(item=>(
+                            <SwiperSlide key={item.id}>
+                                 <div  className={styles['newProduct-item']}>
                                     <Image
                                         className={styles['newProduct-img']}
                                         src="/medium6.webp"
@@ -162,12 +185,15 @@ const NewProduct = props => {
                                         </a>
                                     </div>
                                 </div>
-                            )
-                        })
-                    }
+                            </SwiperSlide>))
+                    
+                        }
+                    </Swiper>
                 </div>
             </div>
+            
         </div>
     )
 }
+
 export default NewProduct;

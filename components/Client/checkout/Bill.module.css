@@ -1,0 +1,15 @@
+.bill h3 {
+    margin-top: 30px;
+}
+
+.bill input {
+    height: 45px;
+}
+
+.morechoose input {
+    height: auto;
+}
+
+.ship-add {
+    display: none;
+}
