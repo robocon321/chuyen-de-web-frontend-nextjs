@@ -1,0 +1,99 @@
+.detail-blog {
+  margin: 40px 0px;
+  padding: 30px;
+  border: 0.5px solid rgb(219, 219, 219);
+  border-radius: 5px;
+}
+
+.detail-blog h1 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 100;
+}
+
+.detail-blog .info {
+  text-align: center;
+  margin: 20px 0px;
+  font-size: 20px;
+  color: gray;
+}
+
+.detail-blog .info span {
+  margin-right: 10px;
+}
+
+.detail-blog p {
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgb(27, 27, 27);
+}
+
+.detail-blog .tags {
+  padding: 10px 0px;
+}
+
+.detail-blog .share {
+  text-align: center;
+}
+
+.detail-blog .share h3 {
+  margin-top: 40px;
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.detail-blog .share .socials span {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  border: 0.5px solid rgb(187, 187, 187);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  padding-top: 7px;
+  background-color: rgb(247, 247, 247);
+}
+
+.detail-blog .share .socials span:nth-child(1) {
+  color: rgb(0, 195, 255);
+}
+
+.detail-blog .share .socials span:nth-child(1):hover {
+  background-color: rgb(0, 195, 255);
+  border-color: rgb(0, 195, 255);
+  color: white;
+}
+
+.detail-blog .share .socials span:nth-child(2) {
+  color: rgb(0, 94, 218);
+}
+
+.detail-blog .share .socials span:nth-child(2):hover {
+  background-color: rgb(0, 94, 218);
+  border-color: rgb(0, 94, 218);
+  color: white;
+}
+
+.detail-blog .share .socials span:nth-child(3) {
+  color: rgb(221, 0, 0);
+}
+
+.detail-blog .share .socials span:nth-child(3):hover {
+  background-color: rgb(221, 0, 0);
+  border-color: rgb(221, 0, 0);
+  color: white;
+}
+
+.detail-blog .share .socials span:nth-child(4) {
+  color: rgb(221, 0, 0);
+  margin-right: 0px;
+}
+
+.detail-blog .share .socials span:nth-child(4):hover {
+  background-color: rgb(221, 0, 0);
+  border-color: rgb(221, 0, 0);
+  color: white;
+}
+

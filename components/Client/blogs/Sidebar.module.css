@@ -1,0 +1,124 @@
+.sidebar {
+  margin: 40px 0px;
+  background-color: var(--bg_color);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.sidebar .search {
+  margin: 20px 0px;
+}
+
+.sidebar .search label {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.sidebar .searchbox {
+  position: relative;
+}
+
+.sidebar .search input {
+  padding: 10px;
+  width: 100%;
+}
+
+.sidebar .search span {
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sidebar .search span:hover {
+  color: var(--primary_color);
+  cursor: pointer;
+}
+
+.sidebar .category {
+  margin: 20px 0px;
+}
+
+.sidebar .category .parent-categories {
+  margin: 20px 0px;
+  font-size: 15px;
+}
+
+.sidebar .category .children-categories {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.sidebar .posts {
+  width: 100%;
+  margin: 20px 0px;
+}
+
+.sidebar .posts h3 {
+  margin-bottom: 10px;
+}
+
+.sidebar .posts .post {
+  display: inline-block;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.sidebar .posts .post .title {
+  margin-bottom: 10px;
+  font-weight: 100;
+  font-size: 14px;
+}
+
+.sidebar .posts .post .time {
+  color: gray;
+  font-size: 14px;
+}
+
+.sidebar .comments {
+  margin: 20px 0px;
+}
+
+.sidebar .comments h3 {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.sidebar .comments .comment {
+  width: 100%;
+  display: inline-block;
+  margin: 10px 0px;
+}
+
+.sidebar .comments .comment .title {
+  margin-bottom: 10px;
+  font-weight: 100;
+  font-size: 14px;
+}
+
+.sidebar .comments .comment .content {
+  color: gray;
+  font-size: 14px;
+}
+
+.sidebar .tags h3 {
+  margin: 10px 0px;
+}
+
+.sidebar .tags a {
+  display: inline-block;
+  padding: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  border: 0.5px solid rgb(201, 201, 201);
+  border-radius: 5px;
+}
+
+.sidebar .tags a:hover {
+  background-color: var(--primary_color);
+  color: white;
+  border-color: var(--primary_color);
+}
