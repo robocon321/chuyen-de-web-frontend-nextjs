@@ -1,7 +1,13 @@
 import React from "react";
+import Dashboard from "./dashboard/index";
+import AdminCommon from "../../components/Admin/AdminCommon";
 
-const Dashboard = (props) => {
-  return <h1>Hello world</h1>
+const DashboardPage = (props) => {
+  return (
+    <AdminCommon>
+      <Dashboard />
+    </AdminCommon>
+  )
 }
 
-export default Dashboard;
+export default DashboardPage;

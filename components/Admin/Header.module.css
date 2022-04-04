@@ -1,0 +1,104 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.header .left {
+  display: flex;
+}
+
+.header .searchbox {
+  border-radius: 5px;
+}
+
+.hidden-searchbox {
+  display: none;
+}
+
+.header .searchbox input, .hidden-searchbox input {
+  width: 600px;
+  padding: 10px 20px;
+  border: 0.5px solid rgb(196, 196, 196);
+  font-size: 15px;
+  color: gray;
+  outline: none;
+}
+
+.header .searchbox button, .hidden-searchbox button {
+  border-radius: 0px;
+}
+
+.header .info {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.header .info .account:hover ul {
+  display: inline-block;
+}
+
+.header .info span {
+  margin-right: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+.header .info span:nth-child(3) {
+  color: var(--primary_color);
+  padding: 10px 20px;
+  border: 0.5px solid var(--primary_color);
+  border-radius: 5px;
+}
+
+.header .info .avatar {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.header .info ul {
+  padding: 10px 0px;
+  border-radius: 5px;
+  position: absolute;
+  width: 150px;
+  right: 0px;
+  box-shadow: 0px 0px 8px -6px #000000;
+  display: none;
+  background-color: white;
+}
+
+.header .info ul li a {
+  display: inline-block;
+  padding: 10px 30px;
+  width: 100%;
+}
+
+.header .info ul li:hover {
+  background-color: aliceblue;
+}
+
+@media only screen and (max-width: 1300px) {
+  .header .searchbox input {
+    width: 320px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .header .searchbox input {
+    width: 250px;
+  }  
+}
+
+@media only screen and (max-width: 900px) {
+  .header .searchbox {
+    display: none;
+  }
+
+  .hidden-searchbox {
+    padding: 0px 40px 20px 40px;
+    display: flex;
+    justify-content: center;
+  }
+}
