@@ -28,3 +28,8 @@
 .input textarea {
   height: 200px;
 }
+
+.input option {
+  margin: 10px 10px;
+  border-bottom: 0.5px solid gray;
+}

@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import Dashboard from '../../../components/Admin/dashboard';
 
 const DashboardPage = () => {
   return (
-    <div>Hello world</div>
+    <Dashboard />
   )
 }
 

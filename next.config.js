@@ -3,7 +3,11 @@ const nextConfig = {
 
   reactStrictMode: true,
   images: {
-    domains: ['template.hasthemes.com', 'www.ecommerce-admin.com']
+    domains: [
+      'template.hasthemes.com', 
+      'www.ecommerce-admin.com',
+      'dummyimage.com'
+    ]
   }
 
 }

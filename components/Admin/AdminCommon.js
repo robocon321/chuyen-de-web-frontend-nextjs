@@ -45,7 +45,7 @@ const AdminCommon = (props) => {
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth
+              width: mobileOpen ? drawerWidth : 0
             }
           }}
         >

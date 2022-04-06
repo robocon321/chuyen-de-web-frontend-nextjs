@@ -38,12 +38,12 @@
 
 .sidebar .menu .child-menu {
   overflow: hidden;
-  height: 0px;
+  max-height: 0;
 }
 
 .sidebar .menu li > a:hover .child-menu {
   animation-name: showMore;
-  animation-duration: 0.8s;
+  animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
@@ -57,13 +57,13 @@
 
 @keyframes showMore {
   0% {
-    height: 0px;
+    max-height: 0;
     padding-top: 0px;
     padding-left: 0px;
   }
 
   100% {
-    height: auto;
+    max-height: 500px;
     padding-top: 10px;
     padding-left: 10px;
   }
