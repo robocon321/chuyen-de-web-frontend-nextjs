@@ -51,7 +51,7 @@
 }
 
 .complete {
-  background-color: rgb(0, 153, 255);
+  background-color: var(--bg_btn_success);
   width: 100%;
   padding: 20px 0px;
 }
