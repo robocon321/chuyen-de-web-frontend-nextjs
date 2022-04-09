@@ -72,7 +72,7 @@ const ModelAddress = (props) => {
         <Input 
           title='Họ và tên'
           placeholder='Nhập họ và tên'
-          require='true'
+          isRequire='true'
         />
         <Input 
           title='Công ty'
@@ -120,7 +120,7 @@ const ModelAddress = (props) => {
         <Input 
           title='Số điện thoại'
           placeholder='Nhập số điện thoại'
-          require='true'
+          isRequire='true'
         />
         <div onClick={props.toggleModel} className={styles.close}><i className="fa-solid fa-xmark"></i></div>
       </div>
