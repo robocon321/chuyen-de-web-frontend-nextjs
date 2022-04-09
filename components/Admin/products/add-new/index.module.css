@@ -1,0 +1,73 @@
+.header-accordion {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+  width: 100%;
+}
+
+.header-accordion span:hover {
+  color: red;
+}
+
+.group > div {
+  background-color: white;
+  padding: 10px;
+  margin: 20px 0px;
+}
+
+.group a {
+  display: inline-block;
+  width: 100%;
+  color: blue;
+  text-decoration: underline;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.group a:hover {
+  color: var(--primary_color)
+}
+
+.group .choose {
+  display: inline-block;
+  margin-top: 10px;
+  color: blue;
+}
+
+.group .choose:hover {
+  color: var(--primary_color);
+  cursor: pointer;
+}
+
+.group .most-tag {
+  margin-top: 10px;
+}
+
+.group .most-tag span {
+  background-color: rgb(238, 238, 238);
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+
+.complete {
+  background-color: rgb(0, 153, 255);
+  width: 100%;
+  padding: 20px 0px;
+}
+
+.toggle-attribute span {
+  cursor: pointer;
+}
+
+.toggle-attribute span:nth-child(1) {
+  color: blue;
+}
+
+.toggle-attribute span:nth-child(2) {
+  color: red;
+}
+
+.toggle-attribute span:hover {
+  color: var(--primary_color);
+}

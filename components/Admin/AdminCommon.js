@@ -68,6 +68,7 @@ const AdminCommon = (props) => {
       <Box
         component="main"
         sx={{
+          backgroundColor: '#f5f5f5',
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${mobileOpen ? drawerWidth : 0}px)` }

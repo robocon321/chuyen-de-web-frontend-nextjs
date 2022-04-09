@@ -1,3 +1,10 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .controls button {
   background-color: rgb(0, 102, 255);
   padding: 15px 0px;
@@ -14,7 +21,7 @@
 }
 
 @media only screen and (max-width: 900px) {
-  .controls {
-    margin-top: 50px;
+  .container {
+    margin-top: 80px;
   }
 }

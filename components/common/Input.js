@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Input.module.css';
 
 const defaultFunc = () => {};
 
 const Input = ({
   onChange=defaultFunc,
-  require='false',
+  isRequire='false',
   title='',
   name='',
   placeholder='',
@@ -14,12 +14,26 @@ const Input = ({
   valueObj='',
   textInnerObj=''
 }) => {
+  const editorRef = useRef()
+  const [editorLoaded, setEditorLoaded] = useState(false)
+  const { CKEditor, ClassicEditor } = editorRef.current || {}
+
+  useEffect(() => {
+    editorRef.current = {
+      // CKEditor: require('@ckeditor/ckeditor5-react'), // depricated in v3
+      CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, // v3+
+      ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
+    }
+    setEditorLoaded(true)
+  }, [])
+
+
   const renderSwitch = () => {
     switch(type) {
       case 'textarea':
         return (
           <textarea 
-            require={require}
+            require={isRequire}
             name={name}
             placeholder={placeholder}
             onChange={onChange}
@@ -27,7 +41,7 @@ const Input = ({
         );
       case 'select':
         return (
-          <select name={name} defaultValue='' onChange={onChange}>
+          <select name={name} require={isRequire} defaultValue='' onChange={onChange}>
             <option value='' disabled hidden>{placeholder}</option>
             {
               arrayObj.map((item, index) => (
@@ -36,11 +50,20 @@ const Input = ({
             }
           </select>
         );
+      case 'ckeditor':
+        if(editorLoaded) return (
+          <CKEditor
+            editor={ ClassicEditor }
+            data={placeholder}
+            onChange={onChange}
+        />
+        );
+        else return <div></div>;
       default:
         return (
           <input
             type={type}
-            require={require} 
+            require={isRequire} 
             name={name}
             placeholder={placeholder}
             onChange={onChange}
@@ -48,8 +71,9 @@ const Input = ({
         )
     }
   }
+
   return (
-    <div className={(require == 'true' ? styles.active + ' ' : '') + styles.input}>
+    <div className={(isRequire == 'true' ? styles.active + ' ' : '') + styles.input}>
       <label>{title}</label>
       {renderSwitch()}
     </div>

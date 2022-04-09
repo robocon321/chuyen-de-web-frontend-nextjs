@@ -15,17 +15,17 @@ const renderImage = (params) => {
       height={100}
     />
   )
-};
+}
 
 const renderAction = (params) => {
   return (
     <div className={styles.actions}>
       <Button variant="outlined" color="error">
-        Delete
+        <span><i className="fa-solid fa-trash-can"></i></span>
       </Button>
       <span style={{marginRight: 10}}></span>
       <Button variant="contained" color="success">
-        Edit
+        <span><i className="fa-solid fa-pen-to-square"></i></span>
       </Button>
     </div>
   )
@@ -83,6 +83,7 @@ const columns = [
     editable: false,
   },
   {
+    field: 'action',
     headerName: 'Action',
     flex: 2,
     minWidth: 150,
@@ -238,6 +239,12 @@ const rows = [{
 const Products = () => {
   return (
     <div className={styles.container}>
+      <div className={styles.head}>
+        <h1>List Product</h1>
+        <Button variant="contained" color="warning">
+          <span><i className="fa-solid fa-plus"></i></span>&nbsp;<span>Add New</span>
+        </Button>
+      </div>
       <div className={styles.controls}>
         <Grid container columnSpacing={2} columns={12} alignItems='center'>
           <Grid item lg={7} xs={12}>
@@ -309,7 +316,7 @@ const Products = () => {
                     />
                   </Grid>
                   <Grid item xs={2}>
-                    <button>Filter</button>
+                    <button><i className="fa-solid fa-filter"></i></button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -321,7 +328,7 @@ const Products = () => {
                 <Input name='search' />
               </Grid>
               <Grid item xs={2}>
-                <button>Search</button>
+                <button><i className="fa-solid fa-magnifying-glass"></i></button>
               </Grid>
             </Grid>
           </Grid>
