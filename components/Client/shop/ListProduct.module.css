@@ -58,6 +58,11 @@
     display: none;
 }
 
+.display-style button {
+    padding: 4px 7px;
+    color: black;
+}
+
 .icon-3:hover .dis-3 {
     display: block;
 }
@@ -318,6 +323,8 @@
     font-size: 18px;
     border-radius: 3px;
     font-weight: 600;
+    background-color: #efefef;
+    color: black;
 }
 
 .btn-addcart button:hover {
