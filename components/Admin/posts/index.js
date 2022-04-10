@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import styles from './index.module.css';
 import Input from '../../common/Input';
+import Breadscrum from '../../common/Breadcrumb';
 
 const renderImage = (params) => {
   return (
@@ -240,7 +241,7 @@ const Posts = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-        <h1>List Post</h1>
+        <Breadscrum links={['Home', 'Posts']} />
         <Button variant="contained" color="warning">
           <span><i className="fa-solid fa-plus"></i></span>&nbsp;<span>Add New</span>
         </Button>
@@ -321,7 +322,7 @@ const Posts = (props) => {
           </Grid>
         </Grid>
       </div>
-      <div>
+      <div style={{backgroundColor: 'white'}}>
         <DataGrid
           autoHeight
           pageSize={5}

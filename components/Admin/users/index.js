@@ -315,7 +315,7 @@ const ListUser = () => {
           </Grid>
         </Grid>
       </div>
-      <div>
+      <div style={{backgroundColor: 'white'}}>
         <DataGrid
           autoHeight
           pageSize={5}
