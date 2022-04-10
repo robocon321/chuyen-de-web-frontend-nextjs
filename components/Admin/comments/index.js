@@ -72,6 +72,7 @@ const columns = [
     flex: 3,
     minWidth: 200,
     editable: false,
+    renderCell: renderLink
   },
   {
     field: 'reply_to',
@@ -79,6 +80,7 @@ const columns = [
     flex: 1,
     minWidth: 100,
     editable: false,
+    renderCell: renderLink
   },
   {
     field: 'mod_time',
