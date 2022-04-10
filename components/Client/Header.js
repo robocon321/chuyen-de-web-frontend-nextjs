@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from './Header.module.css';
 import { Container } from '@mui/material';
@@ -21,9 +22,13 @@ const Header = props => {
             <div className={styles.dropdown}>
               <span>My Account</span>
               <div className={styles['dropdown-content']}>
-                <a href='#'>Register</a>
+                <Link href='/auth'>
+                  <a>Register</a>
+                </Link>
                 <hr />
-                <a href='#'>Login</a>
+                <Link href='/auth'>
+                  <a>Login</a>
+                </Link>
               </div>
             </div>
             <span> | </span>
@@ -80,10 +85,12 @@ const Header = props => {
                 <div><b>035 4512 411</b></div>
               </div>
             </div>
-            <div className={styles['cart-header']}>
-              <span><i className="fa-solid fa-cart-shopping"></i></span>            
-              <span className={styles['total-item-cart-header']}>1</span>
-            </div>
+            <Link href='/cart'>
+              <a className={styles['cart-header']}>
+                <span><i className="fa-solid fa-cart-shopping"></i></span>            
+                <span className={styles['total-item-cart-header']}>1</span>
+              </a>
+            </Link>
           </div>
         </div>
         <div className={styles['hidden-searchbar-header']}>
@@ -97,18 +104,11 @@ const Header = props => {
       <div className={styles['wrap-navbar']}>
         <Container>
           <ul className={styles['navbar']}>
-            <li>
-              <a href="#">HOME <i className="fa-solid fa-angle-down"></i></a>
-              <ul className={styles['inner-navbar']}>
-                <li><a href="#">HOME PAGE 1</a></li>
-                <li><a href="#">HOME PAGE 2</a></li>
-                <li><a href="#">HOME PAGE 3</a></li>
-                <li><a href="#">HOME PAGE 4</a></li>
-              </ul>
-            </li>
-            <li><a href="#">PAGES <i className="fa-solid fa-angle-down"></i></a></li>
-            <li><a href="#">BLOG <i className="fa-solid fa-angle-down"></i></a></li>
-            <li><a href="#">CONTACT <i className="fa-solid fa-angle-down"></i></a></li>
+            <li><Link href='/'><a>HOME</a></Link></li>
+            <li><Link href='/shop'><a>SHOP</a></Link></li>
+            <li><Link href='/blogs'><a>BLOG</a></Link></li>
+            <li><Link href="/contact"><a>CONTACT</a></Link></li>
+            <li><Link href="/about"><a>ABOUT &nbsp; US</a></Link></li>
           </ul>
         </Container>
       </div>

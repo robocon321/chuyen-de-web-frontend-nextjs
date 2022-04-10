@@ -83,7 +83,7 @@ const Index = (props) => {
   return (
     <div className={styles['add-new']}>
       <div className={styles.head}>        
-        <Breadcrumb links={['Home', 'Add New']} />
+        <Breadcrumb links={['Home', 'Products', 'Add New']} />
         <Grid container spacing={2} columns={12}>
           <Grid item xs={12} lg={8}>
             <Grid container spacing={2} columns={12}>

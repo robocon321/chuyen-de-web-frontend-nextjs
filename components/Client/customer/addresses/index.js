@@ -8,7 +8,7 @@ import Address from './Address';
 import ModelAddress from './ModelAddress';
 
 const Index = (props) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   
   const toggleModel = () => {
     setVisible(!visible);

@@ -5,7 +5,6 @@ import Image from 'next/image';
 
 import styles from './index.module.css';
 import Input from '../../common/Input';
-import Breadscrum from '../../common/Breadcrumb';
 
 const renderImage = (params) => {
   return (
@@ -34,7 +33,7 @@ const renderAction = (params) => {
 
 const renderLink = (params) => {
   return (
-    <a className={styles['link-row']} href={`/products/${params.value}`}>{params.value}</a>
+    <a className={styles['link-row']} href={`/users/${params.value}`}>{params.value}</a>
   )
 }
 
@@ -48,37 +47,37 @@ const columns = [
     renderCell: renderLink
   },
   {
-    field: 'thumbnail',
-    headerName: 'Thumbnail',
+    field: 'avatar',
+    headerName: 'Avatar',
     flex: 2,
     minWidth: 150,
     editable: false,
     renderCell: renderImage
   },
   {
-    field: 'title',
-    headerName: 'Title',
+    field: 'uname',
+    headerName: 'Username',
     flex: 4,
     minWidth: 200,
     editable: false,
   },
   {
-    field: 'sale_price',
-    headerName: 'Sale Price',
+    field: 'fullname',
+    headerName: 'Fullname',
     flex: 2,
     minWidth: 100,
     editable: false,
   },
   {
-    field: 'total_sales',
-    headerName: 'Total Sale',
+    field: 'email',
+    headerName: 'Email',
     flex: 2 ,
     minWidth: 100,
     editable: false,
   },
   {
-    field: 'stock_quantity',
-    headerName: 'Stock Quantity',
+    field: 'phone',
+    headerName: 'Phone',
     flex: 2,
     minWidth: 100,
     editable: false,
@@ -97,151 +96,151 @@ const columns = [
 
 const rows = [{
   id: 1,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Coconut Milk - Unsweetened",
-  sale_price: 749023,
-  total_sales: 67,
-  stock_quantity: 18
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "ltullis0",
+  fullname: "Lanni Tullis",
+  email: "ltullis0@vk.com",
+  phone: "877-517-9671"
 }, {
   id: 2,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Appetizer - Mango Chevre",
-  sale_price: 444289,
-  total_sales: 94,
-  stock_quantity: 80
+  avatar: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  uname: "kcolcomb1",
+  fullname: "Kristos Colcomb",
+  email: "kcolcomb1@nhs.uk",
+  phone: "956-380-3265"
 }, {
   id: 3,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Chicken - Wings, Tip Off",
-  sale_price: 999081,
-  total_sales: 79,
-  stock_quantity: 70
+  avatar: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  uname: "ggirardini2",
+  fullname: "Gerda Girardini",
+  email: "ggirardini2@sphinn.com",
+  phone: "265-230-7965"
 }, {
   id: 4,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Brandy - Bar",
-  sale_price: 5050,
-  total_sales: 61,
-  stock_quantity: 72
+  avatar: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  uname: "ecullity3",
+  fullname: "Elvis Cullity",
+  email: "ecullity3@mysql.com",
+  phone: "645-916-9777"
 }, {
   id: 5,
-  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
-  title: "Salad Dressing",
-  sale_price: 310381,
-  total_sales: 68,
-  stock_quantity: 41
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "isymmons4",
+  fullname: "Isaac Symmons",
+  email: "isymmons4@google.com.br",
+  phone: "301-897-1344"
 }, {
   id: 6,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Versatainer Nc - 9388",
-  sale_price: 445125,
-  total_sales: 28,
-  stock_quantity: 46
+  avatar: "http://dummyimage.com/100x100.png/cc0000/ffffff",
+  uname: "itrumble5",
+  fullname: "Indira Trumble",
+  email: "itrumble5@java.com",
+  phone: "971-975-5950"
 }, {
   id: 7,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Sugar - Crumb",
-  sale_price: 660989,
-  total_sales: 83,
-  stock_quantity: 8
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "dosbaldstone6",
+  fullname: "Dolly Osbaldstone",
+  email: "dosbaldstone6@bing.com",
+  phone: "772-868-3673"
 }, {
   id: 8,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Cheese Cloth",
-  sale_price: 568630,
-  total_sales: 88,
-  stock_quantity: 18
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "transom7",
+  fullname: "Tatum Ransom",
+  email: "transom7@stanford.edu",
+  phone: "954-820-5822"
 }, {
   id: 9,
-  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
-  title: "Bread Base - Goodhearth",
-  sale_price: 597873,
-  total_sales: 52,
-  stock_quantity: 97
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "lmorgen8",
+  fullname: "Lucilia Morgen",
+  email: "lmorgen8@people.com.cn",
+  phone: "239-541-4236"
 }, {
   id: 10,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Rice Pilaf, Dry,package",
-  sale_price: 593898,
-  total_sales: 68,
-  stock_quantity: 89
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "dmacnally9",
+  fullname: "Dalston MacNally",
+  email: "dmacnally9@baidu.com",
+  phone: "105-172-6247"
 }, {
   id: 11,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Amaretto",
-  sale_price: 951535,
-  total_sales: 46,
-  stock_quantity: 85
+  avatar: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  uname: "dgimbarta",
+  fullname: "Danita Gimbart",
+  email: "dgimbarta@reverbnation.com",
+  phone: "628-192-9251"
 }, {
   id: 12,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Pork - Ham Hocks - Smoked",
-  sale_price: 501971,
-  total_sales: 14,
-  stock_quantity: 1
+  avatar: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  uname: "dfitzsymondsb",
+  fullname: "Dennie Fitzsymonds",
+  email: "dfitzsymondsb@narod.ru",
+  phone: "310-949-3792"
 }, {
   id: 13,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Tarragon - Fresh",
-  sale_price: 812442,
-  total_sales: 54,
-  stock_quantity: 99
+  avatar: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  uname: "kthorpec",
+  fullname: "Katlin Thorpe",
+  email: "kthorpec@yellowpages.com",
+  phone: "351-710-3033"
 }, {
   id: 14,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Beef - Bones, Cut - Up",
-  sale_price: 822527,
-  total_sales: 55,
-  stock_quantity: 80
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "nduchenned",
+  fullname: "Neville Duchenne",
+  email: "nduchenned@networksolutions.com",
+  phone: "207-247-9154"
 }, {
   id: 15,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Cookies - Oreo, 4 Pack",
-  sale_price: 589750,
-  total_sales: 17,
-  stock_quantity: 65
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "cclawe",
+  fullname: "Colly Claw",
+  email: "cclawe@netlog.com",
+  phone: "175-961-5429"
 }, {
   id: 16,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Bagel - Sesame Seed Presliced",
-  sale_price: 673795,
-  total_sales: 96,
-  stock_quantity: 71
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "pbruyetf",
+  fullname: "Porty Bruyet",
+  email: "pbruyetf@sfgate.com",
+  phone: "641-122-7018"
 }, {
   id: 17,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Flour - Chickpea",
-  sale_price: 449892,
-  total_sales: 94,
-  stock_quantity: 21
+  avatar: "http://dummyimage.com/100x100.png/cc0000/ffffff",
+  uname: "ljakubovitsg",
+  fullname: "Lennard Jakubovits",
+  email: "ljakubovitsg@amazonaws.com",
+  phone: "229-970-9423"
 }, {
   id: 18,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Pesto - Primerba, Paste",
-  sale_price: 899562,
-  total_sales: 65,
-  stock_quantity: 7
+  avatar: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  uname: "rmcphilemyh",
+  fullname: "Reyna McPhilemy",
+  email: "rmcphilemyh@woothemes.com",
+  phone: "569-959-5333"
 }, {
   id: 19,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Pasta - Rotini, Colour, Dry",
-  sale_price: 707717,
-  total_sales: 79,
-  stock_quantity: 27
+  avatar: "http://dummyimage.com/100x100.png/dddddd/000000",
+  uname: "tgautreyi",
+  fullname: "Tracie Gautrey",
+  email: "tgautreyi@sciencedirect.com",
+  phone: "988-698-9335"
 }, {
   id: 20,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Turkey - Ground. Lean",
-  sale_price: 514885,
-  total_sales: 10,
-  stock_quantity: 1
+  avatar: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  uname: "mbelchj",
+  fullname: "Mae Belch",
+  email: "mbelchj@linkedin.com",
+  phone: "112-694-0774"
 }]
 
-const Products = () => {
+const ListUser = () => {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-      <Breadscrum links={['Home', 'Products']} />
+        <h1>List User</h1>
         <Button variant="contained" color="warning">
           <span><i className="fa-solid fa-plus"></i></span>&nbsp;<span>Add New</span>
         </Button>
@@ -280,41 +279,22 @@ const Products = () => {
                 <Grid container columnSpacing={2} columns={12} alignItems='center'>
                   <Grid item xs={5}>
                     <Input 
-                        placeholder='Select a category'
-                        name='select-category'
+                        placeholder='Select a role'
+                        name='select-role'
                         arrayObj={[
                           {
-                            name: 'category_a',
-                            innerText: 'Category A'
+                            name: 'role_a',
+                            innerText: 'Role A'
                           },
                           {
-                            name: 'category_b',
-                            innerText: 'Category B'
+                            name: 'role_b',
+                            innerText: 'Role B'
                           }
                         ]}
                         valueObj='name'
                         textInnerObj='innerText'
                         type='select'
                       />
-                  </Grid>
-                  <Grid item xs={5}>
-                    <Input 
-                      placeholder='Filter by stock'
-                      name='filter-by-stock'
-                      arrayObj={[
-                        {
-                          name: 'instock',
-                          innerText: 'Instock'
-                        },
-                        {
-                          name: 'out-of-stock',
-                          innerText: 'Out of Stock'
-                        }
-                      ]}
-                      valueObj='name'
-                      textInnerObj='innerText'
-                      type='select'
-                    />
                   </Grid>
                   <Grid item xs={2}>
                     <button><i className="fa-solid fa-filter"></i></button>
@@ -354,4 +334,4 @@ const Products = () => {
   )
 }
 
-export default Products;
+export default ListUser;

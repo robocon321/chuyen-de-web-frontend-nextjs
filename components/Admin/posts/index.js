@@ -34,7 +34,7 @@ const renderAction = (params) => {
 
 const renderLink = (params) => {
   return (
-    <a className={styles['link-row']} href={`/products/${params.value}`}>{params.value}</a>
+    <a className={styles['link-row']} href={`/posts/${params.value}`}>{params.value}</a>
   )
 }
 
@@ -63,22 +63,22 @@ const columns = [
     editable: false,
   },
   {
-    field: 'sale_price',
-    headerName: 'Sale Price',
+    field: 'author',
+    headerName: 'Author',
     flex: 2,
     minWidth: 100,
     editable: false,
   },
   {
-    field: 'total_sales',
-    headerName: 'Total Sale',
+    field: 'view',
+    headerName: 'View',
     flex: 2 ,
     minWidth: 100,
     editable: false,
   },
   {
-    field: 'stock_quantity',
-    headerName: 'Stock Quantity',
+    field: 'comment_count',
+    headerName: 'Comment Count',
     flex: 2,
     minWidth: 100,
     editable: false,
@@ -97,151 +97,151 @@ const columns = [
 
 const rows = [{
   id: 1,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Coconut Milk - Unsweetened",
-  sale_price: 749023,
-  total_sales: 67,
-  stock_quantity: 18
+  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  title: "Poppy Seed",
+  author: "arobrose0",
+  view: 27,
+  comment_count: 27
 }, {
   id: 2,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Appetizer - Mango Chevre",
-  sale_price: 444289,
-  total_sales: 94,
-  stock_quantity: 80
+  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  title: "Soup - Knorr, French Onion",
+  author: "cloyd1",
+  view: 99,
+  comment_count: 59
 }, {
   id: 3,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Chicken - Wings, Tip Off",
-  sale_price: 999081,
-  total_sales: 79,
-  stock_quantity: 70
+  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
+  title: "Sugar - White Packet",
+  author: "hsandeman2",
+  view: 5,
+  comment_count: 43
 }, {
   id: 4,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Brandy - Bar",
-  sale_price: 5050,
-  total_sales: 61,
-  stock_quantity: 72
+  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  title: "Lamb Tenderloin Nz Fr",
+  author: "abeste3",
+  view: 55,
+  comment_count: 29
 }, {
   id: 5,
-  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
-  title: "Salad Dressing",
-  sale_price: 310381,
-  total_sales: 68,
-  stock_quantity: 41
+  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
+  title: "Beets - Golden",
+  author: "vmorde4",
+  view: 8,
+  comment_count: 34
 }, {
   id: 6,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Versatainer Nc - 9388",
-  sale_price: 445125,
-  total_sales: 28,
-  stock_quantity: 46
+  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
+  title: "Bagel - Ched Chs Presliced",
+  author: "bkleisle5",
+  view: 29,
+  comment_count: 38
 }, {
   id: 7,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Sugar - Crumb",
-  sale_price: 660989,
-  total_sales: 83,
-  stock_quantity: 8
+  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  title: "Compound - Pear",
+  author: "lwatton6",
+  view: 6,
+  comment_count: 20
 }, {
   id: 8,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Cheese Cloth",
-  sale_price: 568630,
-  total_sales: 88,
-  stock_quantity: 18
+  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  title: "Sugar - Sweet N Low, Individual",
+  author: "mattwater7",
+  view: 90,
+  comment_count: 97
 }, {
   id: 9,
   thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
-  title: "Bread Base - Goodhearth",
-  sale_price: 597873,
-  total_sales: 52,
-  stock_quantity: 97
+  title: "Table Cloth 54x72 Colour",
+  author: "souslem8",
+  view: 79,
+  comment_count: 12
 }, {
   id: 10,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Rice Pilaf, Dry,package",
-  sale_price: 593898,
-  total_sales: 68,
-  stock_quantity: 89
+  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  title: "Bread Crumbs - Panko",
+  author: "sdepke9",
+  view: 38,
+  comment_count: 93
 }, {
   id: 11,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Amaretto",
-  sale_price: 951535,
-  total_sales: 46,
-  stock_quantity: 85
+  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  title: "Wine - Prosecco Valdobienne",
+  author: "lbradleya",
+  view: 24,
+  comment_count: 92
 }, {
   id: 12,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Pork - Ham Hocks - Smoked",
-  sale_price: 501971,
-  total_sales: 14,
-  stock_quantity: 1
+  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
+  title: "Apricots - Halves",
+  author: "ldoftyb",
+  view: 90,
+  comment_count: 24
 }, {
   id: 13,
   thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Tarragon - Fresh",
-  sale_price: 812442,
-  total_sales: 54,
-  stock_quantity: 99
+  title: "Sausage - Blood Pudding",
+  author: "rgrellisc",
+  view: 78,
+  comment_count: 98
 }, {
   id: 14,
   thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Beef - Bones, Cut - Up",
-  sale_price: 822527,
-  total_sales: 55,
-  stock_quantity: 80
+  title: "Squash - Acorn",
+  author: "spitkethlyd",
+  view: 59,
+  comment_count: 59
 }, {
   id: 15,
-  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
-  title: "Cookies - Oreo, 4 Pack",
-  sale_price: 589750,
-  total_sales: 17,
-  stock_quantity: 65
+  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
+  title: "Barramundi",
+  author: "hgolborne",
+  view: 61,
+  comment_count: 26
 }, {
   id: 16,
-  thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Bagel - Sesame Seed Presliced",
-  sale_price: 673795,
-  total_sales: 96,
-  stock_quantity: 71
+  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  title: "Pastry - Baked Scones - Mini",
+  author: "pwigleyf",
+  view: 94,
+  comment_count: 15
 }, {
   id: 17,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Flour - Chickpea",
-  sale_price: 449892,
-  total_sales: 94,
-  stock_quantity: 21
+  thumbnail: "http://dummyimage.com/100x100.png/ff4444/ffffff",
+  title: "Turkey - Breast, Double",
+  author: "rjelphsg",
+  view: 60,
+  comment_count: 12
 }, {
   id: 18,
   thumbnail: "http://dummyimage.com/100x100.png/cc0000/ffffff",
-  title: "Pesto - Primerba, Paste",
-  sale_price: 899562,
-  total_sales: 65,
-  stock_quantity: 7
+  title: "Pastry - Cheese Baked Scones",
+  author: "kmallaboneh",
+  view: 91,
+  comment_count: 8
 }, {
   id: 19,
-  thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Pasta - Rotini, Colour, Dry",
-  sale_price: 707717,
-  total_sales: 79,
-  stock_quantity: 27
+  thumbnail: "http://dummyimage.com/100x100.png/5fa2dd/ffffff",
+  title: "Seedlings - Mix, Organic",
+  author: "eargilei",
+  view: 66,
+  comment_count: 53
 }, {
   id: 20,
   thumbnail: "http://dummyimage.com/100x100.png/dddddd/000000",
-  title: "Turkey - Ground. Lean",
-  sale_price: 514885,
-  total_sales: 10,
-  stock_quantity: 1
+  title: "Carbonated Water - Peach",
+  author: "lernij",
+  view: 51,
+  comment_count: 45
 }]
 
-const Products = () => {
+const Posts = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-      <Breadscrum links={['Home', 'Products']} />
+        <Breadscrum links={['Home', 'Posts']} />
         <Button variant="contained" color="warning">
           <span><i className="fa-solid fa-plus"></i></span>&nbsp;<span>Add New</span>
         </Button>
@@ -299,21 +299,8 @@ const Products = () => {
                   </Grid>
                   <Grid item xs={5}>
                     <Input 
-                      placeholder='Filter by stock'
-                      name='filter-by-stock'
-                      arrayObj={[
-                        {
-                          name: 'instock',
-                          innerText: 'Instock'
-                        },
-                        {
-                          name: 'out-of-stock',
-                          innerText: 'Out of Stock'
-                        }
-                      ]}
-                      valueObj='name'
-                      textInnerObj='innerText'
-                      type='select'
+                      placeholder='Choose date'
+                      type='date'
                     />
                   </Grid>
                   <Grid item xs={2}>
@@ -354,4 +341,4 @@ const Products = () => {
   )
 }
 
-export default Products;
+export default Posts;

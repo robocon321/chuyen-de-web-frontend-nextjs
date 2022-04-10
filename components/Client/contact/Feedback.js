@@ -11,22 +11,22 @@ const Feedback = (props) => {
           <h1>Tell Us Your Message</h1> 
             <Input 
               title='Your Name'
-              require={true}
+              isRequire='true'
               name='name'
             />
             <Input 
               title='Your Email'
-              require={true}
+              isRequire='true'
               name='email'
             />
             <Input 
               title='Subject'
-              require={false}
+              isRequire='false'
               name='subject'
             />
             <Input 
               title='Message'
-              require={true}
+              isRequire='true'
               name='message'
               type='textarea'
             />
