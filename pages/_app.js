@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 
 import ClientCommon from '../components/Client/ClientCommon';
 import AdminCommon from '../components/Admin/AdminCommon';
+import AuthProvider from '../contexts/providers/AuthProvider';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -20,14 +21,14 @@ function MyApp({ Component, pageProps }) {
     );
   } else if(splitPathName[1] === 'auth') {
     return (
-    <>
-      <Component {...pageProps} />
-    </>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     )
   } else {
     return (
       <ClientCommon>
-        <Component {...pageProps} />      
+        <Component {...pageProps} />
       </ClientCommon>
     );
   }

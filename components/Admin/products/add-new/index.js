@@ -99,6 +99,9 @@ const Index = (props) => {
                   title='Detail product'
                   placeholder=''
                   isRequire={'true'}
+                  onChange={(e) => {
+                    console.log(e);
+                  }}
                   type='ckeditor'
                 />
               </Grid>
