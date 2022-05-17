@@ -71,8 +71,8 @@ const SellerAndRelated = props =>{
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={4}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    // onSlideChange={() => console.log('slide change')}
+                    // onSwiper={(swiper) => console.log(swiper)}
                     >
                         {
                             products.map(item=>(

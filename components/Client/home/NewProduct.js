@@ -51,7 +51,7 @@ const products = [
         sale:'20'
     },
     {
-        id:4,
+        id:5,
         title: 'Cillum dolore garden tools',
         numStart: 4,
         newPrice: '100.00',
@@ -81,8 +81,8 @@ const NewProduct = props => {
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={5}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    // onSlideChange={() => console.log('slide change')}
+                    // onSwiper={(swiper) => console.log(swiper)}
                     >
                         {
                             products.map(item=>(
@@ -138,8 +138,8 @@ const NewProduct = props => {
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={5}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    // onSlideChange={() => console.log('slide change')}
+                    // onSwiper={(swiper) => console.log(swiper)}
                     >
                         {
                             products.map(item=>(
