@@ -1,6 +1,7 @@
 .total-ship h3 {
     margin-bottom: 40px;
     margin-top: 30px;
+    text-decoration: underline;
 }
 
 .total {

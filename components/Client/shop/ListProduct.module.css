@@ -1,3 +1,7 @@
+.display {
+    margin-top: 40px;
+}
+
 .display-product {
     border: 1px solid rgb(221, 221, 221);
     margin: 15px 0;
@@ -20,6 +24,18 @@
 
 .display-style button:hover {
     color: var(--primary_color);
+}
+
+.icon-3 {
+    color: #d8d8d8;
+}
+
+.icon-4 {
+    color: #666;
+}
+
+.icon-list {
+    color: #666;
 }
 
 .dis-3 {
@@ -60,7 +76,7 @@
 
 .display-style button {
     padding: 4px 7px;
-    color: black;
+    color: #7a7a7a;
 }
 
 .icon-3:hover .dis-3 {
@@ -87,6 +103,10 @@
 .sortby select {
     border: none;
     margin-left: 10px;
+}
+
+.list-product {
+    display: none;
 }
 
 .list-row {
@@ -334,4 +354,19 @@
 
 .item-option {
     text-align: center;
+}
+
+@media screen and (max-width:980px) {
+    .icon-4 {
+        display: none;
+    }
+    .info-tran {
+        display: block;
+    }
+    .tran {
+        border: none;
+    }
+    .btn-addcart button {
+        width: 100%;
+    }
 }

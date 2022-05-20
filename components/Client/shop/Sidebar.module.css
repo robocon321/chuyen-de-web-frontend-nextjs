@@ -1,64 +1,74 @@
 .sidebar {
-  margin: 40px 10px;
-  padding: 20px;
-  background-color: var(--bg_color);
-  border-radius: 5px;
+    margin: 40px 10px;
+    padding: 20px;
+    background-color: var(--bg_color);
+    border-radius: 5px;
+    /* display: none; */
 }
 
 .sidebar h2 {
-  font-size: 18px;
-  font-weight: 300;
+    font-size: 18px;
+    font-weight: 300;
 }
 
 .sidebar .parent-categories {
-  margin: 20px 0px;
-  font-size: 15px;
+    margin: 20px 0px;
+    font-size: 15px;
 }
 
 .sidebar .children-categories {
-  margin-top: 10px;
-  margin-left: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .sidebar .filter-price {
-  margin: 20px 0px;
+    margin: 20px 0px;
 }
 
 .sidebar .filter-price h2 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .sidebar .filter-price div {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .sidebar .manufacturer {
-  margin: 20px 0px;
-} 
+    margin: 20px 0px;
+}
 
 .sidebar .manufacturer li {
-  display: flex;
-  align-items: center;
-  margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0px;
 }
 
 .sidebar .manufacturer li:hover {
-  color: var(--primary_color);
+    color: var(--primary_color);
 }
 
 .sidebar .manufacturer input {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  background-color: var(--primary_color);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: var(--primary_color);
 }
 
 .sidebar .manufacturer li label {
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .banner {
-  margin: 40px 10px;
+    margin: 40px 10px;
+}
+
+@media screen and (max-width:980px) {
+    .sidebar {
+        display: none;
+    }
+    .banner {
+        display: none;
+    }
 }

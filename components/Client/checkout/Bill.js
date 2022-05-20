@@ -26,6 +26,7 @@ const Bill = props =>{
                     title='First Name'
                     require={true}
                     name='firstname'
+                    placeholder='First Name'
                     /> 
                 </Grid>
                 <Grid  item  xs={6}>
@@ -33,6 +34,7 @@ const Bill = props =>{
                     title='Last Name'
                     require={true}
                     name='lastname'
+                    placeholder='Last Name'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -40,6 +42,7 @@ const Bill = props =>{
                     title='Email Address'
                     require={true}
                     name='email'
+                    placeholder='Email Address'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -47,6 +50,7 @@ const Bill = props =>{
                     title='Phone No'
                     require={true}
                     name='phone'
+                    placeholder='Phone Number'
                     />
                 </Grid>
                 <Grid item  xs={12}>
@@ -54,6 +58,7 @@ const Bill = props =>{
                     title='Company Name'
                     require={false}
                     name='company'
+                    placeholder='Company Name'
                     />
                 </Grid>
                 <Grid item  xs={12}>
@@ -61,11 +66,13 @@ const Bill = props =>{
                     title='Address'
                     require={true}
                     name='address'
+                    placeholder='Address line 1'
                     />
                      <Input
                     title=''
                     require={false}
                     name='address'
+                    placeholder='Address line 1'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -80,6 +87,7 @@ const Bill = props =>{
                     title='Town/City'
                     require={true}
                     name='town'
+                    placeholder='Town/City'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -87,6 +95,7 @@ const Bill = props =>{
                     title='State'
                     require={true}
                     name='state'
+                    placeholder='State'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -94,6 +103,7 @@ const Bill = props =>{
                     title='Zip Code'
                     require={true}
                     name='zipcode'
+                    placeholder='Zip Code'
                     />
                 </Grid>
             </Grid>
@@ -105,11 +115,12 @@ const Bill = props =>{
             <div className={styles['ship-add']} id="ship-add">
             <h3>Shipping Address</h3>
             <Grid  container columnSpacing={6}>
-                <Grid item xs={6} >
+            <Grid item xs={6} >
                     <Input
                     title='First Name'
                     require={true}
                     name='firstname'
+                    placeholder='First Name'
                     /> 
                 </Grid>
                 <Grid  item  xs={6}>
@@ -117,6 +128,7 @@ const Bill = props =>{
                     title='Last Name'
                     require={true}
                     name='lastname'
+                    placeholder='Last Name'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -124,6 +136,7 @@ const Bill = props =>{
                     title='Email Address'
                     require={true}
                     name='email'
+                    placeholder='Email Address'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -131,14 +144,15 @@ const Bill = props =>{
                     title='Phone No'
                     require={true}
                     name='phone'
+                    placeholder='Phone Number'
                     />
                 </Grid>
                 <Grid item  xs={12}>
                     <Input
-                    placeholder='aaa'
                     title='Company Name'
                     require={false}
                     name='company'
+                    placeholder='Company Name'
                     />
                 </Grid>
                 <Grid item  xs={12}>
@@ -146,11 +160,13 @@ const Bill = props =>{
                     title='Address'
                     require={true}
                     name='address'
+                    placeholder='Address line 1'
                     />
                      <Input
                     title=''
                     require={false}
                     name='address'
+                    placeholder='Address line 1'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -165,6 +181,7 @@ const Bill = props =>{
                     title='Town/City'
                     require={true}
                     name='town'
+                    placeholder='Town/City'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -172,6 +189,7 @@ const Bill = props =>{
                     title='State'
                     require={true}
                     name='state'
+                    placeholder='State'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -179,6 +197,7 @@ const Bill = props =>{
                     title='Zip Code'
                     require={true}
                     name='zipcode'
+                    placeholder='Zip Code'
                     />
                 </Grid>
             </Grid>
