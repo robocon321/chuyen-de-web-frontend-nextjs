@@ -16,10 +16,24 @@
 }
 
 .info-product {
-    color: var(--subtext_color);
+    color: #656565;
     font-weight: 300;
     padding: 20px;
     border: 1px solid #ccc;
+}
+
+.image-zoom {
+    padding: 50px;
+    background-color: green;
+    transition: transform .2s;
+    /* Animation */
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.image-zoom:hover {
+    transform: scale(1.5);
 }
 
 .tag {
@@ -37,7 +51,9 @@
     padding: 20px 0;
 }
 
-.star-ratting {}
+.star-ratting {
+    color: #ccc;
+}
 
 .numReview {
     margin: 0 10px;
@@ -161,7 +177,51 @@
 }
 
 .share h4 {
-    color: #666666;
+    color: #3b3b3b;
+}
+
+.list-icon {
+    margin-top: 20px;
+}
+
+.list-icon span {
+    margin-right: 5px;
+}
+
+.icon-twi {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: rgb(0, 119, 255);
+}
+
+.icon-twi:hover {
+    color: white;
+    background-color: rgb(0, 119, 255);
+}
+
+.icon-face {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #082ed8;
+}
+
+.icon-face:hover {
+    color: white;
+    background-color: #082ed8;
+}
+
+.icon-google {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #DD5144;
+}
+
+.icon-google:hover {
+    color: white;
+    background-color: #DD5144;
 }
 
 .description-review {
@@ -179,11 +239,6 @@
     border-bottom: 2px solid var(--primary_color);
 }
 
-
-/* .des-link:hover {
-    border: none;
-} */
-
 .rev-link {
     /* border-bottom: 2px solid var(--primary_color); */
     color: #ccc;
@@ -191,4 +246,53 @@
 
 .description {
     color: #777;
+}
+
+.review {
+    margin-left: 20px;
+    color: #777;
+    font-size: 1.0rem;
+    display: none;
+}
+
+.ratting .numStar {
+    margin-right: 20px;
+}
+
+.ratting-item {
+    margin: 40px 0;
+}
+
+.numStar {
+    color: rgb(73, 73, 73);
+    font-size: 0.8rem;
+}
+
+.user-ratting {
+    color: rgb(58, 58, 58);
+    margin-right: 20px;
+    font-weight: 600;
+}
+
+.content-ratting {
+    margin-top: 20px;
+}
+
+.add-comment h3 {
+    color: rgb(58, 58, 58);
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.add-comment span {
+    color: rgb(58, 58, 58);
+    margin-right: 10px;
+}
+
+.add-comment button {
+    background-color: #4d4d4d;
+    font-size: 14px;
+    padding: 15px 30px;
+    font-weight: 600;
 }

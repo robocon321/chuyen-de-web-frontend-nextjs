@@ -4,6 +4,7 @@ import styles from './ProductDetail.module.css';
 import { Grid } from '@mui/material';
 import { Swiper,SwiperSlide } from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
+import Input from '../../../common/Input';
 
 const listImgs= [
     {
@@ -12,11 +13,11 @@ const listImgs= [
     },
     {
         id:1,
-        image:'medium1.webp',
+        image:'medium5.webp',
     },
     {
         id:2,
-        image:'medium1.webp',
+        image:'medium6.webp',
     },
     {
         id:3,
@@ -27,7 +28,38 @@ const listImgs= [
         image:'medium1.webp',
     }
 ]
-
+const listRatiting = [
+    {
+        id:0,
+        ratting:5,
+        nameUser:'Rashed Mahmud',
+        content:'Enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli'
+    },
+    {
+        id:1,
+        ratting:3,
+        nameUser:'Rashed Mahmud',
+        content:'Enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli'
+    },
+    {
+        id:2,
+        ratting:4,
+        nameUser:'Rashed Mahmud',
+        content:'Enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli'
+    },
+    {
+        id:3,
+        ratting:5,
+        nameUser:'Rashed Mahmud',
+        content:'Enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli'
+    },
+    {
+        id:4,
+        ratting:0,
+        nameUser:'Rashed Mahmud',
+        content:'Enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli'
+    },
+]
 const ProductDetail = props =>{
    const[quantity,setQuantity] = useState(1);
 
@@ -52,36 +84,59 @@ const ProductDetail = props =>{
         rev.style.color = '#000';
     }
    }
+  
+  const [imageSelected, setImageSelected] = useState("medium1.webp");
+
+  const onChangeMainImage = (image) => {
+    setImageSelected(image);
+  }
+  const numstar = (num)=>{
+      return(<span className={styles['numStar']}>
+          <i className="fa-solid fa-star"></i>
+          <i className="fa-solid fa-star"></i>
+          <i className="fa-solid fa-star"></i>
+          <i className="fa-solid fa-star"></i>
+          <i className="fa-solid fa-star"></i>
+          <span>({num})</span>
+      </span>)
+  }
     return(
         <div className={styles.container}>  
-        <Grid container >
-           <Grid item xs={6}>
+        <Grid container spacing={2}>
+           <Grid item xs={12} md={6}>
                <div  >
                <Image
-                src="/medium1.webp"
+               className={styles['image-zoom']}
+                src={'/'+imageSelected}
                 alt='Not found'
-                width={540}
+                width={600}
                 height={540}
                />
                </div>
                 <Swiper
                     className='swiper'
                     spaceBetween={0}
-                    slidesPerView={4}
-                    onSlideChange={() => console.log('slide change')}
+                    slidesPerView={3}
+                    onSlideChange={() => console.log('slide change')}                    
                     onSwiper={(swiper) => console.log(swiper)}
                     loop={true}
                     loopFillGroupWithBlank={true}
                     navigation={true}
                     modules={[Pagination, Navigation]}
-                   
+                    breakpoints={{
+                        700:{
+                            slidesPerView:4,
+                            
+                        }
+                    }}
                 >
                     {
                         listImgs.map(item=>(
                             <SwiperSlide className={styles['swiper-slide']} key={item.id}>
-                                <div className={styles['more']} style={{width: '100px', height: '100px', position: 'relative'}} >
+                                <div className={[imageSelected === item.id && styles['more']]} style={{width: '120px', height: '120px', position: 'relative'}} >
                                  <Image
-                                        src="/medium1.webp"
+                                        onClick={()=>onChangeMainImage(item.image)}
+                                        src={'/'+item.image}
                                         alt="Not found"
                                         layout='fill'
                                     />
@@ -93,7 +148,7 @@ const ProductDetail = props =>{
                     }
                 </Swiper>
            </Grid>
-           <Grid item xs={6}>
+           <Grid item xs={12} md={6}>
                     <div className={styles['info-product']}>
                         <div className={styles['tag']}>Tags,Plant,Garden</div>
                         <div className={styles['title']}>Lorem ipsum indoor plants</div>
@@ -181,9 +236,11 @@ const ProductDetail = props =>{
                         <hr />
                         <div className={styles['share']}>
                             <h4>SHARE THIS PRODUCT</h4>
-                            <i className="fa-brands fa-twitter"></i>
-                            <i className="fa-brands fa-facebook-f"></i>
-                            <i className="fa-brands fa-google-plus-g"></i>
+                            <div className={styles['list-icon']}>
+                                <span className={styles['icon-twi']}><i className="fa-brands fa-twitter"></i></span>
+                                <span className={styles['icon-face']}><i className="fa-brands fa-facebook-f"></i></span>
+                                <span className={styles['icon-google']}><i className="fa-brands fa-google-plus-g"></i></span>
+                            </div>
                         </div>
 
                     </div>
@@ -205,7 +262,58 @@ const ProductDetail = props =>{
                 <p>luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>   
            </div>
            <div className={styles['review']} id="review">
-                    review
+                <div className={styles['ratting']}>
+                    <h4>4.5 <span>(Overall)</span></h4>
+                    <span>Based on 9 Comments</span><br />
+                    {numstar(5)}
+                    {numstar(4)}
+                    {numstar(2)}
+                    {numstar(0)}
+                </div>
+                <div className={styles['ratting-list']}>
+                   {listRatiting.map(item=>(
+                       <div className={styles['ratting-item']}  key={item.id}>
+                           <span className={styles['user-ratting']}>{item.nameUser}</span>
+                           {numstar(item.ratting)}
+                           <p className={styles['content-ratting']}>{item.content}</p>
+                       </div>
+                   ))
+                   }
+                </div>
+                <div className={styles['add-comment']}>
+                    <h3>ADD YOUR COMMENTS</h3>
+                    <span><b>Ratting:</b></span>
+                    <i className="fa-regular fa-star"></i>
+                    <i className="fa-regular fa-star"></i>
+                    <i className="fa-regular fa-star"></i>
+                    <i className="fa-regular fa-star"></i>
+                    <i className="fa-regular fa-star"></i>
+                    <Grid container columnSpacing={2}>
+                        <Grid item xs={12} md={6}>
+                            <Input
+                            title='Name:'
+                            placeholder='Name'
+                            name='name'
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input
+                            title='Email:'
+                            placeholder='Email'
+                            name='email'
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <Input
+                            title='Your Review:'
+                            placeholder='Write a review'
+                            name='review'
+                            type='textarea'
+                            />
+                        </Grid>
+                    </Grid>
+                    <button>ADD REVIEW</button>
+                </div>
            </div>
        </div>
        </div>

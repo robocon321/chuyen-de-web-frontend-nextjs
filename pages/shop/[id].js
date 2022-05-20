@@ -7,9 +7,9 @@ const ProductDetailPage = () => {
     // const router = useRouter();
   return (
     <>
-    <Header/>
+   
       <ShopDetail/>
-    <Footer/>
+    
     </>
   )
 }
