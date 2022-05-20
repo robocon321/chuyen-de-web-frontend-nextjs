@@ -4,9 +4,8 @@ import axios from 'axios';
 
 import styles from './Payment.module.css';
 
-import {SHIPPING_TOKEN} from '../../../constant/env' 
 axios.defaults.baseURL = 'https://online-gateway.ghn.vn/shiip/public-api';
-axios.defaults.headers.common['token'] = SHIPPING_TOKEN;
+axios.defaults.headers.common['token'] = process.env.SHIPPING_TOKEN;
 
 const Payment = (props) => {
   const [shipping, setShipping] = useState({

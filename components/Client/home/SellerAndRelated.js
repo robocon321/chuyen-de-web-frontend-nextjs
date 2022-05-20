@@ -70,6 +70,7 @@ const SellerAndRelated = props =>{
                 <div className={styles['list-row']}>
                 <Swiper
                     spaceBetween={10}
+
                     slidesPerView={2}
                     onSlideChange={() => console.log('slide change')}
                     loop={true}
@@ -84,6 +85,7 @@ const SellerAndRelated = props =>{
                             spaceBetween: 10,
                           },
                     }}
+
                     >
                         {
                             products.map(item=>(
