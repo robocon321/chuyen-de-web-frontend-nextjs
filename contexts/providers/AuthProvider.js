@@ -1,6 +1,7 @@
 import React, {useReducer, createContext, useEffect} from 'react';
+import { useRouter } from 'next/router';
 import AuthReducer from '../reducers/AuthReducer';
-import { loginAccountAction, loginSocialAction, registerAccountAction, registerSocialAction } from '../actions/AuthAction';
+import { loadAccountAction, loginAccountAction, loginSocialAction, registerAccountAction, registerSocialAction } from '../actions/AuthAction';
 
 const initState = {
   isLoading: false,
@@ -11,12 +12,9 @@ const initState = {
 export const AuthContext = createContext();
 
 const AuthProvider = (props) => {
+  const router = useRouter();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
-
-  useEffect(() => {
-    console.log(authState);
-  }, [authState]);
-
+  
   const loginAccount = (data) => {
     loginAccountAction(data)(dispatch);
   }
@@ -33,12 +31,17 @@ const AuthProvider = (props) => {
     registerSocialAction(data)(dispatch);
   }
 
+  const loadAccount = () => {
+    loadAccountAction()(dispatch);
+  }
+
   const value  = {
     authState,
     loginAccount,
     loginSocial,
     registerAccount,
-    registerSocial
+    registerSocial,
+    loadAccount
   };
 
   return (

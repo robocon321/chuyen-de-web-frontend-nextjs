@@ -144,8 +144,8 @@ const TodayDeal = props => {
     <div className={styles['title-today-deal']}>
       <h1>{`Today's Deals`}</h1>
       <div>
-        <button onClick={() => slideTo(mainSwiperRef.activeIndex - 1)}><i className="fa-solid fa-angle-left"></i></button>
-        <button onClick={() => slideTo(mainSwiperRef.activeIndex + 1)}><i className="fa-solid fa-angle-right"></i></button>
+        <button onClick={() => slideTo(mainSwiperRef.activeIndex - 1)}><span><i className="fa-solid fa-angle-left"></i></span></button>
+        <button onClick={() => slideTo(mainSwiperRef.activeIndex + 1)}><span><i className="fa-solid fa-angle-right"></i></span></button>
       </div>
     </div>
       <div className={styles['list-today-deal']}>

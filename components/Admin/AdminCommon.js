@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useContext, useEffect} from "react";
+import { useRouter } from 'next/router';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from "@mui/material/Drawer";
@@ -6,11 +7,17 @@ import { Toolbar } from "@mui/material";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import {AuthContext} from '../../contexts/providers/AuthProvider';
 
 const drawerWidth = 240;
 
 const AdminCommon = (props) => {
+  const { authState, loadAccount } = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    loadAccount();
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
