@@ -74,7 +74,7 @@ const SponorSubscribe = props => {
             <p>{`We'll never share your email address with a third-party`}</p>
           </div>
           <div className={styles['right-subscribe']}>
-            <input placeholder='Enter your emial address here ...'/>
+            <input placeholder='Enter your email address here ...'/>
             <button>Subscribe</button>
           </div>
       </div>

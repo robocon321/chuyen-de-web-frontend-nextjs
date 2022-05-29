@@ -40,7 +40,7 @@ const products = [
         sale:'20'
     },
     {
-        id:3,
+        id:4,
         title: 'Cillum dolore garden tools',
         numStart: 4,
         newPrice: '100.00',

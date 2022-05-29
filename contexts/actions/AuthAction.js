@@ -35,10 +35,7 @@ const loginAccountAction = ({username, password}) => async (dispatch) => {
       })
     }
   }).catch((error) => {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: error.response.data.message
-    });
+    assignError(error, dispatch);
   });
 
   dispatch({
@@ -72,10 +69,7 @@ const loginSocialAction = ({key, type, uid}) => async (dispatch) => {
       })
     }
   }).catch((error) => {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: error.response.data.message
-    });
+    assignError(error, dispatch);
   });
 
   dispatch({
@@ -97,10 +91,7 @@ const loadAccountAction = () => async (dispatch) => {
         payload: response.data.data
       });
     }).catch((error) => {
-      dispatch({
-        type: ACTIONS.SET_ERROR,
-        payload: error.response.data.message
-      });
+      assignError(error, dispatch);
     });
     } else {
     setAuthToken(null);
@@ -140,10 +131,7 @@ const registerAccountAction = ({email, username, password}) => async (dispatch) 
       })
     }
   }).catch(error => {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: error.response.data.message
-    })
+    assignError(error, dispatch);
   })
 
   dispatch({
@@ -166,16 +154,27 @@ const registerSocialAction = (data) => async (dispatch) => {
     localStorage[LOCAL_STORAGE_USER] = response.data.data;
     loadAccountAction()(dispatch);
   }).catch(error => {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: error.response.data.message
-    })
+    assignError(error, dispatch);
   });
 
   dispatch({
     type: ACTIONS.SET_LOADING,
     payload: false
   });
+}
+
+const assignError = (error, dispatch) => {
+  if(error.response) {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: error.response.data.message
+    });  
+  } else {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: "Server lỗi"
+    });    
+  }
 }
 
 export {
