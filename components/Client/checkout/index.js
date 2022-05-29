@@ -14,10 +14,10 @@ const Checkout = props =>{
         <hr/>
         <Container>
             <Grid container columns={12} spacing={2}>
-                <Grid item xs={7} >
+                <Grid item sm={12} md={7}>
                     <Bill/>
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item sm={12} md={5}>
                     <Total/>
                 </Grid>
             </Grid>

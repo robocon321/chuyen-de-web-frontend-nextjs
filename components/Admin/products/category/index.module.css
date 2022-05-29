@@ -1,0 +1,17 @@
+.search {
+    right: 0;
+    align-items: center;
+}
+
+.button-search {
+    background-color: rgb(253, 254, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(92, 92, 92);
+}
+
+.button-delete {
+    background-color: rgb(253, 254, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(92, 92, 92);
+    margin-top: 10px;
+}

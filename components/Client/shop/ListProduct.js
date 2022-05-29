@@ -118,6 +118,7 @@ const ListProduct = props =>{
             b = document.getElementById('grid');
             a.style.display='block';
             b.style.display='none';
+            
         } else{
             a = document.getElementById('list');
             b = document.getElementById('grid');
@@ -138,7 +139,7 @@ const ListProduct = props =>{
             <div className={styles['display-product']}>
                 <div className={styles['display-style']}>
                 <span className={styles['icon-3']}>
-                    <button onClick={(e)=>changeNum(4)} ><i className="fas fa-th-large"></i></button>
+                    <button onClick={(e)=>changeNum(4)} ><i className="fa-solid fa-grip"></i></button>
                     <div className={styles['dis-3']}>3</div>
                 </span>
                 <span className={styles['icon-4']}>
@@ -146,7 +147,7 @@ const ListProduct = props =>{
                     <div className={styles['dis-4']}>4</div>
                 </span>
                 <span className={styles['icon-list']}>
-                    <button onClick={(e)=>changeNum(0)}><i className="fas fa-list"></i></button>
+                    <button onClick={(e)=>changeNum(0)}><i className="fa-solid fa-bars"></i></button>
                     <div className={styles['dis-list']}>List</div>
                 </span>
                 </div>
@@ -176,7 +177,7 @@ const ListProduct = props =>{
                     {
                         products.map(item =>{
                             return(
-                                <Grid item key={item.id} xs={numCol}>
+                                <Grid item key={item.id} xs={5} md={numCol}>
                                 <div key={item.id} id="item" className={styles['item']}>
                                     <Image
                                         className={styles['img']}
@@ -233,7 +234,7 @@ const ListProduct = props =>{
                         return(
                             <Grid key={item.id} container>
                             <div  className={styles['list-item']}>
-                                <Grid item xs={3}>
+                                <Grid item xs={5} sm={5} md={3} >
                                 <Image
                                         className={styles['item-img']}
                                         src="/medium5.webp"
@@ -246,7 +247,7 @@ const ListProduct = props =>{
                                         -{item.sale}%
                                     </div>
                                     </Grid>
-                                    <Grid item xs={9} className={styles['info-tran']}>
+                                    <Grid item xs={7} md={9} className={styles['info-tran']}>
                                     <div className={styles['item-info']}>
                                     <div className={styles['item-title']} >
                                         <a href="" >{item.title}</a>
@@ -262,7 +263,7 @@ const ListProduct = props =>{
                                         <span>{item.description}</span>
                                     </div>
                                     
-                                    </div>
+                                </div>
                                 <div className={styles['tran']}>
                                     <div className={styles['available']}>
                                         <span>Available:</span>

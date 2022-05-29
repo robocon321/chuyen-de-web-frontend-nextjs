@@ -80,9 +80,26 @@ const NewProduct = props => {
                 <div className={styles['newProduct-list-row']}>
                 <Swiper
                     spaceBetween={10}
-                    slidesPerView={5}
-                    // onSlideChange={() => console.log('slide change')}
-                    // onSwiper={(swiper) => console.log(swiper)}
+
+                    slidesPerView={2}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    loop={true}
+                    breakpoints={{
+                        1124: {
+                            slidesPerView: 5,
+                            spaceBetween: 10,
+                          },
+                          900: {
+                            slidesPerView: 4,
+                            spaceBetween: 10,
+                          },
+                        700:{
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        }
+                    }}
+
                     >
                         {
                             products.map(item=>(
@@ -137,9 +154,25 @@ const NewProduct = props => {
                 <div className={styles['newProduct-list-row']}>
                 <Swiper
                     spaceBetween={10}
-                    slidesPerView={5}
-                    // onSlideChange={() => console.log('slide change')}
-                    // onSwiper={(swiper) => console.log(swiper)}
+                    slidesPerView={2}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    loop={true}
+                    breakpoints={{
+                        1124: {
+                            slidesPerView: 5,
+                            spaceBetween: 10,
+                          },
+                          900: {
+                            slidesPerView: 4,
+                            spaceBetween: 10,
+                          },
+                        700:{
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        }
+                    }}
+
                     >
                         {
                             products.map(item=>(
