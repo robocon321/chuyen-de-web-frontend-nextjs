@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from 'next/image';
-import React from "react";
+import React, {useState} from "react";
 import styles from './NewProduct.module.css';
 import { Swiper, SwiperSlide } from "swiper/react";
+import {Navigation, Pagination} from 'swiper';
 
 const products = [
     {
@@ -62,28 +63,38 @@ const products = [
 ]
 
 const NewProduct = props => {
+
+    const [mainSwiperRef, setMainSwiperRef] = useState();
+
+    const slideTo = (index) => {
+      if(index >= products.length) mainSwiperRef.slideTo(0, 0);
+      else if(index <= 0) mainSwiperRef.slideTo(products.length - 1, 0);
+      else mainSwiperRef.slideTo(index, 0);
+    }
+
     return (
         <div className={styles.newProduct}>
             <div className={styles['newProduct-top']}>
                 <div className={styles['newProduct-lable']}>New Propducts</div>
                 <div className={styles['newProduct-page-control']}>
-                    <a href="" className={styles['newProduct-page-btn']}>
+                    <button onClick={() => slideTo(mainSwiperRef.activeIndex - 1)} className={styles['newProduct-page-btn']}>
                         <i className="newProduct-page-icon fas fa-chevron-left"></i>
 
-                    </a>
-                    <a href="" className={styles['newProduct-page-btn']}>
+                    </button>
+                    <button onClick={() => slideTo(mainSwiperRef.activeIndex + 1)} className={styles['newProduct-page-btn']}>
                         <i className="newProduct-page-icon fas fa-chevron-right"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div className={styles['newProduct-list']}>
                 <div className={styles['newProduct-list-row']}>
                 <Swiper
+                    onSwiper={setMainSwiperRef}
                     spaceBetween={10}
-
                     slidesPerView={2}
+                   
                     onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    modules={[Pagination, Navigation]}
                     loop={true}
                     breakpoints={{
                         1124: {
@@ -104,6 +115,7 @@ const NewProduct = props => {
                         {
                             products.map(item=>(
                             <SwiperSlide key={item.id}>
+                                <div className={styles['slide-item']}>
                                  <div  className={styles['newProduct-item']}>
                                     <Image
                                         className={styles['newProduct-img']}
@@ -145,39 +157,7 @@ const NewProduct = props => {
                                         </a>
                                     </div>
                                 </div>
-                            </SwiperSlide>))
-                    
-                   
-                        }
-                    </Swiper>
-                </div>
-                <div className={styles['newProduct-list-row']}>
-                <Swiper
-                    spaceBetween={10}
-                    slidesPerView={2}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
-                    loop={true}
-                    breakpoints={{
-                        1124: {
-                            slidesPerView: 5,
-                            spaceBetween: 10,
-                          },
-                          900: {
-                            slidesPerView: 4,
-                            spaceBetween: 10,
-                          },
-                        700:{
-                            slidesPerView: 3,
-                            spaceBetween: 10,
-                        }
-                    }}
-
-                    >
-                        {
-                            products.map(item=>(
-                            <SwiperSlide key={item.id}>
-                                 <div  className={styles['newProduct-item']}>
+                                <div  className={styles['newProduct-item']}>
                                     <Image
                                         className={styles['newProduct-img']}
                                         src="/medium6.webp"
@@ -218,11 +198,14 @@ const NewProduct = props => {
                                         </a>
                                     </div>
                                 </div>
+                                </div>
                             </SwiperSlide>))
                     
+                   
                         }
                     </Swiper>
                 </div>
+                
             </div>
             
         </div>
