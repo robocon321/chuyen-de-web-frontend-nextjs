@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import styles from "./index.module.css";
 import { AuthContext } from "../../contexts/providers/AuthProvider";
 import { app } from "../../utils/firebase";
@@ -17,8 +18,14 @@ const ggProvider = new GoogleAuthProvider();
 const fbProvider = new FacebookAuthProvider();
 
 const Auth = (props) => {
-  const { loginAccount, registerAccount, registerSocial, loginSocial } =
-    useContext(AuthContext);
+  const {
+    loginAccount,
+    registerAccount,
+    registerSocial,
+    loginSocial,
+    authState,
+  } = useContext(AuthContext);
+  const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [loginAccountForm, setLoginAccountForm] = useState({
     username: "",
@@ -30,6 +37,20 @@ const Auth = (props) => {
     username: "",
     password: "",
   });
+
+  useEffect(() => {
+    console.log(authState);
+    if (authState.user && authState.user.roles.find(i => i.name == "CLIENT")) {
+      router.push("/");
+    }
+    if (
+      authState.user &&
+      (authState.user.roles.find(i => i.name == "ADMIN") ||
+        authState.user.roles.find(i => i.name == "ROOT"))
+    ) {
+      router.push("/admin");
+    }
+  }, [authState]);
 
   const signUpWithGmail = () =>
     signInWithPopup(auth, ggProvider)
@@ -51,7 +72,7 @@ const Auth = (props) => {
       })
       .catch((error) => {
         console.log(error);
-  });
+      });
 
   const signUpWithFacebook = () => {
     signInWithPopup(auth, fbProvider)
@@ -76,11 +97,11 @@ const Auth = (props) => {
   const loginWithGmail = () => {
     signInWithPopup(auth, ggProvider)
       .then((result) => {
-        const {email, uid } = result.user;
+        const { email, uid } = result.user;
         const data = {
           key: email,
           type: 1,
-          uid
+          uid,
         };
 
         loginSocial(data);
