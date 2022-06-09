@@ -16,6 +16,7 @@
 .newProduct-page-control {}
 
 .newProduct-page-btn {
+    color: black;
     padding: 7px 10px;
     background-color: #f6f6f6;
     margin-left: 4px;
@@ -29,6 +30,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    height: 800px;
 }
 
 .newProduct-item {
@@ -36,6 +38,7 @@
     border-radius: 2px;
     position: relative;
     padding-bottom: 15px;
+    height: 100%;
 }
 
 .newProduct-info {

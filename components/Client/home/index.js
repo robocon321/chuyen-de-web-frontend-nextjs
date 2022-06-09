@@ -11,6 +11,7 @@ import Discover from './Discover';
 import SellerAndRelated from './SellerAndRelated';
 
 const Home = (props) => {
+
   return (
     <main>
       <Container>

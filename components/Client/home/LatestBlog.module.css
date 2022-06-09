@@ -8,6 +8,7 @@
 }
 
 .latest-blog .title-latest-blog button {
+  color: black;
   background-color: var(--bg_color);
   border: none;
   border-radius: 5px;
