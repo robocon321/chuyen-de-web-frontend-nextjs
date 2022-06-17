@@ -5,7 +5,7 @@ import styles from './Pagination.module.css';
 import { BlogContext } from '../../../contexts/providers/BlogProvider';
 
 const Pagination = (props) => {
-  const { blogState } = useContext(BlogContext);
+  const { blogState, router } = useContext(BlogContext);
 
   const createQuery = (search, page, AND_taxomony) => {
     const query = {};
@@ -28,14 +28,14 @@ const Pagination = (props) => {
             <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, 1, blogState.conditions.filters.AND_taxomony)
+                query: createQuery(router.query.search, 1, router.query.AND_taxomony)
               }
             }><a><i className="fa-solid fa-backward-step"></i></a></Link>
             {
               !blogState.lastestBlogs.first && <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, blogState.lastestBlogs.number, blogState.conditions.filters.AND_taxomony)
+                query: createQuery(router.query.search, blogState.lastestBlogs.number, router.query.AND_taxomony)
               }
             }><a><i className="fa-solid fa-angle-left"></i></a></Link>
             }
@@ -43,21 +43,21 @@ const Pagination = (props) => {
               blogState.lastestBlogs.number > 0 && <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, blogState.lastestBlogs.number, blogState.conditions.filters.AND_taxomony)
+                query: createQuery(router.query.search, blogState.lastestBlogs.number, router.query.AND_taxomony)
               }
             }><a>{blogState.lastestBlogs.number}</a></Link>
             }
             <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, blogState.lastestBlogs.number + 1, blogState.conditions.filters.AND_taxomony)              
+                query: createQuery(router.query.search, blogState.lastestBlogs.number + 1, router.query.AND_taxomony)              
               }
             }><a>{blogState.lastestBlogs.number + 1}</a></Link>
             {
               blogState.lastestBlogs.number + 1 < blogState.lastestBlogs.totalPages && <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, blogState.lastestBlogs.number + 2, blogState.conditions.filters.AND_taxomony)
+                query: createQuery(router.query.search, blogState.lastestBlogs.number + 2, router.query.AND_taxomony)
               }
             }><a>{blogState.lastestBlogs.number + 2}</a></Link>
             }
@@ -65,14 +65,14 @@ const Pagination = (props) => {
               !blogState.lastestBlogs.last &&  <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, blogState.lastestBlogs.number + 2, blogState.conditions.filters.AND_taxomony)              
+                query: createQuery(router.query.search, blogState.lastestBlogs.number + 2, router.query.AND_taxomony)              
               }
             }><a><i className="fa-solid fa-angle-right"></i></a></Link>
             }
             <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, blogState.lastestBlogs.totalPages + 2, blogState.conditions.filters.AND_taxomony)              
+                query: createQuery(router.query.search, blogState.lastestBlogs.totalPages + 2, router.query.AND_taxomony)              
               }
             }><a><i className="fa-solid fa-forward-step"></i></a></Link>
           </div>

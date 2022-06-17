@@ -12,13 +12,6 @@ const initState = {
   lastestBlogs: null,
   popularBlogs: null,
   recentCommments: null,
-  conditions: {
-    search: '',
-    page: 0,
-    size: 10,
-    sort: 'modifiedTime__DESC',
-    filters: {}
-  },
   isLoading: false,
   message: '',
   success: false
@@ -28,11 +21,16 @@ export const BlogContext = createContext();
 
 const BlogProvider = (props) => {
   const router = useRouter();
-  const {query} = router;
+  const query = {...router.query};
   const [blogState, dispatch] = useReducer(BlogReducer, initState);
+
   useEffect(() => {
     if(!router.isReady) return;
-        let {search, page, size, sort, filters} = blogState.conditions;
+        let search = '';
+        let page = 0;
+        let size = 10;
+        let sort = 'modifiedTime__DESC';
+        let filters = {};
     
         if(query.search != null) search = query.search;
         delete query.search;
@@ -42,17 +40,14 @@ const BlogProvider = (props) => {
         delete query.size;
         if(query.sort != null) sort = query.sort;
         delete query.sort;
+
         filters = {...query};
+        console.log(router);
         
         loadCategories();
         loadPopularBlogs();
         loadLastestBlogs(search, page, size, sort, filters);
-  }, [query]);
-
-  useEffect(() => {
-    console.log(blogState);
-  }, [blogState]);
-
+  }, [router.query]);
 
   const loadCategories = () => {
     loadCategoriesAction()(dispatch);

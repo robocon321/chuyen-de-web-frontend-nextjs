@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { Grid } from '@mui/material';
 import Image from 'next/image';
 import Moment from 'react-moment';
@@ -38,6 +38,7 @@ const Sidebar = (props) => {
   const { blogState, router } = useContext(BlogContext);
   const [search, setSearch] = useState('');
 
+  
   const findChildrenElement = (id) => {
     const children = blogState.categories.filter(item => item.parent != null && item.parent.id === id);
     return children.map(item => (
@@ -90,7 +91,7 @@ const Sidebar = (props) => {
             <Link href={
               {
                 pathname: '/blogs',
-                query: createQuery(blogState.conditions.search, 0, item.id)
+                query: createQuery(router.query.search, 0, item.id)
               }
             }><a>{item.name} ({item.totalPost})</a></Link>
             {

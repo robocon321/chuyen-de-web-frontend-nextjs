@@ -8,8 +8,9 @@ const ACTIONS = {
   SET_LOADING: 'SET_LOADING',
   SET_CATEGORIES: 'SET_CATEGORIES',
   SET_POPULARBLOGS: 'SET_POPULARBLOGS',
-  SET_LASTESTBLOGS: 'SET_LASTESTBLOGS',
-  SET_LASTESTCOMMENTS: 'SET_LASTESTCOMMENTS'
+  SET_LASTESTCOMMENTS: 'SET_LASTESTCOMMENTS',
+  SET_DETAILBLOGS: 'SET_DETAILBLOGS',
+  SET_COMMENTS: 'SET_COMMENTS'
 }
 
 const loadCategoriesAction = () => async (dispatch) => {
@@ -38,38 +39,6 @@ const loadCategoriesAction = () => async (dispatch) => {
     type: ACTIONS.SET_LOADING,
     payload: false
   })
-}
-
-const loadLastestBlogsAction = (search, page, size, sort, filters) => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-  
-  await axios({
-    method: 'GET',
-    url: `${backendUrl}/posts`,
-    params: {
-      search, page, size, sort, ...filters
-    }
-  }).then((response) => {
-    dispatch({
-      type: ACTIONS.SET_LASTESTBLOGS,
-      payload: {
-        data: response.data.data,
-        message: response.data.message,
-        success: response.data.success
-      }
-    });
-  }).catch((error) => {
-    handleError(error, dispatch, ACTIONS.SET_ERROR);
-  });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
-
 }
 
 const loadPopularBlogsAction = () => async (dispatch) => {
@@ -101,9 +70,68 @@ const loadPopularBlogsAction = () => async (dispatch) => {
   
 }
 
+const loadDetailBlogAction = (slug) => async (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: true
+  });
+
+  await axios({
+    method: 'GET',
+    url: `${backendUrl}/posts/${slug}`
+  }).then((response) => {
+    dispatch({
+      type: ACTIONS.SET_DETAILBLOGS,
+      payload: {
+        data: response.data.data,
+        message: response.data.message,
+        success: response.data.success
+      }
+    });
+  }).catch((error) => {
+    handleError(error, dispatch, ACTIONS.SET_ERROR);
+  });
+
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: false
+  })
+
+}
+
+const loadCommentsBlogAction = (slug) =>  async (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: true
+  });
+
+  await axios({
+    method: 'GET',
+    url: `${backendUrl}/comments?OR_post.slug=${slug}`
+  }).then((response) => {
+    dispatch({
+      type: ACTIONS.SET_COMMENTS,
+      payload: {
+        data: response.data.data,
+        message: response.data.message,
+        success: response.data.success
+      }
+    });
+  }).catch((error) => {
+    handleError(error, dispatch, ACTIONS.SET_ERROR);
+  });
+
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: false
+  })
+
+} 
+
 export {
   ACTIONS,
   loadCategoriesAction,
-  loadLastestBlogsAction,
-  loadPopularBlogsAction
+  loadPopularBlogsAction,
+  loadDetailBlogAction,
+  loadCommentsBlogAction
 }

@@ -47,6 +47,10 @@
   font-size: 15px;
 }
 
+.sidebar .category .parent-categories li {
+  margin: 20px 0px;
+}
+
 .sidebar .category .children-categories {
   margin-top: 10px;
   margin-left: 10px;

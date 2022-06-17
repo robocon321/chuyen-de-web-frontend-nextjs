@@ -1,110 +1,11 @@
-import React from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { Grid } from '@mui/material';
 import Image from 'next/image';
+import Moment from 'react-moment';
+import Link from 'next/link';
 
 import styles from './Sidebar.module.css';
-
-const categories = [
-  {
-    id: 0,
-    title: 'Bonsai',
-    count: 3,
-    parent: -1,
-  },
-  {
-    id: 1,
-    title: 'House Plants',
-    count: 6,
-    parent: -1,
-  },
-  {
-    id: 2,
-    title: 'Indoor Living',
-    count: 9,
-    parent: -1,
-  },
-  {
-    id: 3,
-    title: 'Outdoor Living',
-    count: 15,
-    parent: -1,
-  },
-  {
-    id: 4,
-    title: 'Perennial',
-    count: 5,
-    parent: -1,
-  },
-  {
-    id: 5,
-    title: 'Plant For Gift',
-    count: 5,
-    parent: -1
-  },
-  {
-    id: 6,
-    title: 'Garden Tools',
-    count: 5,
-    parent: -1
-  },
-  {
-    id: 7,
-    title: 'Saws',
-    count: 0,
-    parent: 6
-  },
-  {
-    id: 8,
-    title: 'Concrete Tools',
-    count: 6,
-    parent: 6
-  },
-  {
-    id: 9,
-    title: 'Drills',
-    count: 2,
-    parent: 6
-  },
-  {
-    id: 10,
-    title: 'Sandders',
-    count: 1,
-    parent: 6
-  },
-  {
-    id: 11,
-    title: 'Tools',
-    count: 15,
-    parent: -1
-  }
-];
-
-const posts = [
-  {
-    id: 0,
-    title: 'The biggest lie in plant',
-    time: 'APRIL 24, 2019',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/blog/blog-thumb-1-64x64.webp'
-  },
-  {
-    id: 1,
-    title: 'How to improve plant quality',
-    time: 'APRIL 24, 2019',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/blog/blog-thumb-2-64x64.webp'
-  },
-  {
-    id: 2,
-    title: '101 ideas for plant',
-    time: 'APRIL 24, 2019',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/blog/blog-thumb-3-64x64.webp'
-  },
-  {
-    id: 3,
-    title: 'No more mistakes',
-    time: 'APRIL 24, 2019',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/blog/blog-thumb-1-64x64.webp'
-  }
-]
+import { BlogDetailContext } from '../../../../contexts/providers/BlogDetailProvider';
 
 const comments = [
   {
@@ -133,40 +34,68 @@ const comments = [
   }
 ]
 
-const findChildrenElement = (id) => {
-  const children = categories.filter(item => item.parent === id);
-  return children.map(item => (
-    <li key={item.id}>
-      <a href='#'>{item.title} ({item.count})</a>
-      {
-        categories.filter(i => i.id === item.id).length > 0 && (
-        <ul key={item.id} className={styles['children-categories']}>
-          {findChildrenElement(item.id)}
-        </ul>
-      )}
-    </li>
-  ))
-}
-
 const Sidebar = (props) => {
+  const { blogState, router } = useContext(BlogDetailContext);
+  const [search, setSearch] = useState('');
+
+  
+  const findChildrenElement = (id) => {
+    const children = blogState.categories.filter(item => item.parent != null && item.parent.id === id);
+    return children.map(item => (
+      <li key={item.id}>
+        <a href='#'>{item.name} ({item.totalProduct})</a>
+        {
+          blogState.categories.filter(i => i.parent != null && i.parent.id === item.id).length > 0 && (
+          <ul key={item.id} className={styles['children-categories']}>
+            {findChildrenElement(item.id)}
+          </ul>
+        )}
+      </li>
+    ))
+  }
+
+  const onSearch = () => {
+    router.push("/blogs?search="+search);
+  }
+
+  const createQuery = (search, page, AND_taxomony) => {
+    const query = {};
+    if(search != null && search.length != 0) {
+      query['search'] = search;
+    }
+    if(page != null) {
+      query['page'] = page;      
+    }
+    if(AND_taxomony != null) {
+      query['AND_taxomony'] = AND_taxomony;
+    }
+    return query;
+  }
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.search}>
         <label>SEARCH</label>
         <div className={styles.searchbox}>
-          <input type='text' placeholder='Search'/>
-          <span><i className="fa-solid fa-magnifying-glass"></i></span>
+          <input type='text' placeholder='Search' onChange={(e) => {setSearch(e.target.value)}}/>
+          <span onClick={onSearch}><i className="fa-solid fa-magnifying-glass"></i></span>
         </div>
       </div>
       <div className={styles.category}>
         <h3>CATEGORIES</h3>
         <ul className={styles['parent-categories']}>
         {
-          categories.map(item => (
+          blogState.categories &&
+          blogState.categories.map(item => (          
           <li key={item.id}>
-            <a href='#'>{item.title} ({item.count})</a>
+            <Link href={
+              {
+                pathname: '/blogs',
+                query: createQuery(router.query.search, 0, item.id)
+              }
+            }><a>{item.name} ({item.totalPost})</a></Link>
             {
-              categories.filter(i => i.id === item.id).length > 0 && (
+              blogState.categories.filter(i => i.parent != null && i.parent.id === item.id).length > 0 && (
               <ul key={item.id} className={styles['children-categories']}>
                 {findChildrenElement(item.id)}
               </ul>
@@ -178,13 +107,13 @@ const Sidebar = (props) => {
       </div>
       <div className={styles.posts}>
         <h3>RECENT POSTS</h3>
-        {
-          posts.map((item, index) => (
+        { blogState.popularBlogs &&
+          blogState.popularBlogs.content.map((item, index) => (
             <a href='#' key={item.id} className={styles.post}>
               <Grid container spacing={2} columns={3}>
                 <Grid item xs={1}>                  
                   <Image
-                    src={item.image}
+                    src={item.thumbnail}
                     alt="Not found"
                     width={100}
                     height={100}                  
@@ -192,11 +121,13 @@ const Sidebar = (props) => {
                 </Grid>
                 <Grid item xs={2}>
                   <p className={styles.title}><b>{item.title}</b></p>
-                  <div className={styles.time}>{item.time}</div>
+                  <div className={styles.time}>
+                    <Moment date={item.modifiedTime} format="DD/MM/YYYY"  />
+                  </div>
                 </Grid>
               </Grid>
               {
-                index !== posts.length - 1  && <hr />
+                index !== blogState.popularBlogs.content.length - 1  && <hr />
               }
             </a>
           ))
@@ -222,7 +153,7 @@ const Sidebar = (props) => {
                 </Grid>
               </Grid>
               {
-                index !== posts.length - 1  && <hr />
+                index !== comments.length - 1  && <hr />
               }
             </a>
           ))

@@ -5,13 +5,6 @@ const initState = {
   lastestBlogs: null,
   popularBlogs: null,
   recentCommments: null,
-  conditions: {
-    search: '',
-    page: 0,
-    size: 10,
-    sort: 'modifiedTime__DESC',
-    filters: {}
-  },
   isLoading: false,
   message: '',
   success: false
@@ -49,12 +42,6 @@ const reducer = (state = initState, {type, payload}) => {
         popularBlogs: payload.data
       }
     break;
-    case ACTIONS.SET_CONDITIONS:
-      state = {
-        ...state,
-        conditions: payload
-      }
-      break;
   default: break;
   }
 
