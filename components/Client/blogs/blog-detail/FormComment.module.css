@@ -25,3 +25,8 @@
   border-color: var(--primary_color);
 }
 
+.form-reply {
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}

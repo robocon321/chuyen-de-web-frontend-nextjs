@@ -1,3 +1,4 @@
+import { FormControlLabel } from "@mui/material";
 import axios from "axios";
 import { handleError } from '../../utils/fn';
 
@@ -10,15 +11,12 @@ const ACTIONS = {
   SET_POPULARBLOGS: 'SET_POPULARBLOGS',
   SET_LASTESTCOMMENTS: 'SET_LASTESTCOMMENTS',
   SET_DETAILBLOGS: 'SET_DETAILBLOGS',
-  SET_COMMENTS: 'SET_COMMENTS'
+  SET_COMMENTS: 'SET_COMMENTS',
+  SET_FORM: 'SET_FORM',
+  ADD_COMMENT: 'ADD_COMMENT'
 }
 
 const loadCategoriesAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/taxomonies?OR_type=post`
@@ -34,19 +32,9 @@ const loadCategoriesAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
 }
 
 const loadPopularBlogsAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/posts?size=4&page=0&sort=totalComment__DESC`
@@ -62,20 +50,9 @@ const loadPopularBlogsAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
-  
 }
 
 const loadDetailBlogAction = (slug) => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/posts/${slug}`
@@ -91,20 +68,9 @@ const loadDetailBlogAction = (slug) => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
-
 }
 
 const loadCommentsBlogAction = (slug) =>  async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/comments?OR_post.slug=${slug}`
@@ -120,18 +86,61 @@ const loadCommentsBlogAction = (slug) =>  async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
+} 
+
+const setFormAction = (form) => async (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_FORM,
+    payload: {
+      form
+    }
+  })
+}
+
+const submitFormAction = (form) => async (dispatch) => {  
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: true
+  });
+
+  await axios({
+    method: 'POST',
+    data: form,
+    url: `${backendUrl}/comments`
+  }).then((response) => {
+    dispatch({
+      type: ACTIONS.ADD_COMMENT,
+      payload: {
+        data: response.data.data,
+        message: response.data.message,
+        success: response.data.success
+      }
+    })
+  }).catch((error) => {
+    handleError(error, dispatch, ACTIONS.SET_ERROR);
+  });
 
   dispatch({
     type: ACTIONS.SET_LOADING,
     payload: false
   })
+  
+}
 
-} 
+const setLoading = (isLoading) => async (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: isLoading
+  })
+}
 
 export {
   ACTIONS,
   loadCategoriesAction,
   loadPopularBlogsAction,
   loadDetailBlogAction,
-  loadCommentsBlogAction
+  loadCommentsBlogAction,
+  setFormAction,
+  submitFormAction,
+  setLoading
 }

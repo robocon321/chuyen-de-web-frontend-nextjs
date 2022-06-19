@@ -6,6 +6,7 @@ const initState = {
   popularBlogs: null,
   recentCommments: null,
   comments: null,
+  form: null,
   isLoading: false,
   message: "",
   success: false,
@@ -49,6 +50,20 @@ const reducer = (state = initState, { type, payload }) => {
         success: payload.success,
         message: payload.message,
         comments: payload.data,
+      };
+      break;
+    case ACTIONS.SET_FORM:
+      state = {
+        ...state,
+        form: payload.form
+      }
+      break;
+    case ACTIONS.ADD_COMMENT:
+      state = {
+        ...state,
+        success: payload.success,
+        message: payload.message,
+        comments: [...state.comments, payload.data]
       };
       break;
     default:

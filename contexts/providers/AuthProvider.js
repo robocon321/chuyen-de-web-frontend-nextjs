@@ -37,6 +37,7 @@ const AuthProvider = (props) => {
 
   const value  = {
     authState,
+    router,
     loginAccount,
     loginSocial,
     registerAccount,

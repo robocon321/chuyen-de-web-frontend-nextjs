@@ -5,7 +5,10 @@ import {
   loadCategoriesAction,
   loadDetailBlogAction,
   loadPopularBlogsAction,
-  loadCommentsBlogAction
+  loadCommentsBlogAction,
+  setFormAction,
+  setLoading,
+  submitFormAction
 } from '../actions/BlogDetailAction';
 
 const initState = {
@@ -14,6 +17,7 @@ const initState = {
   popularBlogs: null,
   recentCommments: null,
   comments: null,
+  form: null,
   isLoading: false,
   message: '',
   success: false
@@ -28,31 +32,60 @@ const BlogDetailProvider = (props) => {
   
   useEffect(() => {
     if(!router.isReady) return;    
-      loadCategories();
-      loadPopularBlogs();
-      loadDetailBlogs(query.slug);
-      loadCommentsBlog(query.slug);
+    loadData();
   }, [query]);
 
-  const loadCategories = () => {
-    loadCategoriesAction()(dispatch);
+  const loadData = async () => {
+    setLoading(true)(dispatch);
+    await loadCategories();
+    await loadPopularBlogs();
+    await loadDetailBlogs(query.slug);
+    await loadCommentsBlog(query.slug);
+    setLoading(false)(dispatch);
   }
 
-  const loadPopularBlogs = () => {
-    loadPopularBlogsAction()(dispatch);
+  const loadCategories = async () => {
+    await loadCategoriesAction()(dispatch);
   }
 
-  const loadDetailBlogs = (slug) => {
-    loadDetailBlogAction(slug)(dispatch);
+  const loadPopularBlogs = async () => {
+    await loadPopularBlogsAction()(dispatch);
   }
 
-  const loadCommentsBlog = (slug) => {
-    loadCommentsBlogAction(slug)(dispatch);
+  const loadDetailBlogs = async (slug) => {
+    await loadDetailBlogAction(slug)(dispatch);
+  }
+
+  const loadCommentsBlog = async (slug) => {
+    await loadCommentsBlogAction(slug)(dispatch);
+  }
+
+  const setForm = (form) => {
+    setFormAction(form)(dispatch);
+  }
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    const {form} = blogState;
+    if(!form) form = {};
+    if(!form.post) form.post = {};
+    form.post.id = blogState.detailBlog.id;
+
+    const content = document.getElementById("content");
+
+    if (!form.content || !form.content.length) {
+      content.reportValidity();
+      return;
+    }
+
+    submitFormAction(form)(dispatch);
   }
   
   const value  = {
     blogState,
-    router
+    router,
+    setForm,
+    submitForm
   };
 
   return (

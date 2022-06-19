@@ -4,6 +4,7 @@ import styles from './Input.module.css';
 const defaultFunc = () => {};
 
 const Input = ({
+  onClick=defaultFunc,
   onChange=defaultFunc,
   isRequire='false',
   title='',
@@ -12,7 +13,8 @@ const Input = ({
   type='text',
   arrayObj=[],
   valueObj='',
-  textInnerObj=''
+  textInnerObj='',
+  id
 }) => {
   const editorRef = useRef()
   const [editorLoaded, setEditorLoaded] = useState(false)
@@ -28,12 +30,13 @@ const Input = ({
   }, [])
 
 
-  const renderSwitch = () => {
+  const renderInput = () => {
     switch(type) {
       case 'textarea':
         return (
           <textarea 
-            require={isRequire}
+            id={id}
+            required={isRequire}
             name={name}
             placeholder={placeholder}
             onChange={onChange}
@@ -41,7 +44,7 @@ const Input = ({
         );
       case 'select':
         return (
-          <select name={name} require={isRequire} defaultValue='' onChange={onChange}>
+          <select name={name} required={isRequire} defaultValue='' onChange={onChange} id={id}>
             <option value='' disabled hidden>{placeholder}</option>
             {
               arrayObj.map((item, index) => (
@@ -62,8 +65,9 @@ const Input = ({
       default:
         return (
           <input
+            id={id}
             type={type}
-            require={isRequire} 
+            required={isRequire} 
             name={name}
             placeholder={placeholder}
             onChange={onChange}
@@ -73,9 +77,9 @@ const Input = ({
   }
 
   return (
-    <div className={(isRequire == 'true' ? styles.active + ' ' : '') + styles.input}>
+    <div onClick={onClick} className={(isRequire == 'true' ? styles.active + ' ' : '') + styles.input}>
       <label>{title}</label>
-      {renderSwitch()}
+      {renderInput()}
     </div>
   )
 }

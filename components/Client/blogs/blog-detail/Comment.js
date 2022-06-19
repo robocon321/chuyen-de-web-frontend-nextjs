@@ -8,7 +8,7 @@ import Moment from 'react-moment';
 
 
 const Comment = () => {
-  const { blogState } = useContext(BlogDetailContext); 
+  const { blogState, setForm } = useContext(BlogDetailContext); 
 
   const ItemComment = ({item}) => {
     return (
@@ -28,7 +28,10 @@ const Comment = () => {
                 <h5>{item.modifiedUser.fullname} {item.parent && <span>- Reply to: {item.parent.modifiedUser.fullname}</span>}</h5>
                 <div className={styles.time}><Moment date={item.modifiedTime} format="DD/MM/YYYY"  /></div>
               </div>
-              <button>Reply</button>
+              <button onClick={() => setForm({
+                ...blogState.form,
+                parent: item
+              })}>Reply</button>
             </div>
             <p>{item.content}</p>
           </Grid>

@@ -39,7 +39,6 @@ const Auth = (props) => {
   });
 
   useEffect(() => {
-    console.log(authState);
     if (authState.user && authState.user.roles.find(i => i.name == "CLIENT")) {
       router.push("/");
     }
