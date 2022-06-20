@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import styles from "./SellerAndRelated.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import Link from 'next/link';
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
 
@@ -54,7 +54,8 @@ const SellerAndRelated = (props) => {
                     />
                     <div className={styles["info"]}>
                       <div className={styles["title"]}>
-                        <a href="">{item.post.title}</a>
+                      <Link href={`/shop/${item.post.slug}`}>
+                        <a href="">{item.post.title}</a></Link>
                       </div>
                       <Rating rating={item.post.averageRating} />
                       <div className={styles["cart"]}>

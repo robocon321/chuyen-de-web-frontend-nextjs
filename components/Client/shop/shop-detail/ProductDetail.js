@@ -1,33 +1,14 @@
-import React,{useState} from 'react';
+import React,{ useState, useContext, useEffect} from 'react';
 import Image from 'next/image';
 import styles from './ProductDetail.module.css';
 import { Grid } from '@mui/material';
 import { Swiper,SwiperSlide } from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
 import Input from '../../../common/Input';
+import { useRouter } from 'next/router';
+import { ShopContext } from "../../../../contexts/providers/ShopProvider";
+import Rating from "../../../common/Rating";
 
-const listImgs= [
-    {
-        id:0,
-        image:'medium1.webp',
-    },
-    {
-        id:1,
-        image:'medium5.webp',
-    },
-    {
-        id:2,
-        image:'medium6.webp',
-    },
-    {
-        id:3,
-        image:'medium1.webp',
-    },
-    {
-        id:4,
-        image:'medium1.webp',
-    }
-]
 const listRatiting = [
     {
         id:0,
@@ -60,8 +41,39 @@ const listRatiting = [
         content:'Enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli'
     },
 ]
-const ProductDetail = props =>{
-   const[quantity,setQuantity] = useState(1);
+
+const ProductDetail = (props) =>{
+    const{shopState,loadProductDetail,loadPostDetail} = useContext(ShopContext)
+    const router = useRouter();
+    const {slug} = router.query;
+    const product = shopState.productDetail
+    const post = shopState.postDetail
+    const listImgs = []
+    const [imageSelected,setImageSelected]=useState();
+    const[quantity,setQuantity] = useState(1);
+  const onChangeMainImage = (image) => {
+    setImageSelected(image);
+    // console.log(imageSelected)
+  }
+    // console.log(post.thumbnail)
+    
+    useEffect(() => {
+        if(!router.isReady) return;
+        loadDetail(slug)
+        }, [router.isReady,post.thumbnail]);
+    const loadDetail=(s)=>{
+        loadProductDetail(s)
+        loadPostDetail(s)
+    }
+    if(post.thumbnail===undefined){
+
+    }else{
+        listImgs= post.galleryImage.split(",")
+        //  onChangeMainImage(post.thumbnail);
+    }
+    // post.thumbnail===undefined?null:(listImgs= post.galleryImage.split(","))
+    // console.log(listImgs)
+ 
 
    const change =(num)=>{
     const a = document.getElementById('description');
@@ -84,12 +96,7 @@ const ProductDetail = props =>{
         rev.style.color = '#000';
     }
    }
-  
-  const [imageSelected, setImageSelected] = useState("medium1.webp");
-
-  const onChangeMainImage = (image) => {
-    setImageSelected(image);
-  }
+   
   const numstar = (num)=>{
       return(<span className={styles['numStar']}>
           <i className="fa-solid fa-star"></i>
@@ -100,18 +107,20 @@ const ProductDetail = props =>{
           <span>({num})</span>
       </span>)
   }
+  
     return(
-        <div className={styles.container}>  
+      <div className={styles.container}> 
         <Grid container spacing={2}>
            <Grid item xs={12} md={6}>
                <div  >
-               <Image
+               {post.thumbnail===undefined?null:<Image
                className={styles['image-zoom']}
-                src={'/'+imageSelected}
+                src={imageSelected==null?post.thumbnail:imageSelected}
                 alt='Not found'
                 width={600}
                 height={540}
-               />
+               />}
+               
                </div>
                 <Swiper
                     className='swiper'
@@ -131,12 +140,12 @@ const ProductDetail = props =>{
                     }}
                 >
                     {
-                        listImgs.map(item=>(
-                            <SwiperSlide className={styles['swiper-slide']} key={item.id}>
-                                <div className={[imageSelected === item.id && styles['more']]} style={{width: '120px', height: '120px', position: 'relative'}} >
+                        listImgs.map((item,index)=>(
+                            <SwiperSlide className={styles['swiper-slide']} key={index}>
+                                <div className={'more'} style={{width: '120px', height: '120px', position: 'relative'}} >
                                  <Image
-                                        onClick={()=>onChangeMainImage(item.image)}
-                                        src={'/'+item.image}
+                                        onClick={()=>onChangeMainImage(item)}
+                                        src={item}
                                         alt="Not found"
                                         layout='fill'
                                     />
@@ -151,21 +160,25 @@ const ProductDetail = props =>{
            <Grid item xs={12} md={6}>
                     <div className={styles['info-product']}>
                         <div className={styles['tag']}>Tags,Plant,Garden</div>
-                        <div className={styles['title']}>Lorem ipsum indoor plants</div>
+                        <div className={styles['title']}>{post.title}</div>
                         <div className={styles['ratting']}>
-                            <span className={styles['star-ratting']}>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            </span>
+                        <Rating rating={post.averageRating} />
                             <span className={styles['numReview']}>(1 Review)</span>
                             <a href="#">Write A Review</a>
                         </div>
                         <div className={styles['price']}>
-                            <span className={styles['new-price']}>$100.00</span>
-                            <span className={styles['old-price']}>$120.00</span>
+                            <span className={styles['new-price']}>
+                            {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(product.minPrice)}
+                            </span>
+                            <span className={styles['old-price']}>
+                            {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(product.maxPrice)}
+                            </span>
                         </div>
                         <div className={styles['more']}>    
                             <div>Ex Tax: <span className={styles['text-pri']}>$95.00</span></div>
@@ -175,17 +188,15 @@ const ProductDetail = props =>{
                         </div>
                         <hr />
                         <div className={styles['about']}>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas consectetur</p>
-                        <p>inventore voluptatem dignissimos nemo repellendus est, harum maiores</p>
-                        <p>veritatis quidem.</p>
+                        <p>{post.description}</p>
                         </div>
                         <hr />
                         <div className={styles['quantity']}>
                             <span className={styles['qty-text']}>Qty</span>
                             <div className={styles['inc-dev']}>
-                                <input type="text" value={quantity}/>
+                                <input type="text" defaultValue={quantity}/>
                                 <button  className={styles['inc-btn']} onClick={()=>setQuantity(quantity+1)}>+</button>
-                                <button className={styles['dev-btn']} onClick={()=>setQuantity(quantity-1)}>-</button>
+                                <button className={styles['dev-btn']} onClick={()=>quantity!=0?setQuantity(quantity-1):quantity}>-</button>
                             </div>
                             <button className={styles['add-cart']}>+ Add to cart</button>
                         </div>
@@ -243,7 +254,8 @@ const ProductDetail = props =>{
                             </div>
                         </div>
 
-                    </div>
+                    </div>                   
+            
            </Grid>
        </Grid>
        <div className={styles['description-review']}>
@@ -253,13 +265,7 @@ const ProductDetail = props =>{
            </nav>
            <hr />
            <div className={styles['description']} id="description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare</p>
-                <p>lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-                <br />
-                <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa</p>
-                <p>massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur</p>
-                <p>adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et,</p>
-                <p>luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>   
+           {post.description}
            </div>
            <div className={styles['review']} id="review">
                 <div className={styles['ratting']}>

@@ -1,114 +1,30 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from 'next/image';
-import Reac, {useState} from "react";
+import React, {useState, useContext,useEffect } from "react";
 import { Grid } from '@mui/material';
 import styles from './ListProduct.module.css'
-const products = [
-    {
-        id:0,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:1,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'20',
-        available:'Out of stock'
-    },
-    {
-        id:2,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:3,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:4,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:5,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:6,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:7,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    {
-        id:8,
-        title: 'Cillum dolore garden tools',
-        description:'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis autem consequuntur tempora magnam possimus sunt.',
-        numStart: 4,
-        newPrice: '100.00',
-        oldPrice: '120.00',
-        image:'https://template.hasthemes.com/alula/alula/assets/img/products/medium2.webp',
-        sale:'10',
-        available:'Out of stock'
-    },
-    
-]
+import { ShopContext } from "../../../contexts/providers/ShopProvider";
+import Rating from "../../common/Rating";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const ListProduct = props =>{
+    const{shopState,loadProduct4} = useContext(ShopContext)
+    //router
+    const router = useRouter();
     const [numCol, setNumCol] = useState(4);
-    
+    const shop = shopState.data;
+    //load product page
+    const currentPage = shopState.infoPages.number;
+    const totalPages = shopState.infoPages.totalPages;
+    const arrNum = Array.from(Array(totalPages),(_,index)=>index+1)
+    const [size,setSize] = useState(12);
+    useEffect(() => {
+        loadPage(currentPage,size);
+    }, []);
+    const loadPage=(num,size)=>{
+        loadProduct4(num,size)
+    }
+    // console.log(shop[1].post.id)
     const changeNum = (num) =>  {
         setNumCol(num);
         var gridDis = num;
@@ -151,10 +67,14 @@ const ListProduct = props =>{
                     <div className={styles['dis-list']}>List</div>
                 </span>
                 </div>
-                <span>Showing 1 to 9 of 15 (2 Pages)</span>
+                <span>Showing 1 to {shopState.infoPages.size} of {shopState.infoPages.totalElements} ({totalPages} Pages)</span>
                 <div className={styles['show']}>
                 <span>Show:</span>
-                <select name="nums" id="nums">
+                <select name="nums" id="nums"  onChange={(e)=>{
+                    loadPage(currentPage,e.target.value)
+                    setSize(e.target.value) 
+                    window.scrollTo(0, 0);                
+                    }}>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
@@ -174,51 +94,65 @@ const ListProduct = props =>{
             <div className={styles['list']} id="grid">
             <Grid container columns={12}>
                 <div className={styles['list-row']}>
-                    {
-                        products.map(item =>{
+                    {shop &&
+                        shop.map((item) =>{
                             return(
                                 <Grid item key={item.id} xs={5} md={numCol}>
                                 <div key={item.id} id="item" className={styles['item']}>
                                     <Image
-                                        className={styles['img']}
-                                        src="/medium5.webp"
+                                        className=""
+                                        src={item.post.thumbnail}
                                         alt="Not found"
                                         width={300}
                                         height={300}
                                 
                                     />
-                                    <div className={styles['info']}>
-                                    <div className={styles['title']} >
-                                        <a href="" >{item.title}</a>
-                                    </div>
-                                    <div className={styles['ratting']}>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                    </div>
-                                    <div className={styles['cart']}>
-                                        <a href="">
-                                        <i className="fas fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                    <div className={styles['price']}>
-                                        <span className={styles['new-price']}>${item.newPrice}</span>
-                                        <span className={styles['old-price']}>${item.oldPrice}</span>
-                                    </div>
-                                </div>
-                                <div className={styles['sale-off']}>
-                                    -{item.sale}%
-                                </div>
-                                <div className={styles['option']}>
-                                    <a className={styles['icon-eye','icon']}>
-                                        <i className="fas fa-eye"></i>
-                                    </a>
-                                    <a className={styles['icon-heart','icon']}>
-                                        <i className="fas fa-heart"></i>
-                                    </a>
-                                </div>
+                                    <div className={styles["info"]}>
+                      <div className={styles["title"]}>
+                        <Link href={{ pathname: '/shop/[slug]', query: { slug: item.post.slug}, } }>
+                        <a href="">{item.post.title}</a></Link>
+                      </div>
+                      <Rating rating={item.post.averageRating} />
+                      <div className={styles["cart"]}>
+                        <a href="">
+                          <i className="fas fa-shopping-cart"></i>
+                        </a>
+                      </div>
+                      <div className={styles["price"]}>
+                        <span className={styles["new-price"]}>
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(item.minPrice)}
+                        </span>
+                        <span className={styles["old-price"]}>
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(item.maxPrice)}
+                        </span>
+                      </div>
+                    </div>
+                    {Math.round(
+                      ((item.maxPrice - item.minPrice) * 100) / item.maxPrice
+                    ) != 0 && (
+                      <div className={styles["sale-off"]}>
+                        -
+                        {Math.round(
+                          ((item.maxPrice - item.minPrice) * 100) /
+                            item.maxPrice
+                        )}
+                        %
+                      </div>
+                    )}
+                    <div className={styles["option"]}>
+                      <a className={styles[("icon-eye", "icon")]}>
+                        <i className="fas fa-eye"></i>
+                      </a>
+                      <a className={styles[("icon-heart", "icon")]}>
+                        <i className="fas fa-heart"></i>
+                      </a>
+                    </div>
                                 </div>
                             </Grid>
                             )
@@ -230,48 +164,61 @@ const ListProduct = props =>{
             </div>
             <div className={styles['list-product']} id="list">
                 {
-                    products.map(item=>{
+                    shop.map(item=>{
                         return(
                             <Grid key={item.id} container>
                             <div  className={styles['list-item']}>
                                 <Grid item xs={5} sm={5} md={3} >
                                 <Image
                                         className={styles['item-img']}
-                                        src="/medium5.webp"
+                                        src={item.post.thumbnail}
                                         alt="Not found"
                                         width={350}
                                         height={350}
                                 
                                     />
-                                    <div className={styles['item-sale-off']}>
-                                        -{item.sale}%
-                                    </div>
+                                    {Math.round(
+                                    ((item.maxPrice - item.minPrice) * 100) / item.maxPrice
+                                        ) != 0 && (
+                                    <div className={styles["item-sale-off"]}>
+                                        -
+                                        {Math.round(
+                                        ((item.maxPrice - item.minPrice) * 100) /
+                                          item.maxPrice
+                                       )}
+                                       %
+                                     </div>
+                                    )}
                                     </Grid>
                                     <Grid item xs={7} md={9} className={styles['info-tran']}>
                                     <div className={styles['item-info']}>
                                     <div className={styles['item-title']} >
-                                        <a href="" >{item.title}</a>
+                                        <a href="" >{item.post.title}</a>
                                     </div>
-                                    <div className={styles['item-ratting']}>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                    </div>
+                                    <Rating rating={item.post.averageRating} />
                                     <div className={styles['item-description']}>
-                                        <span>{item.description}</span>
+                                        <span>{item.post.description}</span>
                                     </div>
                                     
                                 </div>
                                 <div className={styles['tran']}>
                                     <div className={styles['available']}>
                                         <span>Available:</span>
-                                        <span className={styles['available-text']}>{item.available}</span>
+                                        <span className={styles['available-text']}></span>
                                     </div>
                                     <div className={styles['item-price']}>
-                                        <span className={styles['item-new-price']}>${item.newPrice}</span>
-                                        <span className={styles['item-old-price']}>${item.oldPrice}</span>
+                                        <span className={styles['item-new-price']}>
+                                            {new Intl.NumberFormat("vi-VN", {
+                                              style: "currency",
+                                              currency: "VND",
+                                            }).format(item.minPrice)}
+                                    </span>
+                                        <span className={styles['item-old-price']}>
+                                        {new Intl.NumberFormat("vi-VN", {
+                                          style: "currency",
+                                          currency: "VND",
+                                        }).format(item.maxPrice)}
+                                        </span>
                                     </div>
                                     <div className={styles['btn-addcart']}>
                                         <button>Add to cart</button>
@@ -285,9 +232,10 @@ const ListProduct = props =>{
                                         </a>
                                         </div>
                                 </div>
-                               
+                                
                                 </Grid>
                             </div>
+                            
                             </Grid>
                         )
                     })
@@ -296,13 +244,33 @@ const ListProduct = props =>{
             </div>
             <div className={styles['list-num']}>
                 <div className={styles['page-num']}>
-                <a className={styles['page-btn-choose']}>1</a>
-                <a className={styles['page-btn']}>2</a>
-                <a className={styles['page-next']}><i className="fa-solid fa-chevron-right"></i></a>
-                <a className={styles['page-end']}><i className="fa-solid fa-chevron-right"><span>|</span></i></a>
+                    {
+                        currentPage>0?(<a className={styles['page-prev']} onClick={()=>{currentPage--
+                            loadPage(currentPage,size);
+                            window.scrollTo(0, 0);
+                           
+                        }}><i className="fa-solid fa-chevron-left"></i></a>): (<a></a>)
+                    }
+                    {
+                        arrNum.map(item=>{
+                            if(item!=(shopState.infoPages.number+1)){
+                            return(
+                            <a className={styles['page-btn']} key={item} onClick={()=>{loadPage(item-1,size); window.scrollTo(0, 0);}}>{item}</a>
+                            )}else{
+                                return(<a className={styles['page-btn-choose']} key={item} >{item}</a>)
+                            }
+                               
+                            
+                        })
+                    }
+                    {currentPage!=(totalPages-1)?(<a className={styles['page-next']} onClick={()=>{currentPage++
+                    loadPage(currentPage,size);
+                    window.scrollTo(0, 0);
+                }}><i className="fa-solid fa-chevron-right"></i></a>):(<a></a>)}
+                <a className={styles['page-end']}><i className="fa-solid fa-chevron-right" onClick={()=>{loadPage(totalPages-1,size); window.scrollTo(0, 0);}}><span>|</span></i></a>
                 </div>
                 <div className={styles['page-text']}>
-                    <span>Showing 1 to 9 of 15 (2 Pages)</span>
+                    <span>Showing 1 to {shopState.infoPages.size} of {shopState.infoPages.totalElements} ({totalPages} Pages)</span>
                 </div>
             </div>
         </div>

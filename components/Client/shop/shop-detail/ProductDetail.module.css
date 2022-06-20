@@ -85,6 +85,16 @@
 .about {
     padding: 20px 10px;
     font-size: 14px;
+   
+}
+.about p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    height: 75px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 
 .quantity {
@@ -141,6 +151,7 @@
 }
 
 .add-cart {
+    padding: 10px 20px;
     margin-left: 20px;
     width: 250px;
     background-color: var(--primary_color);

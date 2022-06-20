@@ -1,15 +1,14 @@
 import React from 'react'
-import Router, { useRouter } from 'next/router';
-import Header from '../../components/Client/Header';
-import Footer from '../../components/Client/Footer';
+
 import ShopDetail from '../../components/Client/shop/shop-detail/index';
+import ShopProvider from '../../contexts/providers/ShopProvider'
 const ProductDetailPage = () => {
     // const router = useRouter();
   return (
     <>
-   
+   <ShopProvider>
       <ShopDetail/>
-    
+      </ShopProvider>
     </>
   )
 }
