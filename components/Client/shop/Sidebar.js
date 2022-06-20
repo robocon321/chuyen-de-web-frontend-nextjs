@@ -1,83 +1,86 @@
 import { Slider } from '@mui/material';
-import React, {useState} from 'react';
+import React, {useState,useContext,useEffect} from 'react';
 import Image from 'next/image';
-
+import Moment from 'react-moment';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from './Sidebar.module.css';
+import { ShopContext } from "../../../contexts/providers/ShopProvider";
 
-const categories = [
-  {
-    id: 0,
-    title: 'Bonsai',
-    count: 3,
-    parent: -1,
-  },
-  {
-    id: 1,
-    title: 'House Plants',
-    count: 6,
-    parent: -1,
-  },
-  {
-    id: 2,
-    title: 'Indoor Living',
-    count: 9,
-    parent: -1,
-  },
-  {
-    id: 3,
-    title: 'Outdoor Living',
-    count: 15,
-    parent: -1,
-  },
-  {
-    id: 4,
-    title: 'Perennial',
-    count: 5,
-    parent: -1,
-  },
-  {
-    id: 5,
-    title: 'Plant For Gift',
-    count: 5,
-    parent: -1
-  },
-  {
-    id: 6,
-    title: 'Garden Tools',
-    count: 5,
-    parent: -1
-  },
-  {
-    id: 7,
-    title: 'Saws',
-    count: 0,
-    parent: 6
-  },
-  {
-    id: 8,
-    title: 'Concrete Tools',
-    count: 6,
-    parent: 6
-  },
-  {
-    id: 9,
-    title: 'Drills',
-    count: 2,
-    parent: 6
-  },
-  {
-    id: 10,
-    title: 'Sandders',
-    count: 1,
-    parent: 6
-  },
-  {
-    id: 11,
-    title: 'Tools',
-    count: 15,
-    parent: -1
-  }
-];
+// const categories = [
+//   {
+//     id: 0,
+//     title: 'Bonsai',
+//     count: 3,
+//     parent: -1,
+//   },
+//   {
+//     id: 1,
+//     title: 'House Plants',
+//     count: 6,
+//     parent: -1,
+//   },
+//   {
+//     id: 2,
+//     title: 'Indoor Living',
+//     count: 9,
+//     parent: -1,
+//   },
+//   {
+//     id: 3,
+//     title: 'Outdoor Living',
+//     count: 15,
+//     parent: -1,
+//   },
+//   {
+//     id: 4,
+//     title: 'Perennial',
+//     count: 5,
+//     parent: -1,
+//   },
+//   {
+//     id: 5,
+//     title: 'Plant For Gift',
+//     count: 5,
+//     parent: -1
+//   },
+//   {
+//     id: 6,
+//     title: 'Garden Tools',
+//     count: 5,
+//     parent: -1
+//   },
+//   {
+//     id: 7,
+//     title: 'Saws',
+//     count: 0,
+//     parent: 6
+//   },
+//   {
+//     id: 8,
+//     title: 'Concrete Tools',
+//     count: 6,
+//     parent: 6
+//   },
+//   {
+//     id: 9,
+//     title: 'Drills',
+//     count: 2,
+//     parent: 6
+//   },
+//   {
+//     id: 10,
+//     title: 'Sandders',
+//     count: 1,
+//     parent: 6
+//   },
+//   {
+//     id: 11,
+//     title: 'Tools',
+//     count: 15,
+//     parent: -1
+//   }
+// ];
 
 const manufacturers = [
   {
@@ -109,23 +112,49 @@ const manufacturers = [
 
 const minDistance = 10;
 
-const findChildrenElement = (id) => {
-  const children = categories.filter(item => item.parent === id);
-  return children.map(item => (
-    <li key={item.id}>
-      <a href='#'>{item.title} ({item.count})</a>
-      {
-        categories.filter(i => i.id === item.id).length > 0 && (
-        <ul key={item.id} className={styles['children-categories']}>
-          {findChildrenElement(item.id)}
-        </ul>
-      )}
-    </li>
-  ))
-}
 
 const Sidebar = props => {
+  const {shopState,loadCategories} = useContext(ShopContext)
   const [rangePrice, setRangePrice] = useState([0, 1000]);
+  const router = useRouter();
+  useEffect(() => {
+    if(!router.isReady) return;
+    loadCategoriesPage()
+    
+  }, [router.isReady]);
+  const loadCategoriesPage = ()=>{
+    loadCategories()
+  }
+  // console.log(shopState.categories)
+  const findChildrenElement = (id) => {
+    // if(shopState.categories){
+    const children = shopState.categories.filter(item => item.parent === id);
+    return children.map(item => (
+      <li key={item.id}>
+        <a href='#'>{item.name} ({item.totalProduct})</a>
+        {
+          blogState.categories.filter(i => i.parent != null && i.parent.id === item.id).length > 0 && (
+          <ul key={item.id} className={styles['children-categories']}>
+            {findChildrenElement(item.id)}
+          </ul>
+        )}
+      </li>
+    ))
+  // }
+  }
+  const createQuery = (search, page, AND_taxomony) => {
+    const query = {};
+    if(search != null && search.length != 0) {
+      query['search'] = search;
+    }
+    if(page != null) {
+      query['page'] = page;      
+    }
+    if(AND_taxomony != null) {
+      query['AND_taxomony'] = AND_taxomony;
+    }
+    return query;
+  }
 
   const onChangeRangePrice = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -145,12 +174,17 @@ const Sidebar = props => {
       <div className={styles.category}>
         <h2>CATEGORIES</h2>
         <ul className={styles['parent-categories']}>
-        {
-          categories.map(item => (
-          <li key={item.id}>
-            <a href='#'>{item.title} ({item.count})</a>
+        {shopState.categories===null?null:
+          shopState.categories.map(item => (
+            <li key={item.id}>
+            <Link href={
+              {
+                pathname: '/shop',
+                query: createQuery(router.query.search, 0, item.id)
+              }
+            }><a>{item.name} ({item.totalPost})</a></Link>
             {
-              categories.filter(i => i.id === item.id).length > 0 && (
+              shopState.categories.filter(i => i.parent != null && i.parent.id === item.id).length > 0 && (
               <ul key={item.id} className={styles['children-categories']}>
                 {findChildrenElement(item.id)}
               </ul>

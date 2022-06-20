@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useContext } from "react";
 import styles from "./NewProduct.module.css";
-
+import Link from 'next/link';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Grid } from "swiper";
 
@@ -77,7 +77,8 @@ const NewProduct = (props) => {
                       />
                       <div className={styles["newProduct-info"]}>
                         <div className={styles["newProduct-title"]}>
-                          <a href="">{item.post.title}</a>
+                          <Link href={`/shop/${item.post.slug}`}>
+                          <a href="">{item.post.title}</a></Link>
                         </div>
                         <Rating rating={item.post.averageRating} />
                         <div className={styles["newProduct-cart"]}>
