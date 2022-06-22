@@ -13,11 +13,6 @@ const ACTIONS = {
 }
 
 const loadCategoriesAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/taxomonies?OR_type=post`
@@ -33,19 +28,9 @@ const loadCategoriesAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
 }
 
 const loadLastestBlogsAction = (search, page, size, sort, filters) => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-  
   await axios({
     method: 'GET',
     url: `${backendUrl}/posts`,
@@ -64,20 +49,9 @@ const loadLastestBlogsAction = (search, page, size, sort, filters) => async (dis
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
-
 }
 
 const loadPopularBlogsAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/posts?size=4&page=0&sort=totalComment__DESC`
@@ -93,16 +67,18 @@ const loadPopularBlogsAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
+}
 
+const setLoading = (isLoading) => async (dispatch) => {
   dispatch({
     type: ACTIONS.SET_LOADING,
-    payload: false
+    payload: isLoading
   })
-  
 }
 
 export {
   ACTIONS,
+  setLoading,
   loadCategoriesAction,
   loadLastestBlogsAction,
   loadPopularBlogsAction

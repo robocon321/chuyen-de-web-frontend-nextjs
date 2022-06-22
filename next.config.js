@@ -6,7 +6,8 @@ const nextConfig = {
     domains: [
       'template.hasthemes.com', 
       'www.ecommerce-admin.com',
-      'dummyimage.com'
+      'dummyimage.com',
+      'firebasestorage.googleapis.com'
     ]
   },
   env: {

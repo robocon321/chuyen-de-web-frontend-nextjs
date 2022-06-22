@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import HomeReducer from '../reducers/HomeReducer';
 import {
   ACTIONS,
+  setLoading,
   loadNewProductsAction,
   loadBestSellerProductsAction,
   loadTodayProductsAction,
@@ -14,7 +15,7 @@ const initState = {
   todayProducts: [],
   bestSellerProducts: [],
   lastestBlogs: [],
-  isLoading: false,
+  isLoading: true,
   message: '',
   success: false
 }
@@ -26,26 +27,32 @@ const HomeProvider = (props) => {
   const [homeState, dispatch] = useReducer(HomeReducer, initState);
 
   useEffect(() => {
-    loadNewProducts();
-    loadBestSellerProducts();
-    loadTodayProducts();
-    loadLastestBlogs();
+    loadData();
   }, []);
+
+  const loadData = async () => {
+    await setLoading(true)(dispatch);
+    await loadNewProducts();
+    await loadBestSellerProducts();
+    await loadTodayProducts();
+    await loadLastestBlogs();
+    await setLoading(false)(dispatch);
+  }
   
-  const loadNewProducts = () => {
-    loadNewProductsAction()(dispatch);
+  const loadNewProducts = async () => {
+    await loadNewProductsAction()(dispatch);
   }
 
-  const loadBestSellerProducts = () => {
-    loadBestSellerProductsAction()(dispatch);
+  const loadBestSellerProducts = async () => {
+    await loadBestSellerProductsAction()(dispatch);
   }
 
-  const loadTodayProducts = () => {
-    loadTodayProductsAction()(dispatch);
+  const loadTodayProducts = async () => {
+    await loadTodayProductsAction()(dispatch);
   }
 
-  const loadLastestBlogs = () => {
-    loadLastestBlogsAction()(dispatch);
+  const loadLastestBlogs = async () => {
+    await loadLastestBlogsAction()(dispatch);
   }
 
   const value  = {

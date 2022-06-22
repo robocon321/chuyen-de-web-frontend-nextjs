@@ -13,6 +13,7 @@ const Input = ({
   type='text',
   arrayObj=[],
   valueObj='',
+  defaultValue='',
   textInnerObj='',
   id
 }) => {
@@ -70,6 +71,7 @@ const Input = ({
             required={isRequire} 
             name={name}
             placeholder={placeholder}
+            value={defaultValue}
             onChange={onChange}
           />
         )

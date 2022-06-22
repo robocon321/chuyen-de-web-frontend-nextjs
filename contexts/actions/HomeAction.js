@@ -14,11 +14,6 @@ const ACTIONS = {
 }
 
 const loadNewProductsAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/products?size=16&page=0&sort=post.modifiedTime__DESC`
@@ -34,19 +29,9 @@ const loadNewProductsAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
 }
 
 const loadBestSellerProductsAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/products?size=16&page=0&sort=totalSales__DESC`
@@ -62,20 +47,9 @@ const loadBestSellerProductsAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
-
 }
 
 const loadTodayProductsAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/products?size=16&page=0`
@@ -91,20 +65,9 @@ const loadTodayProductsAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  })
-
 }
 
 const loadLastestBlogsAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true
-  });
-
   await axios({
     method: 'GET',
     url: `${backendUrl}/posts?size=16&page=0&sort=modifiedTime__DESC`
@@ -120,12 +83,13 @@ const loadLastestBlogsAction = () => async (dispatch) => {
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);
   });
+}
 
+const setLoading = (isLoading) => async (dispatch) => {
   dispatch({
     type: ACTIONS.SET_LOADING,
-    payload: false
+    payload: isLoading
   })
-
 }
 
 export {
@@ -133,5 +97,6 @@ export {
   loadNewProductsAction,
   loadBestSellerProductsAction,
   loadTodayProductsAction,
-  loadLastestBlogsAction
+  loadLastestBlogsAction,
+  setLoading
 }

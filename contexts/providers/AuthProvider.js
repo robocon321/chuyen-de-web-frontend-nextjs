@@ -4,7 +4,7 @@ import AuthReducer from '../reducers/AuthReducer';
 import { loadAccountAction, loginAccountAction, loginSocialAction, registerAccountAction, registerSocialAction } from '../actions/AuthAction';
 
 const initState = {
-  isLoading: false,
+  isLoading: true,
   user: null,
   error: null
 }

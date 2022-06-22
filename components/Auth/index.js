@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useRouter } from "next/router";
 import styles from "./index.module.css";
 import { AuthContext } from "../../contexts/providers/AuthProvider";
 import { app } from "../../utils/firebase";
@@ -19,13 +18,13 @@ const fbProvider = new FacebookAuthProvider();
 
 const Auth = (props) => {
   const {
+    router,
     loginAccount,
     registerAccount,
     registerSocial,
     loginSocial,
     authState,
   } = useContext(AuthContext);
-  const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [loginAccountForm, setLoginAccountForm] = useState({
     username: "",
@@ -50,6 +49,14 @@ const Auth = (props) => {
       router.push("/admin");
     }
   }, [authState]);
+
+  useEffect(() => {
+    if(router.query && router.query.action == 'login') {
+      setIsSignUp(false);
+    } else {
+      setIsSignUp(true);
+    }
+  }, [router.query]);
 
   const signUpWithGmail = () =>
     signInWithPopup(auth, ggProvider)

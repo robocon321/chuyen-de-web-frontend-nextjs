@@ -2,6 +2,7 @@ import React, {useReducer, createContext, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import BlogReducer from '../reducers/BlogReducer';
 import {
+  setLoading,
   loadCategoriesAction,
   loadLastestBlogsAction,
   loadPopularBlogsAction
@@ -12,7 +13,7 @@ const initState = {
   lastestBlogs: null,
   popularBlogs: null,
   recentCommments: null,
-  isLoading: false,
+  isLoading: true,
   message: '',
   success: false
 }
@@ -25,6 +26,10 @@ const BlogProvider = (props) => {
   const [blogState, dispatch] = useReducer(BlogReducer, initState);
 
   useEffect(() => {
+    loadData();
+  }, [router.query]);
+
+  const loadData = async () => {        
     if(!router.isReady) return;
         let search = '';
         let page = 0;
@@ -43,22 +48,23 @@ const BlogProvider = (props) => {
 
         filters = {...query};
         console.log(router);
-        
-        loadCategories();
-        loadPopularBlogs();
-        loadLastestBlogs(search, page, size, sort, filters);
-  }, [router.query]);
-
-  const loadCategories = () => {
-    loadCategoriesAction()(dispatch);
+        await setLoading(true)(dispatch);
+        await loadCategories();
+        await loadPopularBlogs();
+        await loadLastestBlogs(search, page, size, sort, filters);
+        await setLoading(false)(dispatch);
   }
 
-  const loadPopularBlogs = () => {
-    loadPopularBlogsAction()(dispatch);
+  const loadCategories = async () => {
+    await loadCategoriesAction()(dispatch);
   }
 
-  const loadLastestBlogs = (search, page, size, sort, filters) => {
-    loadLastestBlogsAction(search, page, size, sort, filters)(dispatch);
+  const loadPopularBlogs = async () => {
+    await loadPopularBlogsAction()(dispatch);
+  }
+
+  const loadLastestBlogs = async (search, page, size, sort, filters) => {
+    await loadLastestBlogsAction(search, page, size, sort, filters)(dispatch);
   }
   
   const value  = {

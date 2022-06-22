@@ -7,7 +7,7 @@ const initState = {
   recentCommments: null,
   comments: null,
   form: null,
-  isLoading: false,
+  isLoading: true,
   message: "",
   success: false,
 };

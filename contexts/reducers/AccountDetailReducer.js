@@ -1,12 +1,13 @@
-import { ACTIONS } from "../actions/AuthAction";
+import { ACTIONS } from "../actions/AccountDetailAction";
 
 const initState = {
   isLoading: true,
   user: null,
+  userAccount: null,
   error: null
 }
 
-const reducer = (state, {type, payload}) => {
+const reducer = (state = initState, {type, payload}) => {
   switch(type) {
     case (ACTIONS.SET_LOADING):
       state = {
@@ -24,12 +25,15 @@ const reducer = (state, {type, payload}) => {
     case (ACTIONS.SET_ERROR):
       state = {
         ...state,
-        error: payload,
-        user: null
+        error: payload
       }
       break;
-    case (ACTIONS.RESET):
-      state = {...initState};
+    case (ACTIONS.SET_USER_ACCOUNT):
+      state = {
+        ...state,
+        error: null,
+        userAccount: payload
+      }
       break;
     default:
       break;
