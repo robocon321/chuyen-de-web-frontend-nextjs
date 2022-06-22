@@ -1,14 +1,19 @@
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Breadcrumb from '../../common/Breadcrumb';
 import Sidebar from './Sidebar';
 import BlogList from './BlogList';
 import Pagination from './Pagination';
+import Loading from '../../common/Loading';
+import { BlogContext } from '../../../contexts/providers/BlogProvider';
 
 const Index = props => {
+  const { blogState, router } = useContext(BlogContext);
+
   return (
-    <>
+    <main>
+      <Loading isLoading={blogState.isLoading} />
       <Container>
         <Breadcrumb links={['Home', 'Blog']}/>
       </Container>
@@ -35,7 +40,7 @@ const Index = props => {
         </Grid>
       </Container>
       <hr />
-    </>
+    </main>
   )
 }
 

@@ -5,7 +5,7 @@ const initState = {
   lastestBlogs: null,
   popularBlogs: null,
   recentCommments: null,
-  isLoading: false,
+  isLoading: true,
   message: '',
   success: false
 }

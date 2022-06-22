@@ -5,7 +5,7 @@ const initState = {
   todayProducts: [],
   bestSellerProducts: [],
   lastestBlogs: [],
-  isLoading: false,
+  isLoading: true,
   message: '',
   success: false
 }

@@ -14,14 +14,8 @@ const Index = (props) => {
   const { blogState } = useContext(BlogDetailContext);
 
   return (
-    <>
-      <Modal
-        open={blogState.isLoading}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-          <Loading />
-      </Modal>
+    <main>
+      <Loading isLoading={blogState.isLoading} />
       <Container>
         <Breadcrumb links={["Home", "Blog"]} />
       </Container>
@@ -52,7 +46,7 @@ const Index = (props) => {
         </Grid>
       </Container>
       <hr />
-    </>
+    </main>
   );
 };
 

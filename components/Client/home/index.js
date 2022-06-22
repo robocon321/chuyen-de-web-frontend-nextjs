@@ -1,6 +1,10 @@
 import { Container } from '@mui/material';
+import React, { useContext } from 'react';
+
+import { HomeContext } from '../../../contexts/providers/HomeProvider';
+import Loading from "../../common/Loading";
+
 import MainBanner from './MainBanner';
-import React from 'react';
 import SubBanner from './SubBanner';
 import Feature from './Feature';
 import TodayDeal from './TodayDeal';
@@ -11,9 +15,11 @@ import Discover from './Discover';
 import SellerAndRelated from './SellerAndRelated';
 
 const Home = (props) => {
+  const { homeState } = useContext(HomeContext);
 
   return (
     <main>
+      <Loading isLoading={homeState.isLoading} />
       <Container>
         <MainBanner />
         <SubBanner />
@@ -27,8 +33,6 @@ const Home = (props) => {
         <LatestBlog />
         <hr />
         <SponorSubscribe />
-
-
       </Container>
     </main>
   )
