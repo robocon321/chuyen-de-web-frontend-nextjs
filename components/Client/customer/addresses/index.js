@@ -1,23 +1,30 @@
-import React, {useState} from 'react'
-import { Container, Grid } from '@mui/material';
+import React, { useContext, useState } from "react";
+import { Container, Grid, Modal } from "@mui/material";
 
-import styles from './index.module.css';
-import Breadcrumb from '../../../common/Breadcrumb';
-import Sidebar from '../Sidebar';
-import Address from './Address';
-import ModelAddress from './ModelAddress';
+import styles from "./index.module.css";
+import Breadcrumb from "../../../common/Breadcrumb";
+import Sidebar from "../Sidebar";
+import Address from "./Address";
+import ModalAddress from "./ModalAddress";
+import Loading from "../../../common/Loading";
+import { AddressesContext } from "../../../../contexts/providers/AddressesProvider";
 
 const Index = (props) => {
-  const [visible, setVisible] = useState(false);
-  
-  const toggleModel = () => {
-    setVisible(!visible);
-  } 
+  const { router, addressesState, user } = useContext(AddressesContext);
+
+  if (addressesState.isLoading) {
+    return <Loading isLoading={true} />;
+  }
+
+  if (!user && !addressesState.isLoading) {
+    router.push("/auth");
+    return <div></div>;
+  }
 
   return (
     <div className={styles.contact}>
       <Container>
-        <Breadcrumb links={['Home', 'Addresses']}/>
+        <Breadcrumb links={["Home", "Addresses"]} />
       </Container>
       <hr />
       <Container>
@@ -26,16 +33,14 @@ const Index = (props) => {
             <Sidebar />
           </Grid>
           <Grid item xs={12} md={9}>
-            <Address toggleModel={toggleModel} />
-            {
-              visible && <ModelAddress toggleModel={toggleModel} />
-            }
+            <Address />
+            {addressesState.visible && <ModalAddress />}
           </Grid>
         </Grid>
       </Container>
       <hr />
-    </div>  
-  )
-}
+    </div>
+  );
+};
 
 export default Index;

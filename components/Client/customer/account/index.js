@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Container, Grid } from '@mui/material';
 
 import styles from './index.module.css';
 import Breadcrumb from '../../../common/Breadcrumb';
 import Sidebar from '../Sidebar';
 import AccountDetail from './AccountDetail';
+import Loading from '../../../common/Loading';
+import { AccountDetailContext } from '../../../../contexts/providers/AccountDetailProvider';
 
 const Index = (props) => {
+  const { accountDetailState, router } = useContext(AccountDetailContext);
+  const { user } = accountDetailState;
+
+  if (accountDetailState.isLoading) {
+    return (
+      <Loading isLoading={true} />
+    );
+  }
+
+  if (!user && !accountDetailState.isLoading) {
+    router.push("/auth");
+    return <div></div>;
+  }
+
+
   return (
     <div className={styles.contact}>
       <Container>
