@@ -62,7 +62,7 @@ const changeUserAccountAction = (userAccount) => async (dispatch) => {
   });
 }
 
-const changeLoading = (isLoading) => async (dispatch) => {
+const setLoadingAction = (isLoading) => async (dispatch) => {
   await dispatch({
     type: ACTIONS.SET_LOADING,
     payload: isLoading
@@ -75,6 +75,6 @@ export {
   updateUserAccountAction,
   changeUserAction,
   changeUserAccountAction,
-  changeLoading,
+  setLoadingAction,
   setErrorAction
 }

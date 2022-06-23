@@ -7,7 +7,7 @@ import {
   updateUserAccountAction,
   changeUserAction,
   changeUserAccountAction,
-  changeLoading,
+  setLoadingAction,
   setErrorAction
 } from "../actions/AccountDetailAction";
 import { AuthContext } from "./AuthProvider";
@@ -30,14 +30,16 @@ const AccountDetailProvider = (props) => {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
+    console.log(authState);
+    if (!authState.isLoading) {
+      setLoading(false);
+    }
+
     if (authState.user) {
       loadData();
     }
-  }, [authState.user]);
+  }, [authState]);
 
-  useEffect(() => {
-    console.log(accountDetailState);
-  }, [accountDetailState]);
 
   const loadData = async () => {
     await changeUserAction(authState.user)(dispatch);
@@ -47,7 +49,7 @@ const AccountDetailProvider = (props) => {
         id: authState.user.id
       }
     })(dispatch);
-    await changeLoading(false)(dispatch);
+    setLoading(false);
   };
 
   const updateAccount = (user) => {
@@ -76,17 +78,28 @@ const AccountDetailProvider = (props) => {
   };
 
   const submitForm = async (e) => {
-    await changeLoading(true)(dispatch);
+    await setLoading(true);
     await updateUserAction(accountDetailState.user)(dispatch);
     if(accountDetailState.userAccount.password != accountDetailState.userAccount.re_password) {
       setError('Your password and re-password not match');
+      setLoading(false);
+      return;
+    }    
+    if(accountDetailState.userAccount.password == null || accountDetailState.userAccount.password.length == 0) {
+      await setLoading(false);
+      return;
+    } else {
+      await updateUserAccountAction(accountDetailState.userAccount)(dispatch);
+      await setLoading(false);
     }
-    await updateUserAccountAction(accountDetailState.userAccount)(dispatch);
-    await changeLoading(false)(dispatch);
   };
 
-  const setError = (error) => {
-    setErrorAction(error)(dispatch);
+  const setError = async (error) => {
+    await setErrorAction(error)(dispatch);
+  }
+
+  const setLoading = async (isLoading) => {
+    await setLoadingAction(isLoading)(dispatch);
   }
 
   const value = {

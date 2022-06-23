@@ -64,7 +64,7 @@ const LatestBlog = (props) => {
                 </div>
                 <h3>{item.title}</h3>
                 <p>
-                  by <b>{item.modifiedUser.fullname}</b> 
+                  by <b>{item.modifiedUser ? item.modifiedUser.fullname : 'Invalid'}</b> 
                   <span>
                     <Moment fromNow>{modTime}</Moment>                    
                   </span>

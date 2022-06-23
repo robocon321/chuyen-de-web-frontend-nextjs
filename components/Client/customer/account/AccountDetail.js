@@ -12,7 +12,6 @@ import {
 import styles from "./AccountDetail.module.css";
 import Input from "../../../common/Input";
 import { AccountDetailContext } from "../../../../contexts/providers/AccountDetailProvider";
-import Loading from "../../../common/Loading";
 import Notification from "../../../common/Notification";
 
 const storage = getStorage(app);
@@ -20,7 +19,6 @@ const storage = getStorage(app);
 const AccountDetail = (props) => {
   const {
     accountDetailState,
-    router,
     onChangeUserField,
     onChangeUserImage,
     onChangeUserAccountField,
@@ -60,23 +58,6 @@ const AccountDetail = (props) => {
       }
     );
   };
-
-  if (accountDetailState.isLoading) {
-    return (
-      <Modal
-        open={true}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <Loading />
-      </Modal>
-    );
-  }
-
-  if (!user && !accountDetailState.isLoading) {
-    router.push("/auth");
-    return <div></div>;
-  }
 
   return (
     <div className={styles["account-detail"]}>

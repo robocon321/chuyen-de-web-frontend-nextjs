@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import styles from './ModelAddress.module.css';
+import styles from './ModalAddress.module.css';
 import Input from '../../../common/Input';
-import {SHIPPING_TOKEN} from '../../../../constant/env' 
+
+const SHIPPING_TOKEN = process.env.SHIPPING_TOKEN;
 
 axios.defaults.baseURL = 'https://online-gateway.ghn.vn/shiip/public-api';
 axios.defaults.headers.common['token'] = SHIPPING_TOKEN;
