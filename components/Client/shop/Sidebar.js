@@ -114,17 +114,18 @@ const minDistance = 10;
 
 
 const Sidebar = props => {
-  const {shopState,loadCategories} = useContext(ShopContext)
+  const {shopState,router} = useContext(ShopContext)
   const [rangePrice, setRangePrice] = useState([0, 1000]);
-  const router = useRouter();
-  useEffect(() => {
-    if(!router.isReady) return;
-    loadCategoriesPage()
+  const [search, setSearch] = useState('');
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if(!router.isReady) return;
+  //   loadCategoriesPage()
     
-  }, [router.isReady]);
-  const loadCategoriesPage = ()=>{
-    loadCategories()
-  }
+  // }, [router.isReady]);
+  // const loadCategoriesPage = ()=>{
+  //   loadCategories()
+  // }
   // console.log(shopState.categories)
   const findChildrenElement = (id) => {
     // if(shopState.categories){
@@ -142,6 +143,9 @@ const Sidebar = props => {
     ))
   // }
   }
+  // const onSearch = () => {
+  //   router.push("/blogs?search="+search);
+  // }
   const createQuery = (search, page, AND_taxomony) => {
     const query = {};
     if(search != null && search.length != 0) {
@@ -176,13 +180,13 @@ const Sidebar = props => {
         <ul className={styles['parent-categories']}>
         {shopState.categories===null?null:
           shopState.categories.map(item => (
-            <li key={item.id}>
+            <li className={styles['item-slidebar']} key={item.id}>
             <Link href={
               {
                 pathname: '/shop',
                 query: createQuery(router.query.search, 0, item.id)
               }
-            }><a>{item.name} ({item.totalPost})</a></Link>
+            }><a >{item.name} ({item.totalPost})</a></Link>
             {
               shopState.categories.filter(i => i.parent != null && i.parent.id === item.id).length > 0 && (
               <ul key={item.id} className={styles['children-categories']}>

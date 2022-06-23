@@ -14,14 +14,17 @@ const ACTIONS = {
     SET_ERROR: 'SET_ERROR'
 }
 
-const loadPRODUCTS4Action =(numPage,size)=> async (dispatch)=>{
+const loadPRODUCTS4Action =(search, page, size, sort, filters)=> async (dispatch)=>{
     dispatch({
         type: ACTIONS.SET_LOADING,
         playload:true
     })
     await axios({
         method:'GET',
-        url:`${backendUrl}/products?size=${size}&page=${numPage}`,
+        url:`${backendUrl}/products`,
+        params: {
+          search, page, size, sort, ...filters
+        }
     }).then((response)=>{
         dispatch({
             type: ACTIONS.SET_PRODUCTS4,
@@ -101,7 +104,7 @@ const loadCategoriesAction = () => async (dispatch) => {
   
     await axios({
       method: 'GET',
-      url: `${backendUrl}/taxomonies?OR_type=post`
+      url: `${backendUrl}/taxomonies?OR_type=product`
     }).then((response) => {
       dispatch({
         type: ACTIONS.SET_CATEGORIES,

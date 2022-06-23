@@ -25,11 +25,36 @@ export const ShopContext = createContext();
 
 const ShopProvider = (props)=>{
     const router = useRouter();
+    const query = {...router.query};
     const [shopState,dispatch] = useReducer(ShopReducer,initState);
 
+    useEffect(() => {
+        if(!router.isReady) return;
+            let search = '';
+            let page = 0;
+            let size = 10;
+            let sort = 'post.modifiedTime__DESC';
+            let filters = {};
+        
+            if(query.search != null) search = query.search;
+            delete query.search;
+            if(query.page != null) page = query.page;
+            delete query.page;
+            if(query.size != null) size = query.size;
+            delete query.size;
+            if(query.sort != null) sort = query.sort;
+            delete query.sort;
+    
+            filters = {...query};
+            console.log(router);
+            
+            loadCategories();
+            // loadPopularBlogs();
+            loadProduct4(search, page, size, sort, filters);
+      }, [router.query]);
 
-    const loadProduct4=(num,size)=>{
-        loadPRODUCTS4Action(num,size)(dispatch)
+    const loadProduct4=(search, page, size, sort, filters)=>{
+        loadPRODUCTS4Action(search, page, size, sort, filters)(dispatch)
     }
     const loadProductDetail=(slug)=>{
         loadProductDetailAction(slug)(dispatch)
@@ -43,10 +68,11 @@ const ShopProvider = (props)=>{
    
     const value = {
         shopState,
-        loadProduct4,
+        router,
+        // loadProduct4,
         loadProductDetail,
         loadPostDetail,
-        loadCategories
+        // loadCategories
     }
     return(
         <ShopContext.Provider value={value}>
