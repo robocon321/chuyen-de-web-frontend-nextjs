@@ -14,10 +14,6 @@ export const AuthContext = createContext();
 const AuthProvider = (props) => {
   const router = useRouter();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
-
-  useEffect(() => {
-    console.log(authState);
-  }, [authState]);
   
   const loginAccount = (data) => {
     loginAccountAction(data)(dispatch);

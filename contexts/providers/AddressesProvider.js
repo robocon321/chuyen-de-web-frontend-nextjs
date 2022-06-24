@@ -33,11 +33,6 @@ const AddressesProvider = (props) => {
     }
   }, [authState]);
 
-  useEffect(() => {
-    console.log(addressesState);
-  }, [addressesState]);
-
-
   const loadData = async () => {
     await setLoading(true);
     await loadAddresses();

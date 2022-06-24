@@ -47,7 +47,9 @@ const AccountDetailProvider = (props) => {
       ...accountDetailState.userAccount,
       user: {
         id: authState.user.id
-      }
+      },
+      password: '',
+      re_password: ''
     })(dispatch);
     setLoading(false);
   };
@@ -80,15 +82,17 @@ const AccountDetailProvider = (props) => {
   const submitForm = async (e) => {
     await setLoading(true);
     await updateUserAction(accountDetailState.user)(dispatch);
-    if(accountDetailState.userAccount.password != accountDetailState.userAccount.re_password) {
-      setError('Your password and re-password not match');
-      setLoading(false);
-      return;
-    }    
-    if(accountDetailState.userAccount.password == null || accountDetailState.userAccount.password.length == 0) {
+    if(
+      accountDetailState.userAccount.password.trim() == '' && accountDetailState.userAccount.re_password.trim() == ''
+    ) {
       await setLoading(false);
       return;
     } else {
+      if(accountDetailState.userAccount.password != accountDetailState.userAccount.re_password) {
+        setError('Your password and re-password not match');
+        setLoading(false);
+        return;
+      }
       await updateUserAccountAction(accountDetailState.userAccount)(dispatch);
       await setLoading(false);
     }

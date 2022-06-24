@@ -16,7 +16,6 @@ const updateUserAction = (user) => async (dispatch) => {
     url: `${backendUrl}/users`,
     data: user
   }).then((response) => {
-    console.log(response);
     dispatch({
       type: ACTIONS.SET_USER,
       payload: response.data.data
