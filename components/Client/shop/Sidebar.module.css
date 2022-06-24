@@ -59,7 +59,9 @@
     display: flex;
     justify-content: space-between;
 }
-
+.item-slidebar{
+    margin-top: 15px;
+}
 .banner {
     margin: 40px 10px;
 }
