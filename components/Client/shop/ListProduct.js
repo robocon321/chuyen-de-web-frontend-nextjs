@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const ListProduct = props =>{
-    const{shopState,loadProduct4} = useContext(ShopContext)
+    const{shopState} = useContext(ShopContext)
     //router
     const router = useRouter();
     const [numCol, setNumCol] = useState(4);
@@ -18,13 +18,14 @@ const ListProduct = props =>{
     const totalPages = shopState.infoPages.totalPages;
     const arrNum = Array.from(Array(totalPages),(_,index)=>index+1)
     const [size,setSize] = useState(12);
-    useEffect(() => {
-        loadPage(currentPage,size);
-    }, []);
-    const loadPage=(num,size)=>{
-        loadProduct4(num,size)
-    }
-    // console.log(shop[1].post.id)
+    console.log(shopState)
+    // useEffect(() => {
+    //     loadPage(currentPage,size);
+    // }, []);
+    // const loadPage=(num,size)=>{
+    //     loadProduct4(num,size)
+    // }
+
     const changeNum = (num) =>  {
         setNumCol(num);
         var gridDis = num;
@@ -42,6 +43,22 @@ const ListProduct = props =>{
             b.style.display='block';
         }
     };
+    const createQuery = (search, page,size, AND_taxomony) => {
+        const query = {};
+        if(search != null && search.length != 0) {
+          query['search'] = search;
+        }
+        if(size != null) {
+            query['size'] = size;      
+          }
+        if(page != null) {
+          query['page'] = page;      
+        }
+        if(AND_taxomony != null) {
+          query['AND_taxomony'] = AND_taxomony;
+        }
+        return query;
+      }
 
     return(
         <div className={styles.display}>
@@ -71,9 +88,12 @@ const ListProduct = props =>{
                 <div className={styles['show']}>
                 <span>Show:</span>
                 <select name="nums" id="nums"  onChange={(e)=>{
-                    loadPage(currentPage,e.target.value)
-                    setSize(e.target.value) 
-                    window.scrollTo(0, 0);                
+                    <Link  href={
+                        {
+                          pathname: '/shop',
+                          query: createQuery(router.query.search, currentPage ,e, router.query.AND_taxomony)
+                        }
+                      }></Link>              
                     }}>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -245,29 +265,58 @@ const ListProduct = props =>{
             <div className={styles['list-num']}>
                 <div className={styles['page-num']}>
                     {
-                        currentPage>0?(<a className={styles['page-prev']} onClick={()=>{currentPage--
-                            loadPage(currentPage,size);
-                            window.scrollTo(0, 0);
-                           
-                        }}><i className="fa-solid fa-chevron-left"></i></a>): (<a></a>)
+                        currentPage>0?(
+                    
+                            <Link  href={
+                                {
+                                  pathname: '/shop',
+                                  query: createQuery(router.query.search, currentPage = shopState.infoPages.number-1,10, router.query.AND_taxomony)
+                                }
+                              }>
+                        <a className={styles['page-prev']} >
+                            <i className="fa-solid fa-chevron-left"></i></a></Link>): (<a></a>)
                     }
                     {
                         arrNum.map(item=>{
                             if(item!=(shopState.infoPages.number+1)){
                             return(
-                            <a className={styles['page-btn']} key={item} onClick={()=>{loadPage(item-1,size); window.scrollTo(0, 0);}}>{item}</a>
+                                <Link key={item} href={
+                                    {
+                                      pathname: '/shop',
+                                      query: createQuery(router.query.search, item-1,10, router.query.AND_taxomony)
+                                    }
+                                  }>
+                            <a className={styles['page-btn']} key={item} >{item}</a></Link>
                             )}else{
-                                return(<a className={styles['page-btn-choose']} key={item} >{item}</a>)
+                                return(
+                                    <Link key={item} href={
+                                        {
+                                          pathname: '/shop',
+                                          query: createQuery(router.query.search, item-1,10, router.query.AND_taxomony)
+                                        }
+                                      }>
+                                    <a className={styles['page-btn-choose']}  >{item}</a>
+                                </Link>)
                             }
                                
                             
                         })
                     }
-                    {currentPage!=(totalPages-1)?(<a className={styles['page-next']} onClick={()=>{currentPage++
-                    loadPage(currentPage,size);
-                    window.scrollTo(0, 0);
-                }}><i className="fa-solid fa-chevron-right"></i></a>):(<a></a>)}
-                <a className={styles['page-end']}><i className="fa-solid fa-chevron-right" onClick={()=>{loadPage(totalPages-1,size); window.scrollTo(0, 0);}}><span>|</span></i></a>
+                    {currentPage<(totalPages-2)?(
+                    <Link  href={
+                        {
+                          pathname: '/shop',
+                          query: createQuery(router.query.search, currentPage = shopState.infoPages.number+1,10, router.query.AND_taxomony)
+                        }
+                      }>
+                    <a className={styles['page-next']} ><i className="fa-solid fa-chevron-right"></i></a></Link>):(<a></a>)}
+                    {currentPage<(totalPages-2)?<Link  href={
+                        {
+                          pathname: '/shop',
+                          query: createQuery(router.query.search, currentPage = totalPages-1, 10,router.query.AND_taxomony)
+                        }
+                      }>
+                <a className={styles['page-end']}><i className="fa-solid fa-chevron-right" ><span>|</span></i></a></Link>:null}
                 </div>
                 <div className={styles['page-text']}>
                     <span>Showing 1 to {shopState.infoPages.size} of {shopState.infoPages.totalElements} ({totalPages} Pages)</span>
