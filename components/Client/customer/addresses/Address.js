@@ -12,11 +12,6 @@ axios.defaults.headers.common['token'] = SHIPPING_TOKEN;
 const Address = (props) => {
   const { setVisibleModal, setSelected, addressesState } = useContext(AddressesContext);
 
-  useEffect(() => {
-    console.log(addressesState.addresses[0]);
-  }, [addressesState]);
-
-
   return (
     <div className={styles["container-address"]}>
       <div className={styles.row}>
