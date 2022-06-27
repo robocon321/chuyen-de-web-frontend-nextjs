@@ -37,17 +37,19 @@ const Input = ({
         return (
           <textarea 
             id={id}
-            required={isRequire}
+            required={isRequire == 'true'}
             name={name}
             placeholder={placeholder}
             onChange={onChange}
-          />
+            defaultValue={defaultValue}
+          ></textarea>
         );
       case 'select':
         return (
-          <select name={name} required={isRequire} defaultValue='' onChange={onChange} id={id}>
+          <select name={name} required={isRequire == 'true'} onChange={onChange} id={id} defaultValue={defaultValue}>
             <option value='' disabled hidden>{placeholder}</option>
             {
+              arrayObj != null &&
               arrayObj.map((item, index) => (
                 <option key={index} value={item[valueObj]}>{item[textInnerObj]}</option>
               ))
@@ -68,7 +70,7 @@ const Input = ({
           <input
             id={id}
             type={type}
-            required={isRequire} 
+            required={isRequire == 'true'}
             name={name}
             placeholder={placeholder}
             value={defaultValue}
