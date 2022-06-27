@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 
 import { AddressesContext } from "../../../../contexts/providers/AddressesProvider";
@@ -16,15 +16,20 @@ const Address = (props) => {
     <div className={styles["container-address"]}>
       <div className={styles.row}>
         <h1>Sổ địa chỉ</h1>
-        <button onClick={setVisibleModal}>Thêm địa chỉ</button>
+        <button onClick={
+          () => {
+            setSelected(-1);
+            setVisibleModal(true);
+        }
+        }>Thêm địa chỉ</button>
       </div>
       <div className={styles.addresses}>
         {addressesState.addresses.map((item, index) => (
           <div className={styles.address} key={item.id}>
             <div className={styles.row}>
               <p>
-                <b>{item.fullName}</b>{" "}
-                {item.status && (
+                <b>{item.fullname}</b>{" "}
+                {index == 0 && (
                   <span>
                     <i className="fa-regular fa-circle-check"></i> Địa chỉ mặc
                     định
@@ -34,7 +39,7 @@ const Address = (props) => {
               <a
                 onClick={() => {
                   setSelected(index);
-                  setVisibleModal();
+                  setVisibleModal(true);
                 }}
                 href="#"
               >

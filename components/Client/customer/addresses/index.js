@@ -2,16 +2,19 @@ import React, { useContext, useState } from "react";
 import { Container, Grid, Modal } from "@mui/material";
 
 import styles from "./index.module.css";
+
 import Breadcrumb from "../../../common/Breadcrumb";
 import Sidebar from "../Sidebar";
 import Address from "./Address";
 import ModalAddress from "./ModalAddress";
 import Loading from "../../../common/Loading";
+import Notification from "../../../common/Notification";
+
 import { AddressesContext } from "../../../../contexts/providers/AddressesProvider";
 
 const Index = (props) => {
-  const { router, addressesState, user } = useContext(AddressesContext);
-
+  const { router, addressesState, user, setError } = useContext(AddressesContext);
+  
   if (addressesState.isLoading) {
     return <Loading isLoading={true} />;
   }
@@ -23,6 +26,13 @@ const Index = (props) => {
 
   return (
     <div className={styles.contact}>
+      <Notification
+        title="Error"
+        content={addressesState.error}
+        open={addressesState.error != null}
+        onClose={() => setError(null)}
+      />
+
       <Container>
         <Breadcrumb links={["Home", "Addresses"]} />
       </Container>
@@ -34,7 +44,7 @@ const Index = (props) => {
           </Grid>
           <Grid item xs={12} md={9}>
             <Address />
-            {addressesState.visible && <ModalAddress />}
+            <ModalAddress />
           </Grid>
         </Grid>
       </Container>
