@@ -48,7 +48,7 @@ const Header = (props) => {
                       <a><i className="fa-solid fa-star"></i> My wishlist</a>
                     </Link>
                     <hr />
-                    <Link href="#">
+                    <Link href="/blog-favorite">
                       <a><i className="fa-regular fa-heart"></i> My favorite blog</a>
                     </Link>
                     <hr />
