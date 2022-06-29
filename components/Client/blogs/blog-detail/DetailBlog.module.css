@@ -97,3 +97,8 @@
   color: white;
 }
 
+.detail-blog .heart {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}

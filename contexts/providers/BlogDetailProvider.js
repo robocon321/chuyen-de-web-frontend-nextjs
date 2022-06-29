@@ -7,8 +7,12 @@ import {
   loadPopularBlogsAction,
   loadCommentsBlogAction,
   setFormAction,
-  setLoading,
-  submitFormAction
+  setLoadingAction,
+  submitFormAction,
+  loadFavoriteBlogAction,
+  deleteFavoriteAction,
+  addFavoriteAction,
+  setErrorAction
 } from '../actions/BlogDetailAction';
 
 const initState = {
@@ -16,11 +20,13 @@ const initState = {
   detailBlog: null,
   popularBlogs: null,
   recentCommments: null,
+  favorites: null,
   comments: null,
   form: null,
   isLoading: true,
   message: '',
-  success: false
+  success: false,
+  error: null
 }
 
 export const BlogDetailContext = createContext();
@@ -36,12 +42,13 @@ const BlogDetailProvider = (props) => {
   }, [query]);
 
   const loadData = async () => {
-    setLoading(true)(dispatch);
+    setLoading(true);
     await loadCategories();
     await loadPopularBlogs();
     await loadDetailBlogs(query.slug);
     await loadCommentsBlog(query.slug);
-    setLoading(false)(dispatch);
+    await loadFavoriteBlog();
+    setLoading(false);
   }
 
   const loadCategories = async () => {
@@ -64,6 +71,27 @@ const BlogDetailProvider = (props) => {
     setFormAction(form)(dispatch);
   }
 
+  const loadFavoriteBlog = async () => {
+    await loadFavoriteBlogAction()(dispatch);
+  }
+
+  const deleteFavorite = async (id) => {
+    if(id) {
+      setLoading(true);
+      await deleteFavoriteAction(id)(dispatch);
+      setLoading(false);  
+    } else {
+      setError('Your favorite not found');
+    }
+  }
+
+  const addFavorite = async (id) => {
+    setLoading(true);
+    await addFavoriteAction(id)(dispatch);
+    setLoading(false);
+  }
+
+
   const submitForm = (e) => {
     e.preventDefault();
     const {form} = blogState;
@@ -80,12 +108,23 @@ const BlogDetailProvider = (props) => {
 
     submitFormAction(form)(dispatch);
   }
+
+  const setError = (error) => {
+    setErrorAction(error)(dispatch);
+  }
+
+  const setLoading = (isLoading) => {
+    setLoadingAction(isLoading)(dispatch);
+  }
   
   const value  = {
     blogState,
     router,
     setForm,
-    submitForm
+    submitForm,
+    addFavorite,
+    deleteFavorite,
+    setError
   };
 
   return (
