@@ -108,10 +108,15 @@
 
 .icon {
     padding: 8px 5px;
+    cursor: pointer;
 }
 
 .newProduct-item:hover .newProduct-option {
     display: flex;
+}
+
+.newProduct-item .active {
+    color: red;
 }
 
 @keyframes fadeIn {

@@ -7,7 +7,13 @@ import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
 
 const SellerAndRelated = (props) => {
-  const { homeState } = useContext(HomeContext);
+  const {
+    homeState,
+    addFavorite,
+    deleteFavorite,
+    includeFavoritePost,
+    findFavoriteIdByPostId,
+  } = useContext(HomeContext);
 
   return (
     <div className={styles.seller}>
@@ -94,9 +100,21 @@ const SellerAndRelated = (props) => {
                       <a className={styles[("icon-eye", "icon")]}>
                         <i className="fas fa-eye"></i>
                       </a>
-                      <a className={styles[("icon-heart", "icon")]}>
-                        <i className="fas fa-heart"></i>
-                      </a>
+                      {includeFavoritePost(item.post.id) ? (
+                          <a
+                            className={`${styles["active"]} ${styles["icon"]}`}
+                            onClick={() => deleteFavorite(findFavoriteIdByPostId(item.post.id))}
+                          >
+                            <i className="fas fa-heart"></i>
+                          </a>
+                        ) : (
+                          <a
+                            className={styles.icon}
+                            onClick={() => addFavorite(item.post.id)}
+                          >
+                            <i className="fas fa-heart"></i>
+                          </a>
+                        )}
                     </div>
                   </div>
                 </SwiperSlide>

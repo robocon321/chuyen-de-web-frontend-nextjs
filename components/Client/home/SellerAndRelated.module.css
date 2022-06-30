@@ -101,6 +101,10 @@
     padding: 8px 5px;
 }
 
+.option .active {
+    color: red;
+}
+
 .item:hover .option {
     display: flex;
 }

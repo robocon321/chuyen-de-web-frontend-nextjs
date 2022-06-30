@@ -2,12 +2,12 @@ import React, { useReducer, createContext, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 import {
-  loadFavoriteBlogAction,
+  loadFavoriteProductAction,
   setLoadingAction,
   setErrorAction,
-  deleteFavoriteAction,
-} from "../actions/FavoriteBlogAction";
-import FavoriteBlogReducer from "../reducers/FavoriteBlogReducer";
+  deleteFavoriteAction
+} from "../actions/WishlistAction";
+import WishlistReducer from "../reducers/WishlistReducer";
 import { AuthContext } from "./AuthProvider";
 
 const initState = {
@@ -18,62 +18,63 @@ const initState = {
   error: "",
 };
 
-export const FavoriteBlogContext = createContext();
+export const WishlistContext = createContext();
 
-const FavoriteBlogProvider = (props) => {
+const WishlistProvider = (props) => {
   const router = useRouter();
-  const [favoriteBlogState, dispatch] = useReducer(
-    FavoriteBlogReducer,
+  const [favoriteProductState, dispatch] = useReducer(
+    WishlistReducer,
     initState
   );
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    if (authState.user) {
-      loadData();
+    if(authState.user) {
+      loadData();        
     }
   }, [authState]);
 
+  useEffect(() => {
+    console.log(favoriteProductState);
+  }, [favoriteProductState]);
+
   const loadData = async () => {
     setLoading(true);
-    if (!authState.isLoading && authState.user) {
-      await loadFavoriteBlog();
-    }
+    await loadFavoriteProduct();
     setLoading(false);
-  };
+  }
 
   const setLoading = (isLoading) => {
     setLoadingAction(isLoading)(dispatch);
-  };
+  }
 
   const setError = (error) => {
     setErrorAction(error)(dispatch);
-  };
+  }
 
-  const loadFavoriteBlog = async () => {
-    await loadFavoriteBlogAction()(dispatch);
-  };
+  const loadFavoriteProduct = async () => {
+    await loadFavoriteProductAction()(dispatch);
+  }
 
   const deleteFavorite = async (id) => {
     setLoading(true);
     await deleteFavoriteAction(id)(dispatch);
     setLoading(false);
-  };
+  }
 
   const value = {
     router,
-    favoriteBlogState,
+    favoriteProductState,
     setLoading,
     setError,
-    loadFavoriteBlog,
-    deleteFavorite,
+    deleteFavorite
   };
 
   return (
-    <FavoriteBlogContext.Provider value={value}>
+    <WishlistContext.Provider value={value}>
       {props.children}
-    </FavoriteBlogContext.Provider>
+    </WishlistContext.Provider>
   );
 };
 
-export default FavoriteBlogProvider;
+export default WishlistProvider;

@@ -7,7 +7,7 @@ import { Container } from "@mui/material";
 import { AuthContext } from "../../contexts/providers/AuthProvider";
 
 const Header = (props) => {
-  const { authState } = useContext(AuthContext);
+  const { authState, logout } = useContext(AuthContext);
 
   return (
     <header>
@@ -52,9 +52,9 @@ const Header = (props) => {
                       <a><i className="fa-regular fa-heart"></i> My favorite blog</a>
                     </Link>
                     <hr />
-                    <Link href="#">
-                      <a><i className="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
-                    </Link>
+                    <div onClick={logout}>
+                      <a href="#"><i className="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+                    </div>
                   </div>
                 </div>
               ) : (

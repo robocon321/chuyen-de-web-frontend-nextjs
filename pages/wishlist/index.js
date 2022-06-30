@@ -1,10 +1,13 @@
 import React from 'react';
 
-import WishList from '../../components/Client/wishlist/index';
+import Wishlist from '../../components/Client/wishlist/index';
+import WishlistProvider from '../../contexts/providers/WishlistProvider';
 
 const WishlistPage = props => {
   return (
-    <WishList />
+    <WishlistProvider>
+      <Wishlist />
+    </WishlistProvider>
   )
 }
 

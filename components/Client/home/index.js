@@ -2,7 +2,9 @@ import { Container } from '@mui/material';
 import React, { useContext } from 'react';
 
 import { HomeContext } from '../../../contexts/providers/HomeProvider';
+
 import Loading from "../../common/Loading";
+import Notification from "../../common/Notification";
 
 import MainBanner from './MainBanner';
 import SubBanner from './SubBanner';
@@ -15,10 +17,17 @@ import Discover from './Discover';
 import SellerAndRelated from './SellerAndRelated';
 
 const Home = (props) => {
-  const { homeState } = useContext(HomeContext);
+  const { homeState, setError } = useContext(HomeContext);
 
   return (
     <main>
+      <Notification
+        title="Error"
+        content={homeState.error}
+        open={homeState.error != null}
+        onClose={() => setError(null)}
+      />
+
       <Loading isLoading={homeState.isLoading} />
       <Container>
         <MainBanner />

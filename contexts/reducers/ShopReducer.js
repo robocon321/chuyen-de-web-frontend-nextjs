@@ -9,7 +9,8 @@ const initState = {
     isLoading: false,
     message: '',
     success: false,
-    infoPages:[]
+    infoPages:[],
+    favorites: null
   }
   const reducer = (state=initState,{type,payload})=>{
     switch(type){
@@ -81,6 +82,33 @@ const initState = {
         //         products4:payload.data
         //     }
         //     break;
+        case ACTIONS.SET_FAVORITES:
+            state = {
+              ...state,
+              success: payload.success,
+              favorites: payload.data,
+              message: payload.message,
+            };
+            break;
+          case ACTIONS.DELETE_FAVORITE:
+            state = {
+              ...state,
+              favorites: state.favorites.filter((item) => item.id != payload),
+            };
+            break;
+          case ACTIONS.ADD_FAVORITE:
+            state = {
+              ...state,
+              favorites: [...state.favorites, ...payload],
+            };
+            break;
+          case ACTIONS.SET_ERROR:
+            state = {
+              ...state,
+              error: payload,
+            };
+            break;
+      
         default:break;
     }
     return state;

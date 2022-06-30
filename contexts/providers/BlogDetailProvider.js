@@ -1,4 +1,4 @@
-import React, {useReducer, createContext, useEffect} from 'react';
+import React, {useReducer, createContext, useEffect, useContext} from 'react';
 import { useRouter } from 'next/router';
 import BlogDetailReducer from '../reducers/BlogDetailReducer';
 import {
@@ -14,6 +14,7 @@ import {
   addFavoriteAction,
   setErrorAction
 } from '../actions/BlogDetailAction';
+import { AuthContext } from './AuthProvider';
 
 const initState = {
   categories: null,
@@ -35,6 +36,7 @@ const BlogDetailProvider = (props) => {
   const router = useRouter();
   const {query} = router;
   const [blogState, dispatch] = useReducer(BlogDetailReducer, initState);
+  const { authState } = useContext(AuthContext);
   
   useEffect(() => {
     if(!router.isReady) return;    
@@ -47,7 +49,9 @@ const BlogDetailProvider = (props) => {
     await loadPopularBlogs();
     await loadDetailBlogs(query.slug);
     await loadCommentsBlog(query.slug);
-    await loadFavoriteBlog();
+    if(!authState.isLoading && authState.user) {
+      await loadFavoriteBlog();
+    }
     setLoading(false);
   }
 

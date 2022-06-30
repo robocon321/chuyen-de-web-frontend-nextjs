@@ -10,7 +10,10 @@ const ACTIONS = {
   SET_LASTESTBLOGS: 'SET_LASTESTBLOGS',
   SET_LOADING: 'SET_LOADING',
   SET_MESSAGE: 'SET_MESSAGE',
-  SET_ERROR: 'SET_ERROR'
+  SET_ERROR: 'SET_ERROR',
+  SET_FAVORITES: "SET_FAVORITES",
+  DELETE_FAVORITE: "DELETE_FAVORITE",
+  ADD_FAVORITE: "ADD_FAVORITE",
 }
 
 const loadNewProductsAction = () => async (dispatch) => {
@@ -85,12 +88,73 @@ const loadLastestBlogsAction = () => async (dispatch) => {
   });
 }
 
-const setLoading = (isLoading) => async (dispatch) => {
+const setLoadingAction = (isLoading) => async (dispatch) => {
   dispatch({
     type: ACTIONS.SET_LOADING,
     payload: isLoading
   })
 }
+
+const setErrorAction = (error) => (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_ERROR,
+    payload: error
+  })
+}
+
+const loadFavoriteProductAction = () => async (dispatch) => {
+  await axios({
+    method: "GET",
+    url: `${backendUrl}/favorites?AND_post.type=product`,
+  })
+    .then((response) => {
+      dispatch({
+        type: ACTIONS.SET_FAVORITES,
+        payload: {
+          data: response.data.data,
+          message: response.data.message,
+          success: response.data.success,
+        },
+      });
+    })
+    .catch((error) => {
+      handleError(error, dispatch, ACTIONS.SET_ERROR);
+    });
+};
+
+const deleteFavoriteAction = (id) => async (dispatch) => {
+  await axios({
+    method: "DELETE",
+    url: `${backendUrl}/favorites`,
+    data: [id],
+  })
+    .then((response) => {
+      dispatch({
+        type: ACTIONS.DELETE_FAVORITE,
+        payload: id,
+      });
+    })
+    .catch((error) => {
+      handleError(error, dispatch, ACTIONS.SET_ERROR);
+    });
+};
+
+const addFavoriteAction = (id) => async (dispatch) => {
+  await axios({
+    method: "POST",
+    url: `${backendUrl}/favorites`,
+    data: [id],
+  })
+    .then((response) => {
+      dispatch({
+        type: ACTIONS.ADD_FAVORITE,
+        payload: response.data.data,
+      });
+    })
+    .catch((error) => {
+      handleError(error, dispatch, ACTIONS.SET_ERROR);
+    });
+};
 
 export {
   ACTIONS,
@@ -98,5 +162,9 @@ export {
   loadBestSellerProductsAction,
   loadTodayProductsAction,
   loadLastestBlogsAction,
-  setLoading
+  setLoadingAction,
+  setErrorAction,
+  loadFavoriteProductAction,
+  deleteFavoriteAction,
+  addFavoriteAction 
 }

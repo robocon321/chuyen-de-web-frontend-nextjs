@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 
 import styles from './Sidebar.module.css';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const Sidebar = (props) => {
+  const { logout } = useContext(AuthContext);
+
   return (
     <div className={styles.sidebar}>
       <ul>
@@ -40,12 +43,10 @@ const Sidebar = (props) => {
           </Link>
         </li>
         <li>
-          <Link href='/auth'>
-            <a>
+            <a href="#" onClick={logout}>
               <span><i className="fa-solid fa-right-from-bracket"></i></span>
               <span>LOGOUT</span>
             </a>
-          </Link>
         </li>
       </ul>
     </div>

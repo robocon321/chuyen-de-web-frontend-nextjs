@@ -58,7 +58,9 @@ const BlogProvider = (props) => {
         await loadCategories();
         await loadPopularBlogs();
         await loadLastestBlogs(search, page, size, sort, filters);
-        await loadFavoriteBlog();
+        if(!authState.isLoading && authState.user) {
+          await loadFavoriteBlog();
+        }
         setLoading(false);
   }
 
