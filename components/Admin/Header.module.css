@@ -28,6 +28,7 @@
 
 .header .searchbox button, .hidden-searchbox button {
   border-radius: 0px;
+  padding: 10px 20px;
 }
 
 .header .info {
