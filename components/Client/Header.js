@@ -9,7 +9,12 @@ import { AuthContext } from "../../contexts/providers/AuthProvider";
 const Header = (props) => {
 
   const { authState, logout } = useContext(AuthContext);
-
+  const router = useRouter();
+  const [keyword,setKeyword] = useState('')
+  const changeKeyword = (e)=>{
+    setKeyword(e.target.value)
+    console.log(keyword)
+  }
 
   return (
     <header>
