@@ -1,0 +1,25 @@
+.favorites {
+  padding: 20px 0px;
+}
+
+.favorites .favorite {
+  padding: 20px 0px;
+  border-bottom: 0.5px solid #c8c8c8;
+}
+
+.favorites .favorite a {
+  text-decoration: none;  
+}
+
+.favorites .favorite .heart {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.favorites .favorite .btn-heart {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}

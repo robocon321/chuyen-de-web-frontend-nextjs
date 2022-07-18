@@ -7,13 +7,10 @@ import { Container } from "@mui/material";
 import { AuthContext } from "../../contexts/providers/AuthProvider";
 
 const Header = (props) => {
-  const { authState } = useContext(AuthContext);
-  const router = useRouter();
-  const [keyword,setKeyword] = useState('')
-  const changeKeyword = (e)=>{
-    setKeyword(e.target.value)
-    console.log(keyword)
-  }
+
+  const { authState, logout } = useContext(AuthContext);
+
+
   return (
     <header>
       <Container>
@@ -53,13 +50,13 @@ const Header = (props) => {
                       <a><i className="fa-solid fa-star"></i> My wishlist</a>
                     </Link>
                     <hr />
-                    <Link href="#">
+                    <Link href="/blog-favorite">
                       <a><i className="fa-regular fa-heart"></i> My favorite blog</a>
                     </Link>
                     <hr />
-                    <Link href="#">
-                      <a><i className="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
-                    </Link>
+                    <div onClick={logout}>
+                      <a href="#"><i className="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+                    </div>
                   </div>
                 </div>
               ) : (

@@ -1,76 +1,33 @@
-.wishlist {
-  margin: 40px 0px;
+.favorites {
+  padding: 20px 0px;
 }
 
-.wishlist table {
-  padding: 40px 0px;
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 5px;
-  box-shadow: 0px 0px 13px -8px rgba(0,0,0,0.72);
+.favorites .favorite {
+  padding: 20px 0px;
+  border-bottom: 0.5px solid #c8c8c8;
 }
 
-.wishlist th {
-  background-color: var(--bg_color);
-  padding: 10px 0px;
+.favorites .favorite a {
+  text-decoration: none;  
 }
 
-.wishlist td {
-  padding: 5px 0px;
-  text-align: center;
+.favorites .favorite .action {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
 }
 
-.wishlist td:nth-child(2) {
-  text-align: left;
-}
-
-
-.counter {
-  position: relative;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.counter input {
-  width: 150px;
-  height: 50px;
-  border: 0.5px solid rgb(218, 216, 216);
-  outline: none;
-  padding: 5px;
-}
-
-.counter button {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  background-color: white;
-  border: 0.5px solid rgb(218, 216, 216);
-  border-left: none;
-}
-
-.counter button:hover {
-  background-color: var(--primary_color);
-  color: white;
+.favorites .favorite .btn-action {
   cursor: pointer;
+  margin: 10px;
 }
 
-.counter button:nth-child(2) {
-  top: 0%;
+.favorites .favorite .btn-heart {
+  color: red;
 }
 
-.counter button:nth-child(3) {
-  border-top: none;
-  top: 50%
-}
-
-
-@media only screen and (max-width: 1000px) {
-  .wishlist {
-    padding: 20px;
-    overflow-x: auto;
-  }
-
-  .wishlist table {
-    width: 1000px;
-  }
-}
+.favorites .favorite .btn-cart.active {
+  color: var(--primary_color);
+ }

@@ -1,9 +1,12 @@
 import React from "react";
 import Product from "../../../components/Admin/posts/index";
+import PostListAdminProvider from "../../../contexts/providers/admin/PostListAdminProvider";
 
 const PostPage = (props) => {
   return (
-    <Product />
+    <PostListAdminProvider>
+      <Product />
+    </PostListAdminProvider>
   )
 }
 

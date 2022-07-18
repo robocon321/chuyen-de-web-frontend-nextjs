@@ -1,83 +1,173 @@
-import React, {useReducer, createContext, useEffect,useState} from 'react';
-import { useRouter } from 'next/router';
-import ShopReducer from '../reducers/ShopReducer'
+import React, { useReducer, createContext, useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
+import ShopReducer from "../reducers/ShopReducer";
 import {
-    ACTIONS,
-    loadPRODUCTS4Action,
-    loadProductDetailAction,
-    loadPostDetailAction,
-    loadCategoriesAction
-   
-} from '../actions/ShopAction'
+  ACTIONS,
+  loadPRODUCTS4Action,
+  loadProductDetailAction,
+  loadPostDetailAction,
+  loadCategoriesAction,
+  loadFavoriteBlogAction,
+  deleteFavoriteAction,
+  addFavoriteAction,
+  setErrorAction,
+  setLoadingAction,
+} from "../actions/ShopAction";
+import { AuthContext } from "../providers/AuthProvider";
 
 const initState = {
-    data:[],
-    numPage:[],
-    productDetail:{},
-    postDetail:{},
-    categories:null,
-    isLoading: false,
-    message: '',
-    success: false,
-    infoPages:[]
-}
+  data: [],
+  numPage: [],
+  productDetail: {},
+  postDetail: {},
+  categories: null,
+  isLoading: false,
+  message: "",
+  success: false,
+  infoPages: [],
+  favorites: null,
+};
 export const ShopContext = createContext();
 
-const ShopProvider = (props)=>{
-    const router = useRouter();
-    const query = {...router.query};
-    const [shopState,dispatch] = useReducer(ShopReducer,initState);
+const ShopProvider = (props) => {
+  const router = useRouter();
+  const query = { ...router.query };
+  const [shopState, dispatch] = useReducer(ShopReducer, initState);
+  const { authState } = useContext(AuthContext);
 
-    useEffect(() => {
-        if(!router.isReady) return;
-            let search = '';
-            let page = 0;
-            let size = 10;
-            let sort = 'post.modifiedTime__DESC';
-            let filters = {};
-        
-            if(query.search != null) search = query.search;
-            delete query.search;
-            if(query.page != null) page = query.page;
-            delete query.page;
-            if(query.size != null) size = query.size;
-            delete query.size;
-            if(query.sort != null) sort = query.sort;
-            delete query.sort;
-    
-            filters = {...query};
-            console.log(router);
-            
-            loadCategories();
-            // loadPopularBlogs();
-            loadProduct4(search, page, size, sort, filters);
-      }, [router.query]);
+  useEffect(() => {
+    if (!router.isReady) return;
+    let search = "";
+    let page = 0;
+    let size = 10;
+    let sort = "post.modifiedTime__DESC";
+    let filters = {};
 
-    const loadProduct4=(search, page, size, sort, filters)=>{
-        loadPRODUCTS4Action(search, page, size, sort, filters)(dispatch)
+    if (query.search != null) search = query.search;
+    delete query.search;
+    if (query.page != null) page = query.page;
+    delete query.page;
+    if (query.size != null) size = query.size;
+    delete query.size;
+    if (query.sort != null) sort = query.sort;
+    delete query.sort;
+
+    filters = { ...query };
+    console.log(router);
+
+    loadData();
+  }, [router.query]);
+
+  useEffect(() => {
+    console.log(shopState);
+  }, [shopState]);
+
+  const loadData = async () => {
+    if (!router.isReady) return;
+    let search = "";
+    let page = 0;
+    let size = 10;
+    let sort = "post.modifiedTime__DESC";
+    let filters = {};
+
+    if (query.search != null) search = query.search;
+    delete query.search;
+    if (query.page != null) page = query.page;
+    delete query.page;
+    if (query.size != null) size = query.size;
+    delete query.size;
+    if (query.sort != null) sort = query.sort;
+    delete query.sort;
+
+    filters = { ...query };
+    console.log(router);
+
+    setLoading(true);
+    await loadCategories();
+    // loadPopularBlogs();
+    await loadProduct4(search, page, size, sort, filters);
+    if (!authState.isLoading && authState.user) {
+      await loadFavoriteBlog();
     }
-    const loadProductDetail=(slug)=>{
-        loadProductDetailAction(slug)(dispatch)
+    setLoading(false);
+  };
+
+  const loadProduct4 = async (search, page, size, sort, filters) => {
+    await loadPRODUCTS4Action(search, page, size, sort, filters)(dispatch);
+  };
+  const loadProductDetail = (slug) => {
+    loadProductDetailAction(slug)(dispatch);
+  };
+  const loadPostDetail = (slug) => {
+    loadPostDetailAction(slug)(dispatch);
+  };
+  const loadCategories = async () => {
+    await loadCategoriesAction()(dispatch);
+  };
+
+  const setLoading = (isLoading) => {
+    setLoadingAction(isLoading)(dispatch);
+  };
+
+  const loadFavoriteBlog = async () => {
+    await loadFavoriteBlogAction()(dispatch);
+  };
+
+  const deleteFavorite = async (id) => {
+    if (id) {
+      setLoading(true);
+      await deleteFavoriteAction(id)(dispatch);
+      setLoading(false);
+    } else {
+      setError("Your favorite not found");
     }
-    const loadPostDetail=(slug)=>{
-        loadPostDetailAction(slug)(dispatch)
+  };
+
+  const addFavorite = async (id) => {
+    setLoading(true);
+    await addFavoriteAction(id)(dispatch);
+    setLoading(false);
+  };
+
+  const setError = (error) => {
+    setErrorAction(error)(dispatch);
+  };
+
+  const includeFavoritePost = (id) => {
+    if (shopState.favorites) {
+      return (
+        shopState.favorites.filter((item) => item.post.id == id).length > 0
+      );
+    } else {
+      return false;
     }
-    const loadCategories=()=>{
-        loadCategoriesAction()(dispatch)
+  };
+
+  const findFavoriteIdByPostId = (post_id) => {
+    const favorite = shopState.favorites.find(
+      (item) => item.post.id == post_id
+    );
+    if (favorite) {
+      return shopState.favorites.find((item) => item.post.id == post_id).id;
+    } else {
+      return null;
     }
-   
-    const value = {
-        shopState,
-        router,
-        // loadProduct4,
-        loadProductDetail,
-        loadPostDetail,
-        // loadCategories
-    }
-    return(
-        <ShopContext.Provider value={value}>
-            {props.children}
-        </ShopContext.Provider>
-    )
-}
+  };
+
+  const value = {
+    shopState,
+    router,
+    // loadProduct4,
+    loadProductDetail,
+    loadPostDetail,
+    // loadCategories
+    addFavorite,
+    deleteFavorite,
+    includeFavoritePost,
+    findFavoriteIdByPostId,
+  };
+  return (
+    <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
+  );
+};
 export default ShopProvider;

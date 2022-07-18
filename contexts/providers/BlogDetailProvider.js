@@ -1,4 +1,4 @@
-import React, {useReducer, createContext, useEffect} from 'react';
+import React, {useReducer, createContext, useEffect, useContext} from 'react';
 import { useRouter } from 'next/router';
 import BlogDetailReducer from '../reducers/BlogDetailReducer';
 import {
@@ -7,20 +7,27 @@ import {
   loadPopularBlogsAction,
   loadCommentsBlogAction,
   setFormAction,
-  setLoading,
-  submitFormAction
+  setLoadingAction,
+  submitFormAction,
+  loadFavoriteBlogAction,
+  deleteFavoriteAction,
+  addFavoriteAction,
+  setErrorAction
 } from '../actions/BlogDetailAction';
+import { AuthContext } from './AuthProvider';
 
 const initState = {
   categories: null,
   detailBlog: null,
   popularBlogs: null,
   recentCommments: null,
+  favorites: null,
   comments: null,
   form: null,
   isLoading: true,
   message: '',
-  success: false
+  success: false,
+  error: null
 }
 
 export const BlogDetailContext = createContext();
@@ -29,6 +36,7 @@ const BlogDetailProvider = (props) => {
   const router = useRouter();
   const {query} = router;
   const [blogState, dispatch] = useReducer(BlogDetailReducer, initState);
+  const { authState } = useContext(AuthContext);
   
   useEffect(() => {
     if(!router.isReady) return;    
@@ -36,12 +44,15 @@ const BlogDetailProvider = (props) => {
   }, [query]);
 
   const loadData = async () => {
-    setLoading(true)(dispatch);
+    setLoading(true);
     await loadCategories();
     await loadPopularBlogs();
     await loadDetailBlogs(query.slug);
     await loadCommentsBlog(query.slug);
-    setLoading(false)(dispatch);
+    if(!authState.isLoading && authState.user) {
+      await loadFavoriteBlog();
+    }
+    setLoading(false);
   }
 
   const loadCategories = async () => {
@@ -64,6 +75,27 @@ const BlogDetailProvider = (props) => {
     setFormAction(form)(dispatch);
   }
 
+  const loadFavoriteBlog = async () => {
+    await loadFavoriteBlogAction()(dispatch);
+  }
+
+  const deleteFavorite = async (id) => {
+    if(id) {
+      setLoading(true);
+      await deleteFavoriteAction(id)(dispatch);
+      setLoading(false);  
+    } else {
+      setError('Your favorite not found');
+    }
+  }
+
+  const addFavorite = async (id) => {
+    setLoading(true);
+    await addFavoriteAction(id)(dispatch);
+    setLoading(false);
+  }
+
+
   const submitForm = (e) => {
     e.preventDefault();
     const {form} = blogState;
@@ -80,12 +112,23 @@ const BlogDetailProvider = (props) => {
 
     submitFormAction(form)(dispatch);
   }
+
+  const setError = (error) => {
+    setErrorAction(error)(dispatch);
+  }
+
+  const setLoading = (isLoading) => {
+    setLoadingAction(isLoading)(dispatch);
+  }
   
   const value  = {
     blogState,
     router,
     setForm,
-    submitForm
+    submitForm,
+    addFavorite,
+    deleteFavorite,
+    setError
   };
 
   return (

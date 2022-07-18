@@ -1,4 +1,4 @@
-import { Container, Grid, Modal } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import React, { useContext } from "react";
 
 import Breadcrumb from "../../../common/Breadcrumb";
@@ -8,13 +8,20 @@ import DetailBlog from "./DetailBlog";
 import Sidebar from "./Sidebar";
 import FormComment from "./FormComment";
 import { BlogDetailContext } from "../../../../contexts/providers/BlogDetailProvider";
+import Notification from "../../../common/Notification";
 
 
 const Index = (props) => {
-  const { blogState } = useContext(BlogDetailContext);
+  const { blogState, setError } = useContext(BlogDetailContext);
 
   return (
     <main>
+      <Notification
+        title="Error"
+        content={blogState.error}
+        open={blogState.error != null}
+        onClose={() => setError(null)}
+      />
       <Loading isLoading={blogState.isLoading} />
       <Container>
         <Breadcrumb links={["Home", "Blog"]} />

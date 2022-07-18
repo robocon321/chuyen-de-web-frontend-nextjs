@@ -67,7 +67,7 @@ const Sidebar = (props) => {
       query['page'] = page;      
     }
     if(AND_taxomony != null) {
-      query['AND_taxomony'] = AND_taxomony;
+      query['AND_taxomonies.id'] = AND_taxomony;
     }
     return query;
   }

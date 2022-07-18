@@ -6,13 +6,20 @@ import Sidebar from './Sidebar';
 import BlogList from './BlogList';
 import Pagination from './Pagination';
 import Loading from '../../common/Loading';
+import Notification from "../../common/Notification";
 import { BlogContext } from '../../../contexts/providers/BlogProvider';
 
 const Index = props => {
-  const { blogState, router } = useContext(BlogContext);
+  const { blogState, setError } = useContext(BlogContext);
 
   return (
     <main>
+      <Notification
+        title="Error"
+        content={blogState.error}
+        open={blogState.error != null}
+        onClose={() => setError(null)}
+      />
       <Loading isLoading={blogState.isLoading} />
       <Container>
         <Breadcrumb links={['Home', 'Blog']}/>

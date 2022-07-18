@@ -1,82 +1,63 @@
-import React from 'react';
-import Image from 'next/image';
+import { Container, Grid, Link } from "@mui/material";
+import React, { useContext } from "react";
+import Image from "next/image";
 
-import styles from './WishList.module.css';
+import styles from "./Wishlist.module.css";
+import { WishlistContext } from "../../../contexts/providers/WishlistProvider";
+import Breadcrumb from "../../common/Breadcrumb";
 
-const products = [
-  {
-    id: 0,
-    name: 'Cilum dolore tortor nisl fermentum',
-    price: 29,
-    quantity: 1,
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/products/small1-1.webp'
-  },
-  {
-    id: 1,
-    name: 'Auctor gravida pellentesque',
-    price: 30,
-    quantity: 2,
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/products/small1-2.webp'
-  },
-  {
-    id: 2,
-    name: 'Condimentum posuere consectetur',
-    price: 24,
-    quantity: 1,
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/products/small1-3.webp'
-  },
-  {
-    id: 3,
-    name: 'Condimentum posuere consectetur',
-    price: 11,
-    quantity: 3,
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/products/small1-4.webp'
-  },
-]
+const Index = (props) => {
+  const { favoriteProductState, deleteFavorite } = useContext(WishlistContext);
 
-const WishList = (props) => {
   return (
-    <div className={styles.wishlist}>
-    <table>
-      <tbody>
-        <tr>
-          <th>IMAGE</th>
-          <th>PRODUCT</th>
-          <th>PRICE</th>
-          <th>QUANTITY</th>
-          <th>TOTAL</th>
-          <th>REMOVE</th>
-        </tr>
-        {
-          products.map(item => (
-            <tr key={item.id}>
-              <td>
-                <Image 
-                  src={item.image}
-                  alt='Not found'
-                  width={100}
-                  height={100}
-                />
-              </td>
-              <td>{item.name}</td>
-              <td>${item.price}</td>
-              <td>
-                <div className={styles['counter']}>
-                  <input type='text' defaultValue={item.quantity}/>
-                  <button><i className="fa-solid fa-plus"></i></button>
-                  <button><i className="fa-solid fa-minus"></i></button>
-                </div>
-              </td>
-              <td>${item.quantity * item.price}</td>
-              <td><span><i className="fa-solid fa-trash-can"></i></span></td>
-            </tr>
-          ))
-        }     
-      </tbody>
-    </table>
+    <>
+      <Container>
+        <Breadcrumb links={["Home", "Wishlist"]} />
+      </Container>
+      <hr />
+      <Container>
+        <div className={styles.favorites}>
+          {favoriteProductState.favorites.map((item) => (
+            <div className={styles.favorite} key={item.id}>
+              <Grid container spacing={2}>
+                <Grid item xs={3}>
+                  <Image
+                    src={item.post.thumbnail}
+                    alt="Not found"
+                    width={600}
+                    height={350}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <h3>
+                    <Link href={`/shop/${item.post.slug}`}>
+                      <a>{item.post.title}</a>
+                    </Link>
+                  </h3>
+                  <p>{item.post.content}</p>
+                </Grid>
+                <Grid item xs={3}>
+                  <div
+                    className={styles.action}
+                    onClick={() => deleteFavorite(item.id)}
+                  >
+                    <span className={`${styles["btn-heart"]} ${styles["btn-action"]}`}>
+                      <i className="fa-solid fa-heart"></i>
+                    </span>
+                    <span className={`${styles["btn-cart"]} ${styles["btn-action"]}`}>
+                      <i className="fa-solid fa-cart-plus"></i>
+                    </span>
+                  </div>
 
-    </div>
-  )
-}
+                </Grid>
+              </Grid>
+            </div>
+          ))}
+        </div>
+      </Container>
+      <hr />
+    </>
+  );
+};
 
-export default WishList
+export default Index;

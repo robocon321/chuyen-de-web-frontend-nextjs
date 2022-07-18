@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useContext } from "react";
 import styles from "./NewProduct.module.css";
-import Link from 'next/link';
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Grid } from "swiper";
 
@@ -9,12 +9,19 @@ import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
 
 const NewProduct = (props) => {
-  const { homeState } = useContext(HomeContext);
+  const {
+    homeState,
+    addFavorite,
+    deleteFavorite,
+    includeFavoritePost,
+    findFavoriteIdByPostId,
+  } = useContext(HomeContext);
 
   const [mainSwiperRef, setMainSwiperRef] = useState();
   const slideTo = (index) => {
     if (index >= homeState.newProducts.length) mainSwiperRef.slideTo(0, 0);
-    else if (index <= 0) mainSwiperRef.slideTo(homeState.newProducts.length - 1, 0);
+    else if (index <= 0)
+      mainSwiperRef.slideTo(homeState.newProducts.length - 1, 0);
     else mainSwiperRef.slideTo(index, 0);
   };
 
@@ -65,8 +72,11 @@ const NewProduct = (props) => {
           >
             {homeState.newProducts &&
               homeState.newProducts.map((item) => (
-                <SwiperSlide key={item.id} style={{height: '350px'}}>
-                  <div className={styles["slide-item"]} style={{height: '100%'}}>
+                <SwiperSlide key={item.id} style={{ height: "350px" }}>
+                  <div
+                    className={styles["slide-item"]}
+                    style={{ height: "100%" }}
+                  >
                     <div className={styles["newProduct-item"]}>
                       <Image
                         className={styles["newProduct-img"]}
@@ -78,7 +88,8 @@ const NewProduct = (props) => {
                       <div className={styles["newProduct-info"]}>
                         <div className={styles["newProduct-title"]}>
                           <Link href={`/shop/${item.post.slug}`}>
-                          <a href="">{item.post.title}</a></Link>
+                            <a href="">{item.post.title}</a>
+                          </Link>
                         </div>
                         <Rating rating={item.post.averageRating} />
                         <div className={styles["newProduct-cart"]}>
@@ -101,24 +112,37 @@ const NewProduct = (props) => {
                           </span>
                         </div>
                       </div>
-                      {
-                        Math.round(((item.maxPrice - item.minPrice) * 100) / item.maxPrice) != 0 &&
+                      {Math.round(
+                        ((item.maxPrice - item.minPrice) * 100) / item.maxPrice
+                      ) != 0 && (
                         <div className={styles["newPRoduct-sale-off"]}>
-                        -
-                        {Math.round(
-                          ((item.maxPrice - item.minPrice) * 100) /
-                            item.maxPrice
-                        )}
-                        %
-                      </div>
-                      }
+                          -
+                          {Math.round(
+                            ((item.maxPrice - item.minPrice) * 100) /
+                              item.maxPrice
+                          )}
+                          %
+                        </div>
+                      )}
                       <div className={styles["newProduct-option"]}>
                         <a className={styles[("icon-eye", "icon")]}>
                           <i className="fas fa-eye"></i>
                         </a>
-                        <a className={styles[("icon-heart", "icon")]}>
-                          <i className="fas fa-heart"></i>
-                        </a>
+                        {includeFavoritePost(item.post.id) ? (
+                          <a
+                            className={`${styles["active"]} ${styles["icon"]}`}
+                            onClick={() => deleteFavorite(findFavoriteIdByPostId(item.post.id))}
+                          >
+                            <i className="fas fa-heart"></i>
+                          </a>
+                        ) : (
+                          <a
+                            className={styles.icon}
+                            onClick={() => addFavorite(item.post.id)}
+                          >
+                            <i className="fas fa-heart"></i>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>

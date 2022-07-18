@@ -11,9 +11,7 @@ const ACTIONS = {
   SET_ERROR: "SET_ERROR",
 };
 
-const loginAccountAction =
-  ({ username, password }) =>
-  async (dispatch) => {
+const loginAccountAction =({ username, password }) => async (dispatch) => {
     dispatch({
       type: ACTIONS.SET_LOADING,
       payload: true,
@@ -48,9 +46,7 @@ const loginAccountAction =
     });
   };
 
-const loginSocialAction =
-  ({ key, type, uid }) =>
-  async (dispatch) => {
+const loginSocialAction = ({ key, type, uid }) => async (dispatch) => {
     dispatch({
       type: ACTIONS.SET_LOADING,
       payload: true,
@@ -87,11 +83,6 @@ const loginSocialAction =
   };
 
 const loadAccountAction = () => async (dispatch) => {
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: true,
-  });
-
   const userLocalStorage = localStorage[LOCAL_STORAGE_USER];
   if (userLocalStorage) {
     setAuthToken(userLocalStorage);
@@ -111,12 +102,15 @@ const loadAccountAction = () => async (dispatch) => {
   } else {
     setAuthToken(null);
   }
-
-  dispatch({
-    type: ACTIONS.SET_LOADING,
-    payload: false
-  });  
 };
+
+const logoutAction = () => async (dispatch) => {
+  localStorage.removeItem(LOCAL_STORAGE_USER);
+  setAuthToken(null);
+  dispatch({
+    type: ACTIONS.RESET    
+  })
+}
 
 const logoutAccountAction = () => async (dispatch) => {
   localStorage.removeItem(LOCAL_STORAGE_USER);
@@ -125,9 +119,7 @@ const logoutAccountAction = () => async (dispatch) => {
   });
 };
 
-const registerAccountAction =
-  ({ email, username, password }) =>
-  async (dispatch) => {
+const registerAccountAction = ({ email, username, password }) => async (dispatch) => {
     dispatch({
       type: ACTIONS.SET_LOADING,
       payload: true,
@@ -191,6 +183,13 @@ const registerSocialAction = (data) => async (dispatch) => {
   });
 };
 
+const setLoadingAction = (isLoading) => (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_LOADING,
+    payload: isLoading
+  });
+}
+
 export {
   ACTIONS,
   loginSocialAction,
@@ -199,4 +198,6 @@ export {
   logoutAccountAction,
   registerAccountAction,
   registerSocialAction,
+  logoutAction,
+  setLoadingAction
 };

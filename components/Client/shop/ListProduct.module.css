@@ -188,6 +188,10 @@
     animation: fadeIn linear 0.7s;
 }
 
+.option .active {
+    color: red;
+}
+
 .icon {
     padding: 8px 5px;
 }
