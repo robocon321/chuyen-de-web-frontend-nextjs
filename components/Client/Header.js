@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, {useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from 'next/router';
 import styles from "./Header.module.css";
 import { Container } from "@mui/material";
 import { AuthContext } from "../../contexts/providers/AuthProvider";
 
 const Header = (props) => {
+
   const { authState, logout } = useContext(AuthContext);
+
 
   return (
     <header>
@@ -99,8 +101,8 @@ const Header = (props) => {
               <Image src="/logo.webp" alt="Not found" width={140} height={40} />
             </div>
             <div className={styles["searchbar-header"]}>
-              <input placeholder="Search enter store here ..." />
-              <button>
+              <input placeholder="Search enter store here ..." onChange={changeKeyword}/>
+              <button onClick={()=>router.push(`/shop?search=${keyword}`)}>
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>

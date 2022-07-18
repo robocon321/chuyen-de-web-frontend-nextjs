@@ -7,6 +7,7 @@ import Rating from "../../common/Rating";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+
 const ListProduct = (props) => {
   const { shopState, addFavorite, deleteFavorite, includeFavoritePost, findFavoriteIdByPostId } = useContext(ShopContext);
   //router
@@ -174,6 +175,7 @@ const ListProduct = (props) => {
                             }).format(item.maxPrice)}
                           </span>
                         </div>
+
                       </div>
                       {Math.round(
                         ((item.maxPrice - item.minPrice) * 100) / item.maxPrice
@@ -281,6 +283,8 @@ const ListProduct = (props) => {
                     </div>
                   </div>
                 </Grid>
+
+
               </div>
             </Grid>
           );
@@ -390,6 +394,7 @@ const ListProduct = (props) => {
             Showing 1 to {shopState.infoPages.size} of{" "}
             {shopState.infoPages.totalElements} ({totalPages} Pages)
           </span>
+
         </div>
       </div>
     </div>
