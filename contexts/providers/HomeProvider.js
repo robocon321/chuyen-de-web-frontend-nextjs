@@ -30,6 +30,10 @@ const HomeProvider = (props) => {
     loadData();
   }, []);
 
+  useEffect(() => {
+    console.log(homeState);
+  }, [homeState]);
+
   const loadData = async () => {
     await setLoading(true)(dispatch);
     await loadNewProducts();

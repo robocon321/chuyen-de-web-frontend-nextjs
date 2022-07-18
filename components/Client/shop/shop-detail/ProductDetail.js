@@ -116,6 +116,7 @@ const ProductDetail = (props) =>{
                {post.thumbnail===undefined?null:<Image
                className={styles['image-zoom']}
                 src={imageSelected==null?post.thumbnail:imageSelected}
+                // src={"/medium1.webp"}
                 alt='Not found'
                 width={600}
                 height={540}
@@ -140,12 +141,13 @@ const ProductDetail = (props) =>{
                     }}
                 >
                     {
-                        listImgs.map((item,index)=>(
-                            <SwiperSlide className={styles['swiper-slide']} key={index}>
+                        listImgs.map((item,index)=>{
+                            let link_string = item.replace('[','');
+                            return <SwiperSlide className={styles['swiper-slide']} key={index}>
                                 <div className={'more'} style={{width: '120px', height: '120px', position: 'relative'}} >
                                  <Image
-                                        onClick={()=>onChangeMainImage(item)}
-                                        src={item}
+                                        onClick={()=>onChangeMainImage(link_string)}
+                                        src={link_string}
                                         alt="Not found"
                                         layout='fill'
                                     />
@@ -153,7 +155,8 @@ const ProductDetail = (props) =>{
                                 </div>
                               
                             </SwiperSlide>
-                        ))
+                            }
+                        )
                     }
                 </Swiper>
            </Grid>
@@ -188,7 +191,7 @@ const ProductDetail = (props) =>{
                         </div>
                         <hr />
                         <div className={styles['about']}>
-                        <p>{post.description}</p>
+                        <p>{post.content}</p>
                         </div>
                         <hr />
                         <div className={styles['quantity']}>
@@ -265,7 +268,7 @@ const ProductDetail = (props) =>{
            </nav>
            <hr />
            <div className={styles['description']} id="description">
-           {post.description}
+           {post.content}
            </div>
            <div className={styles['review']} id="review">
                 <div className={styles['ratting']}>

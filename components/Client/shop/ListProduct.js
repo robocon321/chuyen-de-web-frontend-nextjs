@@ -7,6 +7,7 @@ import Rating from "../../common/Rating";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+
 const ListProduct = props =>{
     const{shopState} = useContext(ShopContext)
     //router
@@ -17,8 +18,9 @@ const ListProduct = props =>{
     const currentPage = shopState.infoPages.number;
     const totalPages = shopState.infoPages.totalPages;
     const arrNum = Array.from(Array(totalPages),(_,index)=>index+1)
-    const [size,setSize] = useState(12);
+    const [size,setSize] = useState(10);
     console.log(shopState)
+
     // useEffect(() => {
     //     loadPage(currentPage,size);
     // }, []);
@@ -43,6 +45,13 @@ const ListProduct = props =>{
             b.style.display='block';
         }
     };
+    const changeSize = (e)=>{
+      setSize(e.target.value)
+      router.push(`/shop?size=${e.target.value}`)
+    }
+    const changeSort=(e,link)=>{
+      router.push(link)
+    }
     const createQuery = (search, page,size, AND_taxomony) => {
         const query = {};
         if(search != null && search.length != 0) {
@@ -87,14 +96,8 @@ const ListProduct = props =>{
                 <span>Showing 1 to {shopState.infoPages.size} of {shopState.infoPages.totalElements} ({totalPages} Pages)</span>
                 <div className={styles['show']}>
                 <span>Show:</span>
-                <select name="nums" id="nums"  onChange={(e)=>{
-                    <Link  href={
-                        {
-                          pathname: '/shop',
-                          query: createQuery(router.query.search, currentPage ,e, router.query.AND_taxomony)
-                        }
-                      }></Link>              
-                    }}>
+                <select name="nums" id="nums"  onChange={changeSize}                                         
+                    >
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
@@ -103,11 +106,31 @@ const ListProduct = props =>{
                 </div>
                 <div className={styles['sortby']}>
                 <span>Sort by:</span>
-                <select name="sort" id="sort">
+                <select name="sort" id="sort" onChange={(e)=>{
+                  switch (e.target.value){
+                    case "default":
+                      changeSort(e,`/shop`)
+                      break;
+                    case "nameAZ":
+                      changeSort(e,`/shop?sort=post.title__ASC`)
+                      break;
+                    case "nameZA":
+                      changeSort(e,`/shop?sort=post.title__DESC`)
+                      break;
+                    case "priceMin":
+                      changeSort(e,`/shop?sort=minPrice__ASC`)
+                      break;
+                    case "priceMax":
+                      changeSort(e,`/shop?sort=minPrice__DESC`)
+                      break;
+                  }
+                  
+                }}>
                     <option value="default">Default</option>
-                    <option value="name">Name (A-Z)</option>
-                    <option value="price">Price (min-max)</option>
-                    <option value="color">Color</option>
+                    <option value="nameAZ">Name (A-Z)</option>
+                    <option value="nameZA">Name (Z-A)</option>
+                    <option value="priceMin">Price (min-max)</option>
+                    <option value="priceMax">Price (max-min)</option>
                 </select>
                 </div>
             </div>
@@ -217,7 +240,7 @@ const ListProduct = props =>{
                                     </div>
                                     <Rating rating={item.post.averageRating} />
                                     <div className={styles['item-description']}>
-                                        <span>{item.post.description}</span>
+                                        <span>{item.post.content}</span>
                                     </div>
                                     
                                 </div>
@@ -270,7 +293,7 @@ const ListProduct = props =>{
                             <Link  href={
                                 {
                                   pathname: '/shop',
-                                  query: createQuery(router.query.search, currentPage = shopState.infoPages.number-1,10, router.query.AND_taxomony)
+                                  query: createQuery(router.query.search, currentPage = shopState.infoPages.number-1,size, router.query.AND_taxomony)
                                 }
                               }>
                         <a className={styles['page-prev']} >
@@ -283,7 +306,7 @@ const ListProduct = props =>{
                                 <Link key={item} href={
                                     {
                                       pathname: '/shop',
-                                      query: createQuery(router.query.search, item-1,10, router.query.AND_taxomony)
+                                      query: createQuery(router.query.search, item-1,size, router.query.AND_taxomony)
                                     }
                                   }>
                             <a className={styles['page-btn']} key={item} >{item}</a></Link>
@@ -292,7 +315,7 @@ const ListProduct = props =>{
                                     <Link key={item} href={
                                         {
                                           pathname: '/shop',
-                                          query: createQuery(router.query.search, item-1,10, router.query.AND_taxomony)
+                                          query: createQuery(router.query.search, item-1,size, router.query.AND_taxomony)
                                         }
                                       }>
                                     <a className={styles['page-btn-choose']}  >{item}</a>
@@ -306,14 +329,14 @@ const ListProduct = props =>{
                     <Link  href={
                         {
                           pathname: '/shop',
-                          query: createQuery(router.query.search, currentPage = shopState.infoPages.number+1,10, router.query.AND_taxomony)
+                          query: createQuery(router.query.search, currentPage = shopState.infoPages.number+1,size, router.query.AND_taxomony)
                         }
                       }>
                     <a className={styles['page-next']} ><i className="fa-solid fa-chevron-right"></i></a></Link>):(<a></a>)}
                     {currentPage<(totalPages-2)?<Link  href={
                         {
                           pathname: '/shop',
-                          query: createQuery(router.query.search, currentPage = totalPages-1, 10,router.query.AND_taxomony)
+                          query: createQuery(router.query.search, currentPage = totalPages-1, size,router.query.AND_taxomony)
                         }
                       }>
                 <a className={styles['page-end']}><i className="fa-solid fa-chevron-right" ><span>|</span></i></a></Link>:null}
