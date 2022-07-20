@@ -161,7 +161,9 @@ const Posts = (props) => {
     <div className={styles.container}>
       <div className={styles.head}>
         <Breadscrum links={["Home", "Posts"]} />
-        <Button variant="contained" color="warning">
+        <Button variant="contained" color="warning" onClick={() => {
+          router.push("/admin/posts/add-new")
+        }}>
           <span>
             <i className="fa-solid fa-plus"></i>
           </span>

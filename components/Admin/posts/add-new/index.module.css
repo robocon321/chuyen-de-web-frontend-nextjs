@@ -50,6 +50,10 @@
   border-radius: 2px;
 }
 
+.group .image .image-post {
+  margin: 10px;
+}
+
 .complete {
   background-color: var(--bg_btn_success);
   width: 100%;

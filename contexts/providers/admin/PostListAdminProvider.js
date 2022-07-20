@@ -39,10 +39,6 @@ const PostListAdminProvider = (props) => {
     loadData();
   }, [router.query]);
 
-  useEffect(() => {
-    console.log(postListAdminState);
-  }, [postListAdminState]);
-
   const loadData = async () => {
     if (!router.isReady) return;
     const query = {

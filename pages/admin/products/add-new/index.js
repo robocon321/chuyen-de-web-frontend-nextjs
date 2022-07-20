@@ -1,11 +1,8 @@
-import React from 'react';
-import AddNew from '../../../../components/Admin/products/add-new/index';
-
+import React from "react";
+import AddNew from "../../../../components/Admin/products/add-new/index";
 
 const AddNewProductPage = () => {
-  return (
-    <AddNew />
-  )
-}
+  return <AddNew />;
+};
 
 export default AddNewProductPage;

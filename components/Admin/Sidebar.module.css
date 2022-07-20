@@ -26,13 +26,14 @@
   top: 15px;
 }
 
-.sidebar .menu li > a > span:nth-child(1) {
+.sidebar .menu li > a > div:nth-child(1) {
+  float: left;
   display: inline-block;
   width: 30px;
   color: gray;
 }
 
-.sidebar .menu li > a > span:nth-child(2) {
+.sidebar .menu li > a > div:nth-child(2) {
   font-weight: bold;
 }
 

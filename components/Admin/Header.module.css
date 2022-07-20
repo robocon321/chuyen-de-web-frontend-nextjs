@@ -41,7 +41,8 @@
   display: inline-block;
 }
 
-.header .info span {
+.header .info div {
+  display: inline-block;
   margin-right: 20px;
   color: gray;
   cursor: pointer;
