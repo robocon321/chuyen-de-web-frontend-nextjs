@@ -1,5 +1,5 @@
 import { Grid, Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Image from 'next/image';
 
 import styles from './index.module.css';

@@ -14,7 +14,6 @@ const ACTIONS = {
 }
 
 const deletePostsAction = (selected) => async (dispatch) => {
-  console.log(selected);
   await axios({
     method: 'DELETE',
     url: `${backendUrl}/posts`,

@@ -25,10 +25,10 @@ const Header = (props) => {
           </div>
         </div>
         <div className={styles.info}>
-          <span><i className="fa-solid fa-comment-dots"></i></span>
-          <span><i className="fa-solid fa-bell"></i></span>
-          <span className={styles.languages}>English</span>
-          <span className={styles.account}>
+          <div><i className="fa-solid fa-comment-dots"></i></div>
+          <div><i className="fa-solid fa-bell"></i></div>
+          <div className={styles.languages}>English</div>
+          <div className={styles.account}>
             <div className={styles.avatar}>
               <Image 
                 src='https://www.ecommerce-admin.com/demo/images/people/avatar1.jpg'
@@ -42,7 +42,7 @@ const Header = (props) => {
               <li><a href='#'>Settings</a></li>
               <li><a href='#'>Logout</a></li>
             </ul>
-          </span>
+          </div>
         </div>
       </div>
       <div className={styles['hidden-searchbox']}>
