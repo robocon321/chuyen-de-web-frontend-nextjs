@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useContext } from "react";
 import Image from 'next/image';
-
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 import styles from './CartList.module.css';
 
 const products = [
@@ -35,6 +35,8 @@ const products = [
 ]
 
 const CartList = (props) => {
+  const { authState } = useContext(AuthContext);
+  console.log(authState)
   return (
     <div className={styles.cartlist}>
     <table>
