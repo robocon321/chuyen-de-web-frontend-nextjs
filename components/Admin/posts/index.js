@@ -244,11 +244,6 @@ const Posts = (props) => {
                       onChange={(e) => changeRangeDate(false, e.target.value)}
                     />
                   </Grid>
-                  {/* <Grid item xs={2}>
-                    <button>
-                      <i className="fa-solid fa-filter"></i>
-                    </button>
-                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>
