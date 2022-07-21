@@ -77,7 +77,7 @@ const Input = ({
             <CKEditor
               id={id}
               editor={ClassicEditor}
-              data={placeholder}
+              data={defaultValue}
               onChange={(event, editor) => onChange(editor)}
               config={{
                 extraPlugins: [uploadPlugin]
