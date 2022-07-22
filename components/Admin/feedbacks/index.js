@@ -1,18 +1,20 @@
 import React, { useContext } from "react";
 import { Grid, Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import Image from "next/image";
+import Moment from 'react-moment';
 
 import styles from "./index.module.css";
 import Input from "../../common/Input";
 import Breadscrum from "../../common/Breadcrumb";
 import Loading from "../../common/Loading";
-import { PostListAdminContext } from "../../../contexts/providers/admin/PostListAdminProvider";
+import Notification from "../../common/Notification";
+import { FeedbackListAdminContext } from "../../../contexts/providers/admin/FeedbackListAdminProvider";
 import { AuthContext } from "../../../contexts/providers/AuthProvider";
+import ReplyFeedbackModal from "./ReplyFeedbackModal";
 
-const Posts = (props) => {
+const Feedback = (props) => {
   const {
-    postListAdminState,
+    feedbackListAdminState,
     setConditions,
     submit,
     router,
@@ -21,35 +23,32 @@ const Posts = (props) => {
     setSelected,
     onAction,
     setAction,
-    deletePosts
-  } = useContext(PostListAdminContext);
+    deleteFeedbacks,
+    setReply
+  } = useContext(FeedbackListAdminContext);
   const { authState } = useContext(AuthContext);
 
-  if (postListAdminState.isLoading || authState.isLoading) {
+  if (feedbackListAdminState.isLoading || authState.isLoading) {
     return <Loading isLoading={true} />;
   }
 
-  if(!postListAdminState.isLoading && !authState.user) {
+  if (!feedbackListAdminState.isLoading && !authState.user) {
     router.push("/auth");
-    return ;
+    return;
   }
 
-  const renderImage = (params) => {
-    return <Image src={params.value} alt="Not found" width={100} height={100} />;
-  };
-  
   const renderAction = (params) => {
     return (
       <div className={styles.actions}>
-        <Button variant="outlined" color="error" onClick={() => deletePosts([params.row.id])}>
+        <Button variant="outlined" color="error" onClick={() => deleteFeedbacks([params.row.id])}>
           <span>
             <i className="fa-solid fa-trash-can"></i>
           </span>
         </Button>
         <span style={{ marginRight: 10 }}></span>
-        <Button variant="contained" color="success" onClick={() => router.push(`/admin/posts/update/${params.row.slug}`)}>
+        <Button variant="contained" color="success" onClick={() => setReply({feedbackId: params.row.id})}>
           <span>
-            <i className="fa-solid fa-pen-to-square"></i>
+            Reply
           </span>
         </Button>
       </div>
@@ -58,15 +57,20 @@ const Posts = (props) => {
   
   const renderLink = (params) => {
     return (
-      <a className={styles["link-row"]} href={`/posts/${params.value}`}>
+      <a className={styles["link-row"]} href={`/feedbacks/${params.value}`}>
         {params.value}
       </a>
     );
   };
   
-  const renderFullname = (params) => {
-    return params.value ? params.value.fullname : '';
+  const renderUser = (params) => {
+    if (params.value) return <p>{params.value.fullname}</p>;
+    else return <p></p>;
   };
+
+  const renderTime = (params) => {
+    return <Moment fromNow>{params.value}</Moment>   
+  }
   
   const columns = [
     {
@@ -78,41 +82,41 @@ const Posts = (props) => {
       renderCell: renderLink,
     },
     {
-      field: "thumbnail",
-      headerName: "Thumbnail",
-      flex: 2,
-      minWidth: 150,
+      field: "email",
+      headerName: "Email",
+      flex: 3,
+      minWidth: 100,
       editable: false,
-      renderCell: renderImage,
     },
     {
-      field: "title",
-      headerName: "Title",
-      flex: 4,
+      field: "subject",
+      headerName: "Subject",
+      flex: 5,
+      minWidth: 150,
+      editable: false,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      flex: 1,
       minWidth: 200,
       editable: false,
     },
     {
-      field: "modifiedUser",
-      headerName: "Author",
-      flex: 2,
-      minWidth: 100,
+      field: "modifiedTime",
+      headerName: "Time",
+      flex: 1,
+      minWidth: 200,
       editable: false,
-      renderCell: renderFullname,
+      renderCell: renderTime
     },
     {
-      field: "totalView",
-      headerName: "View",
-      flex: 2,
+      field: "user",
+      headerName: "Reply by",
+      flex: 3,
       minWidth: 100,
       editable: false,
-    },
-    {
-      field: "totalComment",
-      headerName: "Comment Count",
-      flex: 2,
-      minWidth: 100,
-      editable: false,
+      renderCell: renderUser,
     },
     {
       field: "action",
@@ -126,49 +130,17 @@ const Posts = (props) => {
     },
   ];
 
-  const changeRangeDate = (isStartDate, value) => {
-    const { conditions } = postListAdminState;
-    const BT_modifiedTime = conditions.filters.BT_modifiedTime
-      ? conditions.filters.BT_modifiedTime
-      : "";
-    let startDate = "2010-01-01";
-    let endDate = "2030-12-12";
-
-    const splitBT_modfiedTime = BT_modifiedTime.split("%2C");
-
-    if (isStartDate) {
-      startDate = value;
-      if (splitBT_modfiedTime.length == 2) {
-        endDate = splitBT_modfiedTime[1];
-      }
-    } else {
-      endDate = value;
-      if (splitBT_modfiedTime.length >= 1) {
-        startDate = splitBT_modfiedTime[0];
-      }
-    }
-
-    setConditions({
-      ...postListAdminState.conditions,
-      filters: {
-        ...postListAdminState.conditions.filters,
-        BT_modifiedTime: `${startDate}%2C${endDate}`,
-      },
-    });
-  };
-
   return (
     <div className={styles.container}>
+      <Notification
+        title="Error"
+        content={feedbackListAdminState.error}
+        open={feedbackListAdminState.error != null}
+        onClose={() => setError(null)}
+      />    
+      <ReplyFeedbackModal />
       <div className={styles.head}>
-        <Breadscrum links={["Home", "Posts"]} />
-        <Button variant="contained" color="warning" onClick={() => {
-          router.push("/admin/posts/add-new")
-        }}>
-          <span>
-            <i className="fa-solid fa-plus"></i>
-          </span>
-          &nbsp;<span>Add New</span>
-        </Button>
+        <Breadscrum links={["Home", "Feedbacks"]} />
       </div>
       <div className={styles.controls}>
         <Grid container columnSpacing={2} columns={12} alignItems="center">
@@ -182,7 +154,7 @@ const Posts = (props) => {
                   alignItems="center"
                 >
                   <Grid item xs={9} md={7}>
-                    <Input
+                  <Input
                       placeholder="Bulk actions"
                       name="select-bulk-action"
                       arrayObj={[
@@ -213,35 +185,32 @@ const Posts = (props) => {
                   columns={12}
                   alignItems="center"
                 >
-                  <Grid item xs={5}>
+                  <Grid item xs={12}>
                     <Input
-                      placeholder="Choose date"
-                      type="date"
-                      defaultValue={`${
-                        postListAdminState.conditions.filters.BT_modifiedTime
-                          ? postListAdminState.conditions.filters.BT_modifiedTime.split(
-                              "%2C"
-                            )[0]
-                          : ""
-                      }`}
-                      onChange={(e) => changeRangeDate(true, e.target.value)}
-                    />
-                  </Grid>
-                  <Grid item xs={1}>
-                    to
-                  </Grid>
-                  <Grid item xs={5}>
-                    <Input
-                      placeholder="Choose date"
-                      type="date"
-                      defaultValue={`${
-                        postListAdminState.conditions.filters.BT_modifiedTime
-                          ? postListAdminState.conditions.filters.BT_modifiedTime.split(
-                              "%2C"
-                            )[1]
-                          : ""
-                      }`}
-                      onChange={(e) => changeRangeDate(false, e.target.value)}
+                      placeholder="Select a status"
+                      name="status"
+                      arrayObj={[
+                        {
+                          name: "responsed",
+                          value: 1,
+                        },
+                        {
+                          name: "no responsed",
+                          value: 0,
+                        },
+                      ]}
+                      valueObj="value"
+                      textInnerObj="name"
+                      type="select"
+                      onChange={(e) => {
+                        setConditions({
+                          ...feedbackListAdminState.conditions,
+                          filters: {
+                            ...feedbackListAdminState.conditions.filters,
+                            AND_status: e.target.value
+                          }
+                        });
+                      }}
                     />
                   </Grid>
                 </Grid>
@@ -253,11 +222,11 @@ const Posts = (props) => {
               <Grid item xs={10}>
                 <Input
                   name="search"
-                  placeholder="Search by title"
-                  defaultValue={postListAdminState.conditions.search}
+                  placeholder="Search by subject"
+                  defaultValue={feedbackListAdminState.conditions.search}
                   onChange={(e) => {
                     setConditions({
-                      ...postListAdminState.conditions,
+                      ...feedbackListAdminState.conditions,
                       search: e.target.value,
                     });
                   }}
@@ -275,17 +244,17 @@ const Posts = (props) => {
       <div style={{ backgroundColor: "white" }}>
         <DataGrid
           autoHeight
-          rowCount={postListAdminState.posts.data.totalElements}
-          pageSize={postListAdminState.posts.data.size}
-          rows={postListAdminState.posts.data.content}
-          page={postListAdminState.posts.data.number}
+          rowCount={feedbackListAdminState.feedbacks.data.totalElements}
+          pageSize={feedbackListAdminState.feedbacks.data.size}
+          rows={feedbackListAdminState.feedbacks.data.content}
+          page={feedbackListAdminState.feedbacks.data.number}
           onPageChange={setPage}
           paginationMode="server"
           sortingMode="server"
           sortModel={[
             {
-              field: postListAdminState.conditions.sort.split("__")[0],
-              sort: postListAdminState.conditions.sort
+              field: feedbackListAdminState.conditions.sort.split("__")[0],
+              sort: feedbackListAdminState.conditions.sort
                 .split("__")[1]
                 .toLowerCase(),
             },
@@ -305,4 +274,4 @@ const Posts = (props) => {
   );
 };
 
-export default Posts;
+export default Feedback;

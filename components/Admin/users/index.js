@@ -47,7 +47,7 @@ const ListUser = () => {
           </span>
         </Button>
         <span style={{ marginRight: 10 }}></span>
-        <Button variant="contained" color="success">
+        <Button variant="contained" color="success" onClick={() => router.push(`/admin/users/update/${params.row.id}`)}>
           <span>
             <i className="fa-solid fa-pen-to-square"></i>
           </span>

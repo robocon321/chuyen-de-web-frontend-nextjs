@@ -57,6 +57,7 @@ const Sidebar = () => {
         </li>
         <li><Link href='/admin/transactions'><a><div><i className="fa-solid fa-cart-shopping"></i></div><div>Transaction</div></a></Link></li>
         <li><Link href='/admin/comments'><a><div><i className="fa-solid fa-star"></i></div><div>Review</div></a></Link></li>
+        <li><Link href='/admin/feedbacks'><a><div><i className="fa-solid fa-comment-medical"></i></div><div>Feedback</div></a></Link></li>
         <li>
           <a href='#'>
             <div><i className="fa-solid fa-bullhorn"></i></div>

@@ -44,7 +44,7 @@ const Index = (props) => {
         onClose={() => setError(null)}
       />    
       <div className={styles.head}>
-        <Breadcrumb links={["Home", "Users", "Add New"]} />
+        <Breadcrumb links={["Home", "Users", "Update"]} />
         <Grid container spacing={2} columns={12}>
         <Grid item xs={12} md={6}>
         <Image
