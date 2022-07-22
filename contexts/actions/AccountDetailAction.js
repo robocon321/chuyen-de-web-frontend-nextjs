@@ -14,7 +14,7 @@ const updateUserAction = (user) => async (dispatch) => {
   await axios({
     method: 'PUT',
     url: `${backendUrl}/users`,
-    data: user
+    data: [user]
   }).then((response) => {
     dispatch({
       type: ACTIONS.SET_USER,
