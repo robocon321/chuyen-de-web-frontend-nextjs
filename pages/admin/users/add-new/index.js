@@ -1,10 +1,13 @@
 import React from 'react';
 import AddNew from '../../../../components/Admin/users/add-new/index';
+import UserNewAdminProvider from '../../../../contexts/providers/admin/UserNewAdminProvider';
 
 
 const AddNewUserPage = () => {
   return (
-    <AddNew />
+    <UserNewAdminProvider>
+      <AddNew />
+    </UserNewAdminProvider>
   )
 }
 

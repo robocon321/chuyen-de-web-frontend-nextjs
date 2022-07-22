@@ -1,108 +1,197 @@
-import { Grid } from '@mui/material';
-import React from 'react';
+import { Grid } from "@mui/material";
+import React, { useContext } from "react";
+import Image from 'next/image';
 
-import styles from './index.module.css';
-import Breadcrumb from '../../../common/Breadcrumb';
-import Input from '../../../common/Input';
+import styles from "./index.module.css";
 
-const roles = [
-  {
-    id: 0,
-    name: 'ADMIN'
-  },
-  {
-    id: 1,
-    name: 'USER'
-  },
-  {
-    id: 2,
-    name: 'CTV'
+import Breadcrumb from "../../../common/Breadcrumb";
+import Loading from "../../../common/Loading";
+import Notification from "../../../common/Notification";
+import Input from "../../../common/Input";
+
+import { UserNewAdminContext } from "../../../../contexts/providers/admin/UserNewAdminProvider";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
+
+const Index = (props) => {
+  const {
+    onChangeFieldUser,
+    onChangeFieldUserAccount,
+    userNewAdminState,
+    onChangeRole,
+    reset,
+    submit,
+    setError,
+    router,
+    uploadFile
+  } = useContext(UserNewAdminContext);
+  const { authState } = useContext(AuthContext);
+
+  if (userNewAdminState.isLoading || authState.isLoading) {
+    return <Loading isLoading={true} />;
   }
-]
 
-const Index = (props) => {  
+  if (!userNewAdminState.isLoading && !authState.user) {
+    router.push("/auth");
+    return;
+  }
+
   return (
-    <div className={styles['add-new']}>
-      <div className={styles.head}>        
-        <Breadcrumb links={['Home', 'Users','Add New']} />
+    <div className={styles["add-new"]}>
+      <Notification
+        title="Error"
+        content={userNewAdminState.error}
+        open={userNewAdminState.error != null}
+        onClose={() => setError(null)}
+      />    
+      <div className={styles.head}>
+        <Breadcrumb links={["Home", "Users", "Add New"]} />
         <Grid container spacing={2} columns={12}>
-         <Grid item xs={12} md={6}>
-            <Input 
-              title='Email'
-              placeholder='Example: robocon321n@gmail.com'
-              isRequire='true'
-              type='email'
+        <Grid item xs={12} md={6}>
+        <Image
+            src={
+              userNewAdminState.user.avatar
+                ? userNewAdminState.user.avatar
+                : "https://template.hasthemes.com/alula/alula/assets/img/blog/comment-icon.webp"
+            }
+            alt="Not found"
+            width={150}
+            height={150}
+          />
+          <input
+            type="file"
+            name="avatar"
+            onChange={uploadFile}
+            accept="image/*"
+          />
+          </Grid>
+      
+        </Grid>
+        <Grid container spacing={2} columns={12}>
+          <Grid item xs={12} md={6}>
+            <Input
+              id="email"
+              title="Email"
+              placeholder="Example: robocon321n@gmail.com"
+              isRequire="true"
+              type="email"
+              name="email"
+              defaultValue={userNewAdminState.user.email}
+              onChange={onChangeFieldUser}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='Username'
-              placeholder='Example: robocon321'
-              isRequire='true'
+            <Input
+              id="username"
+              title="Username"
+              placeholder="Example: robocon321"
+              isRequire="true"
+              name="username"
+              defaultValue={userNewAdminState.user.userAccount.username}
+              onChange={onChangeFieldUserAccount}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='Password'
-              placeholder='Enter your password'
-              isRequire='true'
-              type='password'            
+            <Input
+              id="password"
+              title="Password"
+              placeholder="Enter your password"
+              isRequire="true"
+              type="password"
+              name="password"
+              defaultValue={userNewAdminState.user.userAccount.password}
+              onChange={onChangeFieldUserAccount}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='Re-password'
-              placeholder='Validate your password'
-              isRequire='true'
-              type='password'
+            <Input
+              id="re_password"
+              title="Re-password"
+              placeholder="Validate your password"
+              isRequire="true"
+              type="password"
+              name="re_password"
+              defaultValue={userNewAdminState.user.userAccount.re_password}
+              onChange={onChangeFieldUserAccount}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='First name'
-              placeholder='Nguyễn Thanh'
-              isRequire='true'
+            <Input
+              id="fullname"
+              title="Full name"
+              placeholder="Nguyễn Thanh Nhật"
+              isRequire="true"
+              name="fullname"
+              defaultValue={userNewAdminState.user.fullname}
+              onChange={onChangeFieldUser}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='Last name'
-              placeholder='Tân'
-              isRequire='true'
+            <Input
+              id="birthday"
+              title="Birthday"
+              placeholder="2000/12/01"
+              name="birthday"
+              type="date"
+              defaultValue={userNewAdminState.user.birthday}
+              onChange={onChangeFieldUser}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='Phone number'
-              placeholder='0983242211'
-              isRequire='true'
+            <Input
+              id="phone"
+              title="Phone number"
+              placeholder="0983242211"
+              name="phone"
+              defaultValue={userNewAdminState.user.phone}
+              onChange={onChangeFieldUser}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Input 
-              title='Role'
-              placeholder='Choose your role'
-              isRequire='true'
-              arrayObj={roles}
-              valueObj='id'
-              textInnerObj='name'
-              type='select'
+            <Input
+              id="role"
+              title="Role"
+              placeholder="Choose your role"
+              isRequire="true"
+              arrayObj={userNewAdminState.roles}
+              valueObj="id"
+              textInnerObj="name"
+              type="select"
+              onChange={onChangeRole}
             />
           </Grid>
           <Grid item xs={12} md={6}>
+            <Input
+              id="sex"
+              title="Sex"
+              placeholder="Choose your sex"
+              name="sex"
+              arrayObj={[{
+                id: true,
+                name: 'Male'
+              }, {
+                id: false,
+                name: 'Female'
+              }]}
+              valueObj="id"
+              textInnerObj="name"
+              type="select"
+              onChange={onChangeFieldUser}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} style={{marginTop: '64px'}}>
             <Grid container spacing={2} columns={12}>
               <Grid item xs={6}>
-                <button className={styles.success}>Kích hoạt tài khoản</button>
+                <button className={styles.success} onClick={submit}>Kích hoạt tài khoản</button>
               </Grid>
               <Grid item xs={6}>
-                <button className={styles.danger}>Xóa thông tin</button>
+                <button className={styles.danger} onClick={reset}>Xóa thông tin</button>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Index;

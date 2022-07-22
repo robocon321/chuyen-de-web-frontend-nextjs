@@ -25,6 +25,15 @@ const ListUser = () => {
   } = useContext(UserListAdminContext);
   const { authState } = useContext(AuthContext);
 
+  if (userListAdminState.isLoading || authState.isLoading) {
+    return <Loading isLoading={true} />;
+  }
+
+  if (!userListAdminState.isLoading && !authState.user) {
+    router.push("/auth");
+    return;
+  }
+
   const renderImage = (params) => {
     return <Image src={params.value} alt="Not found" width={100} height={100} />;
   };
@@ -112,14 +121,6 @@ const ListUser = () => {
     },
   ];
 
-  if (userListAdminState.isLoading || authState.isLoading) {
-    return <Loading isLoading={true} />;
-  }
-
-  if (!userListAdminState.isLoading && !authState.user) {
-    router.push("/auth");
-    return;
-  }
 
   const changeRangeDate = (isStartDate, value) => {
     const { conditions } = userListAdminState;
