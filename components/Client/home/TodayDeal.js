@@ -6,8 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./TodayDeal.module.css";
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const ItemTodayDeal = (props) => {
+  const { t } = useContext(AuthContext);
+
   const images = [
     "https://template.hasthemes.com/alula/alula/assets/img/products/inner-big1-1.webp",
     "https://template.hasthemes.com/alula/alula/assets/img/products/inner-small1-2.webp",
@@ -67,8 +70,8 @@ const ItemTodayDeal = (props) => {
           <div style={{ width: `${Math.round((props.item.totalSales * 100) / (props.item.stockQuantity + props.item.totalSales))}%` }}></div>
         </div>
         <div className={styles["status"]}>
-          <p>Sold: {props.item.totalSales ? props.item.totalSales : 0}</p>
-          <p>Available: {props.item.stockQuantity}</p>
+          <p>{t('sold')}: {props.item.totalSales ? props.item.totalSales : 0}</p>
+          <p>{t('available')}: {props.item.stockQuantity}</p>
         </div>
         {
           Math.round(((props.item.maxPrice - props.item.minPrice) * 100) / props.item.maxPrice) != 0 &&
@@ -106,6 +109,7 @@ const ItemTodayDeal = (props) => {
 };
 
 const TodayDeal = (props) => {
+  const { t } = useContext(AuthContext);
   const { homeState } = useContext(HomeContext);
   const [mainSwiperRef, setMainSwiperRef] = useState();
 
@@ -118,7 +122,7 @@ const TodayDeal = (props) => {
   return (
     <div className={styles["today-deal"]}>
       <div className={styles["title-today-deal"]}>
-        <h1>{`Today's Deals`}</h1>
+        <h1>{t('today_deal')}</h1>
         <div>
           <button onClick={() => slideTo(mainSwiperRef.activeIndex - 1)}>
             <span>

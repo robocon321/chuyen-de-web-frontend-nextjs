@@ -8,9 +8,11 @@ import Pagination from './Pagination';
 import Loading from '../../common/Loading';
 import Notification from "../../common/Notification";
 import { BlogContext } from '../../../contexts/providers/BlogProvider';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const Index = props => {
   const { blogState, setError } = useContext(BlogContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <main>
@@ -22,7 +24,7 @@ const Index = props => {
       />
       <Loading isLoading={blogState.isLoading} />
       <Container>
-        <Breadcrumb links={['Home', 'Blog']}/>
+        <Breadcrumb links={[t('home_brum'), t('blog_brum')]}/>
       </Container>
       <hr />
       <Container>

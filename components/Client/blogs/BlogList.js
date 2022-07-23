@@ -5,9 +5,11 @@ import Moment from "react-moment";
 
 import styles from "./BlogList.module.css";
 import { BlogContext } from "../../../contexts/providers/BlogProvider";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const BlogList = (props) => {
   const { blogState, addFavorite, deleteFavorite } = useContext(BlogContext);
+  const { t } = useContext(AuthContext);
 
   const includeFavoritePost = (id) => {
     if (blogState.favorites) {
@@ -50,7 +52,7 @@ const BlogList = (props) => {
                   <span>
                     <i className="fa-solid fa-circle-user"></i>
                   </span>
-                  <span>{item.modifiedUser.fullname}</span>
+                  <span>{item.modifiedUser ? item.modifiedUser.fullname : ''}</span>
                   <span> | </span>
                   <span>
                     <i className="fa-solid fa-calendar-days"></i>
@@ -62,7 +64,7 @@ const BlogList = (props) => {
                 <hr />
                 <p>{item.content}</p>
                 <a href={`/blogs/${item.slug}`}>
-                  <button>READ MORE</button>
+                  <button>{t('read_more')}</button>
                 </a>
                 {includeFavoritePost(item.id) ? (
                   <span

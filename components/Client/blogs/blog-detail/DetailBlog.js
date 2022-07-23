@@ -5,10 +5,12 @@ import Moment from "react-moment";
 import styles from "./DetailBlog.module.css";
 import SuggestBlog from "./SuggestBlog";
 import { BlogDetailContext } from "../../../../contexts/providers/BlogDetailProvider";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
 
 const DetailBlog = (props) => {
   const { blogState, addFavorite, deleteFavorite } =
     useContext(BlogDetailContext);
+  const { t } = useContext(AuthContext);
 
   const includeFavoritePost = (id) => {
     if (blogState.favorites) {
@@ -82,7 +84,7 @@ const DetailBlog = (props) => {
         </div>
         <hr />
         <div className={styles.share}>
-          <h3>SHARE THIS POST</h3>
+          <h3>{t('share_post')}</h3>
           <div className={styles.socials}>
             <span>
               <i className="fa-brands fa-twitter"></i>

@@ -23,7 +23,7 @@ const ListUser = () => {
     setAction,
     deleteUsers,
   } = useContext(UserListAdminContext);
-  const { authState } = useContext(AuthContext);
+  const { authState, t } = useContext(AuthContext);
 
   if (userListAdminState.isLoading || authState.isLoading) {
     return <Loading isLoading={true} />;
@@ -75,7 +75,7 @@ const ListUser = () => {
     },
     {
       field: "avatar",
-      headerName: "Avatar",
+      headerName: t('avatar_admin'),
       flex: 2,
       minWidth: 150,
       editable: false,
@@ -83,35 +83,35 @@ const ListUser = () => {
     },
     {
       field: "fullname",
-      headerName: "Fullname",
+      headerName: t('fullname_admin'),
       flex: 2,
       minWidth: 100,
       editable: false,
     },
     {
       field: "email",
-      headerName: "Email",
+      headerName: t('email_admin'),
       flex: 2,
       minWidth: 100,
       editable: false,
     },
     {
       field: "phone",
-      headerName: "Phone",
+      headerName: t('phone'),
       flex: 2,
       minWidth: 100,
       editable: false,
     },
     {
       field: "modifiedTime",
-      headerName: "Modified time",
+      headerName: t('modified_time_admin'),
       flex: 2,
       minWidth: 200,
       editable: false,
     },
     {
       field: "action",
-      headerName: "Action",
+      headerName: t('action_admin'),
       flex: 2,
       minWidth: 150,
       editable: false,
@@ -156,13 +156,13 @@ const ListUser = () => {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-        <Breadscrum links={["Home", "Users"]} />
+        <Breadscrum links={[t('home_brum_admin'), t('user_brum_admin')]} />
 
         <Button variant="contained" color="warning" onClick={() => router.push("/admin/users/add-new")}>
           <span>
             <i className="fa-solid fa-plus"></i>
           </span>
-          &nbsp;<span>Add New</span>
+          &nbsp;<span>{t('add_new_brum_admin')}</span>
         </Button>
       </div>
       <div className={styles.controls}>
@@ -178,16 +178,16 @@ const ListUser = () => {
                 >
                   <Grid item xs={9} md={7}>
                   <Input
-                      placeholder="Bulk actions"
+                      placeholder={t('bulk_actions_admin')}
                       name="select-bulk-action"
                       arrayObj={[
                         {
                           name: "edit",
-                          innerText: "Edit",
+                          innerText: t('edit_admin'),
                         },
                         {
                           name: "delete",
-                          innerText: "Move to trash",
+                          innerText: t('remove_admin'),
                         },
                       ]}
                       valueObj="name"
@@ -197,7 +197,7 @@ const ListUser = () => {
                     />
                   </Grid>
                   <Grid item xs={3} md={5}>
-                    <button onClick={onAction}>Apply</button>
+                    <button onClick={onAction}>{t('apply_admin')}</button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -210,7 +210,7 @@ const ListUser = () => {
                 >
                   <Grid item xs={3}>
                     <Input
-                      placeholder="Select a role"
+                      placeholder={t('select_role_admin')}
                       name="OR_roles.id"
                       arrayObj={userListAdminState.roles.data}
                       valueObj="id"
@@ -230,7 +230,7 @@ const ListUser = () => {
                   </Grid>
                   <Grid item xs={4}>
                     <Input
-                      placeholder="Choose date"
+                      placeholder={t('choose_date')}
                       type="date"
                       defaultValue={`${
                         userListAdminState.conditions.filters.BT_modifiedTime
@@ -243,11 +243,11 @@ const ListUser = () => {
                     />
                   </Grid>
                   <Grid item xs={1}>
-                    to
+                  {t('to')}
                   </Grid>
                   <Grid item xs={4}>
                     <Input
-                      placeholder="Choose date"
+                      placeholder={t('choose_date')}
                       type="date"
                       defaultValue={`${
                         userListAdminState.conditions.filters.BT_modifiedTime
@@ -268,7 +268,7 @@ const ListUser = () => {
               <Grid item xs={10}>
                 <Input
                   name="search"
-                  placeholder="Search by title"
+                  placeholder={t('search_fullname_admin')}
                   defaultValue={userListAdminState.conditions.search}
                   onChange={(e) => {
                     setConditions({

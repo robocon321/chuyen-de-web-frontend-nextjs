@@ -5,10 +5,12 @@ import {Grid} from '@mui/material';
 import styles from './Comment.module.css';
 import { BlogDetailContext } from '../../../../contexts/providers/BlogDetailProvider';
 import Moment from 'react-moment';
+import { AuthContext } from '../../../../contexts/providers/AuthProvider';
 
 
 const Comment = () => {
   const { blogState, setForm } = useContext(BlogDetailContext); 
+  const { t } = useContext(AuthContext);
 
   const ItemComment = ({item}) => {
     return (
@@ -16,7 +18,7 @@ const Comment = () => {
         <Grid container spacing={2} columns={12}>
           <Grid item xs={1}>
             <Image
-              src={item.modifiedUser.avatar}
+              src={item.modifiedUser ? item.modifiedUser.avatar : 'https://template.hasthemes.com/alula/alula/assets/img/blog/comment-icon.webp'}
               alt='Not found'
               width={50}
               height={50}
@@ -25,13 +27,13 @@ const Comment = () => {
           <Grid item xs={11}>
             <div className={styles.main}>
               <div className={styles.info}>
-                <h5>{item.modifiedUser.fullname} {item.parent && <span>- Reply to: {item.parent.modifiedUser.fullname}</span>}</h5>
+                <h5>{item.modifiedUser ? item.modifiedUser.fullname : 'Anonymous'} {item.parent && <span>- {t('reply_to')}: {item.parent.modifiedUser ? item.parent.modifiedUser.fullname : ''}</span>}</h5>
                 <div className={styles.time}><Moment date={item.modifiedTime} format="DD/MM/YYYY"  /></div>
               </div>
               <button onClick={() => setForm({
                 ...blogState.form,
                 parent: item
-              })}>Reply</button>
+              })}>{t('reply')}</button>
             </div>
             <p>{item.content}</p>
           </Grid>
@@ -70,7 +72,7 @@ const Comment = () => {
   if(blogState.comments) {
     return (
       <div className={styles.comments}>
-        <h1>{blogState.comments.length} COMMENTS</h1>
+        <h1>{blogState.comments.length} {t('comments')}</h1>
         {loadComment()}
       </div>
     )  

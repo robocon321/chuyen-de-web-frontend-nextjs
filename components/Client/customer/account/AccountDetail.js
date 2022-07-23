@@ -13,6 +13,7 @@ import styles from "./AccountDetail.module.css";
 import Input from "../../../common/Input";
 import { AccountDetailContext } from "../../../../contexts/providers/AccountDetailProvider";
 import Notification from "../../../common/Notification";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
 
 const storage = getStorage(app);
 
@@ -26,6 +27,7 @@ const AccountDetail = (props) => {
     setError
   } = useContext(AccountDetailContext);
   const { user } = accountDetailState;
+  const { t } = useContext(AuthContext);
 
   const uploadFile = (e) => {
     const image = e.target.files[0];
@@ -67,7 +69,7 @@ const AccountDetail = (props) => {
         open={accountDetailState.error != null}
         onClose={() => setError(null)}
       />
-      <h3>Account Details</h3>
+      <h3>{t('account_details')}</h3>
       <br />
       <br />
       <Grid container columnSpacing={5} columns={2}>
@@ -90,7 +92,7 @@ const AccountDetail = (props) => {
           />
         </Grid>
         <Grid item xs={1}>
-          <span>Giới tính: </span> {" "}
+          <span>{t('sex')} </span> {" "}
           <input
             type="radio"
             id="1"
@@ -99,7 +101,7 @@ const AccountDetail = (props) => {
             checked={user.sex + "" == "true"}
             onChange={onChangeUserField}
           />
-            <label htmlFor="1">Nam</label> {" "}
+            <label htmlFor="1">{t('male')}</label> {" "}
           <input
             type="radio"
             id="0"
@@ -108,9 +110,9 @@ const AccountDetail = (props) => {
             checked={user.sex + "" != "true"}
             onChange={onChangeUserField}
           />
-            <label htmlFor="0">Nữ</label>
+            <label htmlFor="0">{t('female')}</label>
           <Input
-            placeholder="Full name"
+            placeholder={t('fullname')}
             defaultValue={user.fullname}
             name="fullname"
             onChange={onChangeUserField}
@@ -118,7 +120,7 @@ const AccountDetail = (props) => {
         </Grid>
         <Grid item xs={2} md={1}>
           <Input
-            placeholder="Email Address"
+            placeholder={t('email_address')}
             defaultValue={user.email}
             name="email"
             onChange={onChangeUserField}
@@ -126,7 +128,7 @@ const AccountDetail = (props) => {
         </Grid>
         <Grid item xs={2} md={1}>
           <Input
-            placeholder="Phone Number"
+            placeholder={t('phone_number')}
             defaultValue={user.phone}
             name="phone"
             onChange={onChangeUserField}
@@ -134,7 +136,7 @@ const AccountDetail = (props) => {
         </Grid>
         <Grid item xs={2}>
           <Input
-            placeholder="Birthday"
+            placeholder={t('birthday')}
             type="date"
             name="birthday"
             defaultValue={user.birthday}
@@ -143,13 +145,13 @@ const AccountDetail = (props) => {
         </Grid>
       </Grid>
 
-      <h3>Password change</h3>
+      <h3>{t('pass_change')}</h3>
       <Grid container columnSpacing={5} columns={2}>
         <Grid item xs={2}>
           <Input
             name="password"
             type="password"
-            placeholder="New Password"
+            placeholder={t('new_pass')}
             defaultValue={
               accountDetailState.userAccount
                 ? accountDetailState.userAccount.password
@@ -162,7 +164,7 @@ const AccountDetail = (props) => {
           <Input
             name="re_password"
             type="password"
-            placeholder="ReType New Password"
+            placeholder={t('retype_pass')}
             defaultValue={
               accountDetailState.userAccount
                 ? accountDetailState.userAccount.re_password
@@ -172,7 +174,7 @@ const AccountDetail = (props) => {
           />
         </Grid>
       </Grid>
-      <button onClick={submitForm}>SAVE CHANGES</button>
+      <button onClick={submitForm}>{t('save_change')}</button>
     </div>
   );
 };

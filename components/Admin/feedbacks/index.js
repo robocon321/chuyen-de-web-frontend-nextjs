@@ -26,7 +26,7 @@ const Feedback = (props) => {
     deleteFeedbacks,
     setReply
   } = useContext(FeedbackListAdminContext);
-  const { authState } = useContext(AuthContext);
+  const { authState, t } = useContext(AuthContext);
 
   if (feedbackListAdminState.isLoading || authState.isLoading) {
     return <Loading isLoading={true} />;
@@ -48,7 +48,7 @@ const Feedback = (props) => {
         <span style={{ marginRight: 10 }}></span>
         <Button variant="contained" color="success" onClick={() => setReply({feedbackId: params.row.id})}>
           <span>
-            Reply
+            {t('reply_admin')}
           </span>
         </Button>
       </div>
@@ -90,21 +90,21 @@ const Feedback = (props) => {
     },
     {
       field: "subject",
-      headerName: "Subject",
-      flex: 5,
+      headerName: t('subject_admin'),
+      flex: 4,
       minWidth: 150,
       editable: false,
     },
     {
       field: "status",
-      headerName: "Status",
+      headerName: t('status_admin'),
       flex: 1,
       minWidth: 200,
       editable: false,
     },
     {
       field: "modifiedTime",
-      headerName: "Time",
+      headerName: t('time_admin'),
       flex: 1,
       minWidth: 200,
       editable: false,
@@ -112,7 +112,7 @@ const Feedback = (props) => {
     },
     {
       field: "user",
-      headerName: "Reply by",
+      headerName: t('reply_by_admin'),
       flex: 3,
       minWidth: 100,
       editable: false,
@@ -120,8 +120,8 @@ const Feedback = (props) => {
     },
     {
       field: "action",
-      headerName: "Action",
-      flex: 2,
+      headerName: t('action_admin'),
+      flex: 3,
       minWidth: 150,
       editable: false,
       sortable: false,
@@ -140,7 +140,7 @@ const Feedback = (props) => {
       />    
       <ReplyFeedbackModal />
       <div className={styles.head}>
-        <Breadscrum links={["Home", "Feedbacks"]} />
+        <Breadscrum links={[t('home_brum_admin'), t('feedback_brum_admin')]} />
       </div>
       <div className={styles.controls}>
         <Grid container columnSpacing={2} columns={12} alignItems="center">
@@ -155,16 +155,16 @@ const Feedback = (props) => {
                 >
                   <Grid item xs={9} md={7}>
                   <Input
-                      placeholder="Bulk actions"
+                      placeholder={t('bulk_actions_admin')}
                       name="select-bulk-action"
                       arrayObj={[
                         {
                           name: "edit",
-                          innerText: "Edit",
+                          innerText: t('edit_admin'),
                         },
                         {
                           name: "delete",
-                          innerText: "Move to trash",
+                          innerText: t('remove_admin'),
                         },
                       ]}
                       valueObj="name"
@@ -174,7 +174,7 @@ const Feedback = (props) => {
                     />
                   </Grid>
                   <Grid item xs={3} md={5}>
-                    <button onClick={onAction}>Apply</button>
+                    <button onClick={onAction}>{t('apply_admin')}</button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -187,15 +187,15 @@ const Feedback = (props) => {
                 >
                   <Grid item xs={12}>
                     <Input
-                      placeholder="Select a status"
+                      placeholder={t('select_status_admin')}
                       name="status"
                       arrayObj={[
                         {
-                          name: "responsed",
+                          name: t('response_admin'),
                           value: 1,
                         },
                         {
-                          name: "no responsed",
+                          name: t('no_response_admin'),
                           value: 0,
                         },
                       ]}
@@ -222,7 +222,7 @@ const Feedback = (props) => {
               <Grid item xs={10}>
                 <Input
                   name="search"
-                  placeholder="Search by subject"
+                  placeholder={t('search_subject_admin')}
                   defaultValue={feedbackListAdminState.conditions.search}
                   onChange={(e) => {
                     setConditions({

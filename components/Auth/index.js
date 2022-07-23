@@ -24,6 +24,7 @@ const Auth = (props) => {
     registerSocial,
     loginSocial,
     authState,
+    t
   } = useContext(AuthContext);
   const [isSignUp, setIsSignUp] = useState(false);
   const [loginAccountForm, setLoginAccountForm] = useState({
@@ -146,7 +147,7 @@ const Auth = (props) => {
           }
         >
           <form onSubmit={submitFormRegister}>
-            <h1>Create Account</h1>
+            <h1>{t('create_account')}</h1>
             <div className={styles["social-container"]}>
               <a
                 href="#"
@@ -162,7 +163,7 @@ const Auth = (props) => {
                 <i className="fab fa-linkedin-in"></i>
               </a>
             </div>
-            <span>or use your email for registration</span>
+            <span>{t('or_your_email')}</span>
             <input
               type="email"
               placeholder="Email"
@@ -171,17 +172,17 @@ const Auth = (props) => {
             />
             <input
               type="text"
-              placeholder="Username"
+              placeholder={t('username')}
               name="username"
               onChange={onChangeRegisterAccountForm}
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t('password')}
               name="password"
               onChange={onChangeRegisterAccountForm}
             />
-            <button>Sign Up</button>
+            <button>{t('sign_up_btn')}</button>
           </form>
         </div>
         <div
@@ -190,7 +191,7 @@ const Auth = (props) => {
           }
         >
           <form onSubmit={submitFormLogin}>
-            <h1>Sign in</h1>
+            <h1>{t('sign_in_btn')}</h1>
             <div className={styles["social-container"]}>
               <a href="#" className={styles.social}>
                 <i className="fab fa-facebook-f"></i>
@@ -202,21 +203,21 @@ const Auth = (props) => {
                 <i className="fab fa-linkedin-in"></i>
               </a>
             </div>
-            <span>or use your account</span>
+            <span>{t('or_your_account')}</span>
             <input
               type="text"
-              placeholder="Username"
+              placeholder={t('username')}
               name="username"
               onChange={onChangeLoginAccountForm}
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t('password')}
               name="password"
               onChange={onChangeLoginAccountForm}
             />
-            <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
+            <a href="#">{t('forgot_pass')}</a>
+            <button>{t('sign_in_btn')}</button>
           </form>
         </div>
         <div className={styles["overlay-container"]}>
@@ -224,16 +225,16 @@ const Auth = (props) => {
             <div
               className={styles["overlay-panel"] + " " + styles["overlay-left"]}
             >
-              <h1>Welcome Back!</h1>
+              <h1>{t('welcome_back')}</h1>
               <p>
-                To keep connected with us please login with your personal info
+              {t('keep_connected')}
               </p>
               <button
                 className={styles.ghost}
                 onClick={() => setIsSignUp(false)}
                 id="signIn"
               >
-                Sign In
+                {t('sign_in_btn')}
               </button>
             </div>
             <div
@@ -241,14 +242,14 @@ const Auth = (props) => {
                 styles["overlay-panel"] + " " + styles["overlay-right"]
               }
             >
-              <h1>Hello, Friend!</h1>
-              <p>Enter your personal details and start journey with us</p>
+              <h1>{t('hello_friend')}</h1>
+              <p>{t('enter_your_personal')}</p>
               <button
                 className={styles.ghost}
                 onClick={() => setIsSignUp(true)}
                 id="signUp"
               >
-                Sign Up
+                {t('sign_up')}
               </button>
             </div>
           </div>

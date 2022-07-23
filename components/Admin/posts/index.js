@@ -23,7 +23,7 @@ const Posts = (props) => {
     setAction,
     deletePosts
   } = useContext(PostListAdminContext);
-  const { authState } = useContext(AuthContext);
+  const { authState, t } = useContext(AuthContext);
 
   if (postListAdminState.isLoading || authState.isLoading) {
     return <Loading isLoading={true} />;
@@ -79,7 +79,7 @@ const Posts = (props) => {
     },
     {
       field: "thumbnail",
-      headerName: "Thumbnail",
+      headerName: t('thumbnail_admin'),
       flex: 2,
       minWidth: 150,
       editable: false,
@@ -87,14 +87,14 @@ const Posts = (props) => {
     },
     {
       field: "title",
-      headerName: "Title",
+      headerName: t('title_admin'),
       flex: 4,
       minWidth: 200,
       editable: false,
     },
     {
       field: "modifiedUser",
-      headerName: "Author",
+      headerName: t('author_admin'),
       flex: 2,
       minWidth: 100,
       editable: false,
@@ -102,21 +102,21 @@ const Posts = (props) => {
     },
     {
       field: "totalView",
-      headerName: "View",
+      headerName: t('view_admin'),
       flex: 2,
       minWidth: 100,
       editable: false,
     },
     {
       field: "totalComment",
-      headerName: "Comment Count",
+      headerName: t('comment_count_admin'),
       flex: 2,
       minWidth: 100,
       editable: false,
     },
     {
       field: "action",
-      headerName: "Action",
+      headerName: t('action_admin'),
       flex: 2,
       minWidth: 150,
       editable: false,
@@ -160,14 +160,14 @@ const Posts = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-        <Breadscrum links={["Home", "Posts"]} />
+        <Breadscrum links={[t('home_brum_admin'), t('post_brum_admin')]} />
         <Button variant="contained" color="warning" onClick={() => {
           router.push("/admin/posts/add-new")
         }}>
           <span>
             <i className="fa-solid fa-plus"></i>
           </span>
-          &nbsp;<span>Add New</span>
+          &nbsp;<span>{t('add_new_admin')}</span>
         </Button>
       </div>
       <div className={styles.controls}>
@@ -183,16 +183,16 @@ const Posts = (props) => {
                 >
                   <Grid item xs={9} md={7}>
                     <Input
-                      placeholder="Bulk actions"
+                      placeholder={t('bulk_actions_admin')}
                       name="select-bulk-action"
                       arrayObj={[
                         {
                           name: "edit",
-                          innerText: "Edit",
+                          innerText: t('edit_admin'),
                         },
                         {
                           name: "delete",
-                          innerText: "Move to trash",
+                          innerText: t('remove_admin'),
                         },
                       ]}
                       valueObj="name"
@@ -202,7 +202,7 @@ const Posts = (props) => {
                     />
                   </Grid>
                   <Grid item xs={3} md={5}>
-                    <button onClick={onAction}>Apply</button>
+                    <button onClick={onAction}>{t('apply_admin')}</button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -215,7 +215,7 @@ const Posts = (props) => {
                 >
                   <Grid item xs={5}>
                     <Input
-                      placeholder="Choose date"
+                      placeholder={t('choose_date')}
                       type="date"
                       defaultValue={`${
                         postListAdminState.conditions.filters.BT_modifiedTime
@@ -228,11 +228,11 @@ const Posts = (props) => {
                     />
                   </Grid>
                   <Grid item xs={1}>
-                    to
+                    {t('to')}
                   </Grid>
                   <Grid item xs={5}>
                     <Input
-                      placeholder="Choose date"
+                      placeholder={t('choose_date')}
                       type="date"
                       defaultValue={`${
                         postListAdminState.conditions.filters.BT_modifiedTime
@@ -253,7 +253,7 @@ const Posts = (props) => {
               <Grid item xs={10}>
                 <Input
                   name="search"
-                  placeholder="Search by title"
+                  placeholder={t('search_by_title_admin')}
                   defaultValue={postListAdminState.conditions.search}
                   onChange={(e) => {
                     setConditions({

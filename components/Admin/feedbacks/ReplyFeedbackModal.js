@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 import { FeedbackListAdminContext } from '../../../contexts/providers/admin/FeedbackListAdminProvider';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
+
 import Input from '../../common/Input';
 import { Button, Grid } from '@mui/material';
 
@@ -20,6 +22,7 @@ const style = {
 
 const ReplyFeedbackModal = () => {
   const { feedbackListAdminState, setReply, reply } = useContext(FeedbackListAdminContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <div>
@@ -34,7 +37,7 @@ const ReplyFeedbackModal = () => {
         <Box sx={style}>
           <Input 
             id="subject"
-            title='Subject'
+            title={t('subject_admin')}
             name='subject'
             defaultValue={feedbackListAdminState.reply ? feedbackListAdminState.reply.subject : ''}
             isRequire={'true'}
@@ -47,7 +50,7 @@ const ReplyFeedbackModal = () => {
           />
           <Input 
             id="content"
-            title='Content'
+            title={t('content_admin')}
             name='content'
             defaultValue={feedbackListAdminState.reply ? feedbackListAdminState.reply.content : ''}
             isRequire={'true'}
@@ -60,11 +63,11 @@ const ReplyFeedbackModal = () => {
             }}
           />
           <Grid container justifyContent={'flex-end'}>
-            <Button variant="contained" onClick={() => reply()}>Reply</Button>
+            <Button variant="contained" onClick={() => reply()}>{t('reply_admin')}</Button>
             <span style={{marginRight: '10px'}}></span>
             <Button variant="contained" color="error" onClick={() => {
               setReply(null);
-            }}>Cancel</Button>
+            }}>{t('cancel_admin')}</Button>
           </Grid>
         </Box>
       </Modal>

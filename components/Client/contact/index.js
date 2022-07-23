@@ -8,9 +8,11 @@ import Loading from '../../common/Loading';
 import Notification from '../../common/Notification';
 import Feedback from './Feedback';
 import { ContactContext } from '../../../contexts/providers/ContactProvider';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const Index = (props) => {
   const { contactState, setError } = useContext(ContactContext);
+  const { t } = useContext(AuthContext);
 
   if (contactState.isLoading) {
     return <Loading isLoading={true} />;
@@ -25,7 +27,7 @@ const Index = (props) => {
         onClose={() => setError(null)}
       />    
       <Container>
-        <Breadcrumb links={['Home', 'Contact']}/>
+        <Breadcrumb links={[t('home_brum'), t('contact_brum')]}/>
       </Container>
       <hr />
       <Map />

@@ -5,14 +5,16 @@ import Image from "next/image";
 import styles from "./Wishlist.module.css";
 import { WishlistContext } from "../../../contexts/providers/WishlistProvider";
 import Breadcrumb from "../../common/Breadcrumb";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const Index = (props) => {
   const { favoriteProductState, deleteFavorite } = useContext(WishlistContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <>
       <Container>
-        <Breadcrumb links={["Home", "Wishlist"]} />
+        <Breadcrumb links={[t('home_brum'), t('wishlist_brum')]} />
       </Container>
       <hr />
       <Container>

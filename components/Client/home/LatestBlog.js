@@ -6,9 +6,11 @@ import Moment from 'react-moment';
 
 import styles from "./LatestBlog.module.css";
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const LatestBlog = (props) => {
   const { homeState } = useContext(HomeContext);
+  const { t } = useContext(AuthContext);
   const [swiperRef, setSwiperRef] = useState();
 
   const slideTo = (index) => {
@@ -20,7 +22,7 @@ const LatestBlog = (props) => {
   return (
     <div className={styles["latest-blog"]}>
       <div className={styles["title-latest-blog"]}>
-        <h1>Latest Blogs</h1>
+        <h1>{t('latest_blogs')}</h1>
         <div>
           <button onClick={() => slideTo(swiperRef.activeIndex - 1)}>
             <i className="fa-solid fa-angle-left"></i>

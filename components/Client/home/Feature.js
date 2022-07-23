@@ -1,34 +1,8 @@
 import { Grid } from '@mui/material';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 import styles from './Feature.module.css';
-
-const features = [
-  {
-    id: 0,
-    name: 'Free Shipping',
-    content: 'Free Shipping on order',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/free_shipping.webp'
-  },
-  {
-    id: 1,
-    name: 'Support 24/7',
-    content: 'Contact us 24 hrs a day',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/support247.webp'
-  },
-  {
-    id: 2,
-    name: '100% Money Back',
-    content: 'You\'ve 30 days to Return',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/moneyback.webp'
-  },
-  {
-    id: 3,
-    name: 'Payment Secure',
-    content: '100% secure payment',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/payment_secure.webp'
-  }
-]
 
 const ItemFeature = props => {
   return <div className={styles['item-feature']}>
@@ -48,6 +22,35 @@ const ItemFeature = props => {
 }
 
 const Feature = props => {
+  const { t } = useContext(AuthContext);
+
+  const features = [
+    {
+      id: 0,
+      name: t('free_shipping'),
+      content: t('free_shipping_on_order'),
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/free_shipping.webp'
+    },
+    {
+      id: 1,
+      name: t('support_24/7'),
+      content: t('contact_us_24'),
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/support247.webp'
+    },
+    {
+      id: 2,
+      name: t('100_money_back'),
+      content: t('you_30_day_return'),
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/moneyback.webp'
+    },
+    {
+      id: 3,
+      name: t('payment_secure'),
+      content: t('100_payment_secure'),
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/icons/payment_secure.webp'
+    }
+  ]
+
   return (
     <div className={styles.feature}>
       <Grid container spacing={2} columns={12}>

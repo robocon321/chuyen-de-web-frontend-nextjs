@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faFacebookF, 
@@ -11,8 +11,10 @@ import {
   } from '@fortawesome/free-brands-svg-icons';
 import styles from './Footer.module.css';
 import { Container } from '@mui/material';
+import { AuthContext } from "../../contexts/providers/AuthProvider";
 
 const Footer = props =>{
+    const { t } = useContext(AuthContext);
     return(
         <footer>
             <Container>
@@ -20,12 +22,12 @@ const Footer = props =>{
                     <div className={styles['footer__left']}>
                         <img className={styles['footer__left-logo']} src='http://localhost:3000/logo.webp' />
                         <div className={styles['footer__left-address']}>
-                            <div className={styles['footer__left-title']}>Address</div>
-                            <div className={styles['footer__left-address-text']}>HCM</div>
+                            <div className={styles['footer__left-title']}>{t('address')}</div>
+                            <div className={styles['footer__left-address-text']}>Lã Xuân Oai, Tân Nhơn Phú A, Quận 9, TP.HCM</div>
                         </div>
                         <div className={styles['footer__left-help']}>
-                        <div className={styles['footer__left-title']}>Need Help?</div>
-                            <div className={styles['footer__left-phone-num']}>Call:........</div>
+                        <div className={styles['footer__left-title']}>{t('need_help')}</div>
+                            <div className={styles['footer__left-phone-num']}>{t('call')}: 0354599999</div>
                         </div>
                         <div className={styles['footer__left-icon']}>
                         <a href='#'><FontAwesomeIcon icon={faFacebookF} /></a>
@@ -36,7 +38,7 @@ const Footer = props =>{
                         </div>
                     </div>
                     <div className={styles['footer__center']}>
-                        <a  className={styles['footer__center-link-insta']} href="">Follow on instagram</a>
+                        <a  className={styles['footer__center-link-insta']} href="">{t('follow_instagram')}</a>
                         <div className={styles['footer__center-gird-img']}>
                         <ul className={styles['footer__center-list-img']}>
                             <li className={styles['footer__center-item-img']}>
@@ -72,21 +74,21 @@ const Footer = props =>{
                                                 </div>
                     </div>
                     <div className={styles['footer__right']}>
-                        <div className={styles['footer__right-title']}>Information</div>
+                        <div className={styles['footer__right-title']}>{t('information')}</div>
                         <div className={styles['footer__right-info']}>
                         <ul className={styles['footer__right-info-list']}>
-                            <li className={styles['footer__right-info-item']}><a href="">About Us</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Contact Us</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Specials</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Terms & Conditions</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Affiliate</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('about_us')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('contact_us')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('specials')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('terms_conditions')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('affiliate')}</a></li>
                         </ul>
                         <ul className={styles['footer__right-list']}>
-                            <li className={styles['footer__right-info-item']}><a href="">Privacy Policy</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Gift Centificates</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Delivery Information</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Brands</a></li>
-                            <li className={styles['footer__right-info-item']}><a href="">Site Map</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('privacy_policy')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('gift_centificates')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('delivery_information')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('brands')}</a></li>
+                            <li className={styles['footer__right-info-item']}><a href="">{t('site_map')}</a></li>
                         </ul>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import styles from './Sidebar.module.css';
 import { BlogContext } from '../../../contexts/providers/BlogProvider';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const comments = [
   {
@@ -36,6 +37,8 @@ const comments = [
 
 const Sidebar = (props) => {
   const { blogState, router } = useContext(BlogContext);
+  const { t } = useContext(AuthContext);
+
   const [search, setSearch] = useState('');
 
   
@@ -75,14 +78,14 @@ const Sidebar = (props) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.search}>
-        <label>SEARCH</label>
+        <label>{t('search_title')}</label>
         <div className={styles.searchbox}>
-          <input type='text' placeholder='Search' onChange={(e) => {setSearch(e.target.value)}}/>
+          <input type='text' placeholder={t('search_placeholder')} onChange={(e) => {setSearch(e.target.value)}}/>
           <span onClick={onSearch}><i className="fa-solid fa-magnifying-glass"></i></span>
         </div>
       </div>
       <div className={styles.category}>
-        <h3>CATEGORIES</h3>
+        <h3>{t('category')}</h3>
         <ul className={styles['parent-categories']}>
         {
           blogState.categories &&
@@ -106,7 +109,7 @@ const Sidebar = (props) => {
         </ul>
       </div>
       <div className={styles.posts}>
-        <h3>RECENT POSTS</h3>
+        <h3>{t('recent_post')}</h3>
         { blogState.popularBlogs &&
           blogState.popularBlogs.content.map((item, index) => (
             <a href='#' key={item.id} className={styles.post}>
@@ -134,7 +137,7 @@ const Sidebar = (props) => {
         }
       </div>
       <div className={styles.comments}>
-        <h3>RECENT COMMENTS</h3>
+        <h3>{t('recent_comment')}</h3>
         {
           comments.map((item, index) => (
             <a href='#' key={item.id} className={styles.comment}>
@@ -160,7 +163,7 @@ const Sidebar = (props) => {
         }
       </div>
       <div className={styles.tags}>
-        <h3>POPULAR TAGS</h3>
+        <h3>{t('popular_tag')}</h3>
         <a href='#'>New</a>
         <a href='#'>Bags</a>
         <a href='#'>News</a>

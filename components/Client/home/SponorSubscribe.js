@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import Image from 'next/image';
 
 import styles from './SponorSubscribe.module.css';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const sponors = [
   {
@@ -29,6 +30,8 @@ const sponors = [
 ]
 
 const SponorSubscribe = props => {
+  const { t } = useContext(AuthContext);
+
   return (
     <div className={styles['sponor-subscribe']}>
       <div className={styles['sponor']}>
@@ -70,12 +73,12 @@ const SponorSubscribe = props => {
       <hr />
       <div className={styles['subscribe']}>
           <div className={styles['left-subscribe']}>
-            <h3>Subscribe newsletter to get updated</h3>
-            <p>{`We'll never share your email address with a third-party`}</p>
+            <h3>{t('subscribe_newsletter')}</h3>
+            <p>{t('share_your_email')}</p>
           </div>
           <div className={styles['right-subscribe']}>
-            <input placeholder='Enter your email address here ...'/>
-            <button>Subscribe</button>
+            <input placeholder={t('enter_your_email')} />
+            <button>{t('subscribe')}</button>
           </div>
       </div>
     </div>

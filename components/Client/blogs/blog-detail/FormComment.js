@@ -20,7 +20,7 @@ const style = {
 };
 
 const FormComment = (props) => {
-  const { authState, router } = useContext(AuthContext);
+  const { authState, router, t } = useContext(AuthContext);
   const { blogState, setForm, submitForm } = useContext(BlogDetailContext)
   const [showModal, setShowModal] = useState(false);
 
@@ -48,11 +48,11 @@ const FormComment = (props) => {
 
   return (
     <form onSubmit={submitForm} id="form" className={styles["form-comment"]}>
-      <h2>LEAVE A REPLY {
-        blogState.form && blogState.form.parent ? <span className={styles["form-reply"]} onClick={removeReply}>to {blogState.form.parent.modifiedUser.fullname} <i className="fa-regular fa-circle-xmark"></i></span> : ''
+      <h2>{t('leave_reply')} {
+        blogState.form && blogState.form.parent ? <span className={styles["form-reply"]} onClick={removeReply}>{t('to')} {blogState.form.parent.modifiedUser ? blogState.form.parent.modifiedUser.fullname : 'Anonymous'} <i className="fa-regular fa-circle-xmark"></i></span> : ''
       }</h2>
       <p>
-        Your email address will not be published. Required fields are marked *
+      {t('email_address_not_publish')}
       </p>
       <Input
         id="content"
@@ -63,12 +63,12 @@ const FormComment = (props) => {
           });
         }}
         onClick={onClickInput}
-        title="Comment"
+        title={t('comment')}
         isRequire='true'
         type="textarea"
         name="content"
       />
-      <button type="submit" onClick={submitForm}>POST COMMENT</button>
+      <button type="submit" onClick={submitForm}>{t('post_comment')}</button>
       <Modal
         open={showModal}
         onClose={handleClose}
@@ -76,13 +76,13 @@ const FormComment = (props) => {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <h1 id="parent-modal-title mb-3">Alert</h1>
+          <h1 id="parent-modal-title mb-3">{t('alert')}</h1>
           <br />
-          <p id="parent-modal-description">You must login before comment</p>
+          <p id="parent-modal-description">{t('login_before_comment')}</p>
           <br />
           <Stack spacing={2} direction="row">
-            <Button variant="contained" color="primary" onClick={redirectLogin}>Login</Button>
-            <Button variant="contained" color="error" onClick={handleClose}>Cancel</Button>
+            <Button variant="contained" color="primary" onClick={redirectLogin}>{t('login')}</Button>
+            <Button variant="contained" color="error" onClick={handleClose}>{t('cancel')}</Button>
           </Stack>
         </Box>
       </Modal>

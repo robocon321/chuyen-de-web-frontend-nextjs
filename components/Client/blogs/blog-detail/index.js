@@ -9,10 +9,12 @@ import Sidebar from "./Sidebar";
 import FormComment from "./FormComment";
 import { BlogDetailContext } from "../../../../contexts/providers/BlogDetailProvider";
 import Notification from "../../../common/Notification";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
 
 
 const Index = (props) => {
   const { blogState, setError } = useContext(BlogDetailContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <main>
@@ -24,7 +26,7 @@ const Index = (props) => {
       />
       <Loading isLoading={blogState.isLoading} />
       <Container>
-        <Breadcrumb links={["Home", "Blog"]} />
+        <Breadcrumb links={[t('home_brum'), t('blog_brum')]}/>
       </Container>
       <hr />
       <Container>

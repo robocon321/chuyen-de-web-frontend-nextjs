@@ -5,14 +5,16 @@ import Image from "next/image";
 import Breadcrumb from "../../common/Breadcrumb";
 import styles from "./FavoriteBlog.module.css";
 import { FavoriteBlogContext } from "../../../contexts/providers/FavoriteBlogProvider";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const Index = (props) => {
   const { favoriteBlogState, deleteFavorite } = useContext(FavoriteBlogContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <>
       <Container>
-        <Breadcrumb links={["Home", "Favorite Blog"]} />
+        <Breadcrumb links={[t('home_brum'), t('favorite_blog_brum')]} />
       </Container>
       <hr />
       <Container>

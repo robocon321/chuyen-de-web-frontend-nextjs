@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React, { useContext } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 import styles from "./index.module.css";
 
@@ -22,9 +22,9 @@ const Index = (props) => {
     submit,
     setError,
     router,
-    uploadFile
+    uploadFile,
   } = useContext(UserNewAdminContext);
-  const { authState } = useContext(AuthContext);
+  const { authState, t } = useContext(AuthContext);
 
   if (userNewAdminState.isLoading || authState.isLoading) {
     return <Loading isLoading={true} />;
@@ -42,36 +42,41 @@ const Index = (props) => {
         content={userNewAdminState.error}
         open={userNewAdminState.error != null}
         onClose={() => setError(null)}
-      />    
+      />
       <div className={styles.head}>
-        <Breadcrumb links={["Home", "Users", "Add New"]} />
+        <Breadcrumb
+          links={[
+            t("home_brum_admin"),
+            t("user_brum_admin"),
+            t("add_new_brum_admin"),
+          ]}
+        />
         <Grid container spacing={2} columns={12}>
-        <Grid item xs={12} md={6}>
-        <Image
-            src={
-              userNewAdminState.user.avatar
-                ? userNewAdminState.user.avatar
-                : "https://template.hasthemes.com/alula/alula/assets/img/blog/comment-icon.webp"
-            }
-            alt="Not found"
-            width={150}
-            height={150}
-          />
-          <input
-            type="file"
-            name="avatar"
-            onChange={uploadFile}
-            accept="image/*"
-          />
+          <Grid item xs={12} md={6}>
+            <Image
+              src={
+                userNewAdminState.user.avatar
+                  ? userNewAdminState.user.avatar
+                  : "https://template.hasthemes.com/alula/alula/assets/img/blog/comment-icon.webp"
+              }
+              alt="Not found"
+              width={150}
+              height={150}
+            />
+            <input
+              type="file"
+              name="avatar"
+              onChange={uploadFile}
+              accept="image/*"
+            />
           </Grid>
-      
         </Grid>
         <Grid container spacing={2} columns={12}>
           <Grid item xs={12} md={6}>
             <Input
               id="email"
-              title="Email"
-              placeholder="Example: robocon321n@gmail.com"
+              title={t("email_admin")}
+              placeholder={t("email_placeholder_admin")}
               isRequire="true"
               type="email"
               name="email"
@@ -82,8 +87,8 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="username"
-              title="Username"
-              placeholder="Example: robocon321"
+              title={t("username_admin")}
+              placeholder={t("username_placehoder_admin")}
               isRequire="true"
               name="username"
               defaultValue={userNewAdminState.user.userAccount.username}
@@ -93,8 +98,8 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="password"
-              title="Password"
-              placeholder="Enter your password"
+              title={t("password_admin")}
+              placeholder={t("password_placeholder_admin")}
               isRequire="true"
               type="password"
               name="password"
@@ -105,8 +110,8 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="re_password"
-              title="Re-password"
-              placeholder="Validate your password"
+              title={t("re_password_admin")}
+              placeholder={t("re_password_placeholder_admin")}
               isRequire="true"
               type="password"
               name="re_password"
@@ -117,7 +122,7 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="fullname"
-              title="Full name"
+              title={t("fullname_admin")}
               placeholder="Nguyễn Thanh Nhật"
               isRequire="true"
               name="fullname"
@@ -128,7 +133,7 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="birthday"
-              title="Birthday"
+              title={t("birthday_admin")}
               placeholder="2000/12/01"
               name="birthday"
               type="date"
@@ -139,7 +144,7 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="phone"
-              title="Phone number"
+              title={t("phone_admin")}
               placeholder="0983242211"
               name="phone"
               defaultValue={userNewAdminState.user.phone}
@@ -149,8 +154,8 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="role"
-              title="Role"
-              placeholder="Choose your role"
+              title={t("role_admin")}
+              placeholder={t("role_placeholder_admin")}
               isRequire="true"
               arrayObj={userNewAdminState.roles}
               valueObj="id"
@@ -162,29 +167,36 @@ const Index = (props) => {
           <Grid item xs={12} md={6}>
             <Input
               id="sex"
-              title="Sex"
-              placeholder="Choose your sex"
+              title={t("sex_admin")}
+              placeholder={t("sex_placeholder_admin")}
               name="sex"
-              arrayObj={[{
-                id: true,
-                name: 'Male'
-              }, {
-                id: false,
-                name: 'Female'
-              }]}
+              arrayObj={[
+                {
+                  id: true,
+                  name: t("male_admin"),
+                },
+                {
+                  id: false,
+                  name: t("female_admin"),
+                },
+              ]}
               valueObj="id"
               textInnerObj="name"
               type="select"
               onChange={onChangeFieldUser}
             />
           </Grid>
-          <Grid item xs={12} md={6} style={{marginTop: '64px'}}>
+          <Grid item xs={12} md={6} style={{ marginTop: "64px" }}>
             <Grid container spacing={2} columns={12}>
               <Grid item xs={6}>
-                <button className={styles.success} onClick={submit}>Kích hoạt tài khoản</button>
+                <button className={styles.success} onClick={submit}>
+                  {t("active_user_admin")}
+                </button>
               </Grid>
               <Grid item xs={6}>
-                <button className={styles.danger} onClick={reset}>Xóa thông tin</button>
+                <button className={styles.danger} onClick={reset}>
+                  {t("clear_admin")}
+                </button>
               </Grid>
             </Grid>
           </Grid>

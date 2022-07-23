@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from 'next/link';
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const SellerAndRelated = (props) => {
   const {
@@ -14,11 +15,12 @@ const SellerAndRelated = (props) => {
     includeFavoritePost,
     findFavoriteIdByPostId,
   } = useContext(HomeContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <div className={styles.seller}>
       <div className={styles["top"]}>
-        <div className={styles["lable"]}>Best Sellers</div>
+        <div className={styles["lable"]}>{t('best_seller')}</div>
         <div className={styles["page-control"]}>
           <a href="" className={styles["page-btn"]}>
             <i className="page-icon fas fa-chevron-left"></i>

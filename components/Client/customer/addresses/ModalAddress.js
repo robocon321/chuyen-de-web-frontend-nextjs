@@ -5,6 +5,7 @@ import styles from "./ModalAddress.module.css";
 import Input from "../../../common/Input";
 import { AddressesContext } from "../../../../contexts/providers/AddressesProvider";
 import { Box, Modal } from "@mui/material";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
 
 const SHIPPING_TOKEN = process.env.SHIPPING_TOKEN;
 
@@ -14,12 +15,13 @@ axios.defaults.headers.common["token"] = SHIPPING_TOKEN;
 const ModelAddress = (props) => {
   const { setVisibleModal, addressesState, setAddressModal, submitForm } =
     useContext(AddressesContext);
+  const { t } = useContext(AuthContext);
+
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
 
   useEffect(() => {
-    console.log(addressesState.addressModal);
     getProvinces();
     if (Object.keys(addressesState.addressModal).length != 0) {
       if(addressesState.addressModal.province) {
@@ -123,17 +125,17 @@ const ModelAddress = (props) => {
       <div className={styles["model-address"]}>
         <Input
           id="fullname"
-          title="Họ và tên"
+          title={t('fullname_modal')}
           name="fullname"
-          placeholder="Nhập họ và tên"
+          placeholder={t('fullname_modal_placeholder')}
           isRequire="true"
           defaultValue={addressesState.addressModal.fullname}
           onChange={onChange}
         />
         <Input
           id="province"
-          title="Tỉnh/Thành "
-          placeholder="Chọn tỉnh thành"
+          title={t('province_modal')}
+          placeholder={t('province_modal_placeholder')}
           type="select"
           name="province"
           arrayObj={provinces}
@@ -145,8 +147,8 @@ const ModelAddress = (props) => {
         />
         <Input
           id="district"
-          title="Quận huyện "
-          placeholder="Chọn quận huyện"
+          title={t('district_modal')}
+          placeholder={t('district_modal_placeholder')}
           type="select"
           name="district"
           arrayObj={districts}
@@ -158,8 +160,8 @@ const ModelAddress = (props) => {
         />
         <Input
           id="ward"
-          title="Phường xã "
-          placeholder="Chọn phường xã"
+          title={t('ward_modal')}
+          placeholder={t('ward_modal_placeholder')}
           type="select"
           name="ward"
           arrayObj={wards}
@@ -171,8 +173,8 @@ const ModelAddress = (props) => {
         />
         <Input
           id="detailAddress"
-          title="Chi tiết địa chỉ"
-          placeholder="Nhập chi tiết địa chỉ"
+          title={t('detail_address_modal')}
+          placeholder={t('detail_address_modal_placeholder')}
           type="textarea"
           name="detailAddress"
           defaultValue={addressesState.addressModal.detailAddress}
@@ -181,17 +183,17 @@ const ModelAddress = (props) => {
         />
         <Input
           id="phone"
-          title="Số điện thoại"
-          placeholder="Nhập số điện thoại"
+          title={t('phone_modal')}
+          placeholder={t('phone_modal_placeholder')}
           isRequire="true"
           name="phone"
           defaultValue={addressesState.addressModal.phone}
           onChange={onChange}
         />
-        <input id="priority" name="priority" type="checkbox" onChange={onChange} /> <label>Địa chỉ mặc định</label>
+        <input id="priority" name="priority" type="checkbox" onChange={onChange} /> <label>{t('default_address_modal')}</label>
         <div className={styles["wrap-btn"]}>
           <button className={styles["btn-submit"]} onClick={submitForm}>
-            Submit
+          {t('submit_modal')}
           </button>
           <button
             className={styles["btn-cancel"]}
@@ -199,7 +201,7 @@ const ModelAddress = (props) => {
               setVisibleModal(false);
             }}
           >
-            Cancel
+            {t('cancel_modal')}
           </button>
         </div>
         <div

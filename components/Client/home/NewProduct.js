@@ -7,6 +7,7 @@ import { Navigation, Pagination, Grid } from "swiper";
 
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 const NewProduct = (props) => {
   const {
@@ -16,6 +17,7 @@ const NewProduct = (props) => {
     includeFavoritePost,
     findFavoriteIdByPostId,
   } = useContext(HomeContext);
+  const { t } = useContext(AuthContext);
 
   const [mainSwiperRef, setMainSwiperRef] = useState();
   const slideTo = (index) => {
@@ -28,7 +30,7 @@ const NewProduct = (props) => {
   return (
     <div className={styles.newProduct}>
       <div className={styles["newProduct-top"]}>
-        <div className={styles["newProduct-lable"]}>New Products</div>
+        <div className={styles["newProduct-lable"]}>{t('new_product')}</div>
         <div className={styles["newProduct-page-control"]}>
           <button
             onClick={() => slideTo(mainSwiperRef.activeIndex - 1)}

@@ -1,6 +1,9 @@
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import AuthReducer from "../reducers/AuthReducer";
+import i18n from '../../pages/i18n';
+import { withNamespaces } from 'react-i18next';
+
 import {
   loadAccountAction,
   loginAccountAction,
@@ -54,6 +57,11 @@ const AuthProvider = (props) => {
     setLoadingAction(isLoading)(dispatch);
   }
 
+  const changeLang = (lang) => {
+    console.log(lang);
+    i18n.changeLanguage(lang);
+  }
+
   const value = {
     authState,
     router,
@@ -63,7 +71,10 @@ const AuthProvider = (props) => {
     registerSocial,
     loadAccount,
     logout,
-    setLoading
+    setLoading,
+    changeLang,
+    t: props.t,
+    lang: i18n.language    
   };
 
   return (
@@ -71,4 +82,4 @@ const AuthProvider = (props) => {
   );
 };
 
-export default AuthProvider;
+export default withNamespaces()(AuthProvider);

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { AddressesContext } from "../../../../contexts/providers/AddressesProvider";
 import styles from "./Address.module.css";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
 
 const SHIPPING_TOKEN = process.env.SHIPPING_TOKEN;
 
@@ -11,17 +12,18 @@ axios.defaults.headers.common['token'] = SHIPPING_TOKEN;
 
 const Address = (props) => {
   const { setVisibleModal, setSelected, addressesState } = useContext(AddressesContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <div className={styles["container-address"]}>
       <div className={styles.row}>
-        <h1>Sổ địa chỉ</h1>
+        <h1>{t('list_address')}</h1>
         <button onClick={
           () => {
             setSelected(-1);
             setVisibleModal(true);
         }
-        }>Thêm địa chỉ</button>
+        }>{t('add_new_address')}</button>
       </div>
       <div className={styles.addresses}>
         {addressesState.addresses.map((item, index) => (
@@ -31,8 +33,7 @@ const Address = (props) => {
                 <b>{item.fullname}</b>{" "}
                 {index == 0 && (
                   <span>
-                    <i className="fa-regular fa-circle-check"></i> Địa chỉ mặc
-                    định
+                    <i className="fa-regular fa-circle-check"></i> {t('default_address')}
                   </span>
                 )}
               </p>
@@ -43,15 +44,15 @@ const Address = (props) => {
                 }}
                 href="#"
               >
-                Chỉnh sửa
+                {t('edit')}
               </a>
             </div>
             <div>
-              <span>Địa chỉ: </span>
+              <span>{t('address')}: </span>
               <span>{item.detailAddress}, {item.ward_name}, {item.district_name}, {item.province_name}</span>
             </div>
             <div>
-              <span>Điện thoại: </span>
+              <span>{t('phone')}: </span>
               <span>{item.phone}</span>
             </div>
           </div>

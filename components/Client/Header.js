@@ -1,27 +1,40 @@
-import React, {useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import styles from "./Header.module.css";
 import { Container } from "@mui/material";
+
 import { AuthContext } from "../../contexts/providers/AuthProvider";
 
 const Header = (props) => {
-
-  const { authState, logout } = useContext(AuthContext);
+  const { authState, logout, t, changeLang, lang } = useContext(AuthContext);
   const router = useRouter();
-  const [keyword,setKeyword] = useState('')
-  const changeKeyword = (e)=>{
-    setKeyword(e.target.value)
-    console.log(keyword)
-  }
+  const [keyword, setKeyword] = useState("");
+  const changeKeyword = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  useEffect(() => {
+    window.$crisp = [];
+    window.CRISP_WEBSITE_ID = "7b66be8c-eea5-4a81-93db-ed90603c0fa6";
+    (function () {
+      var d = document;
+      var s = d.createElement("script");
+      s.src = "https://client.crisp.chat/l.js";
+      s.async = 1;
+      d.getElementsByTagName("head")[0].appendChild(s);
+    })();
+  }, []);
+
+
 
   return (
     <header>
       <Container>
         <div className={styles["top-header"]}>
           <div className={styles["left-top-header"]}>
-            <span>Follow Us: </span>
+            <span>{t('follow_us')}</span>
             <a href="#">
               <i className="fa-brands fa-facebook-f" />
             </a>
@@ -39,52 +52,63 @@ const Header = (props) => {
             </a>
           </div>
           <div className={styles["right-top-header"]}>
-              {authState.user ? (
-                <div className={styles.dropdown}>
-                  <span>Xin chào, {authState.user.fullname}</span>
-                  <div className={styles["dropdown-content"]}>
-                    <Link href="/customer/account">
-                      <a><i className="fa-solid fa-circle-info"></i> Detail account</a>
-                    </Link>
-                    <hr />
-                    <Link href="/cart">
-                      <a><i className="fa-solid fa-cart-shopping"></i> My cart</a>
-                    </Link>
-                    <hr />
-                    <Link href="/wishlist">
-                      <a><i className="fa-solid fa-star"></i> My wishlist</a>
-                    </Link>
-                    <hr />
-                    <Link href="/blog-favorite">
-                      <a><i className="fa-regular fa-heart"></i> My favorite blog</a>
-                    </Link>
-                    <hr />
-                    <div onClick={logout}>
-                      <a href="#"><i className="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
-                    </div>
+            {authState.user ? (
+              <div className={styles.dropdown}>
+                <span>{t('welcome')}, {authState.user.fullname}</span>
+                <div className={styles["dropdown-content"]}>
+                  <Link href="/customer/account">
+                    <a>
+                      <i className="fa-solid fa-circle-info"></i> {t('detail_account')}
+                    </a>
+                  </Link>
+                  <hr />
+                  <Link href="/cart">
+                    <a>
+                      <i className="fa-solid fa-cart-shopping"></i> {t('my_cart')}
+                    </a>
+                  </Link>
+                  <hr />
+                  <Link href="/wishlist">
+                    <a>
+                      <i className="fa-solid fa-star"></i> {t('my_wishlist')}
+                    </a>
+                  </Link>
+                  <hr />
+                  <Link href="/blog-favorite">
+                    <a>
+                      <i className="fa-regular fa-heart"></i> {t('my_favorite')}
+                    </a>
+                  </Link>
+                  <hr />
+                  <div onClick={logout}>
+                    <a href="#">
+                      <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
+                      {t('logout')}
+                    </a>
                   </div>
                 </div>
-              ) : (
-                <div className={styles.dropdown}>
-                  <span>My Account</span>
-                  <div className={styles["dropdown-content"]}>
-                    <Link href="/auth">
-                      <a>Register</a>
-                    </Link>
-                    <hr />
-                    <Link href="/auth">
-                      <a>Login</a>
-                    </Link>
-                  </div>
+              </div>
+            ) : (
+              <div className={styles.dropdown}>
+                <span>{t('my_account')}</span>
+                <div className={styles["dropdown-content"]}>
+                  <Link href="/auth">
+                    <a>{t('register')}</a>
+                  </Link>
+                  <hr />
+                  <Link href="/auth">
+                    <a>{t('login')}</a>
+                  </Link>
                 </div>
-              )}
+              </div>
+            )}
             <span> | </span>
             <div className={styles.dropdown}>
-              <span>English</span>
+              <span>{lang == 'vi' ? t('vietnamese') : t('english')}</span>
               <div className={styles["dropdown-content"]}>
-                <a href="#">English</a>
+                <div onClick={() => changeLang('en')}><a href="#">{t('english')}</a></div>
                 <hr />
-                <a href="#">Vietnam</a>
+                <div onClick={() => changeLang('vi')}><a href="#">{t('vietnamese')}</a></div>
               </div>
             </div>
             <span> | </span>
@@ -106,8 +130,11 @@ const Header = (props) => {
               <Image src="/logo.webp" alt="Not found" width={140} height={40} />
             </div>
             <div className={styles["searchbar-header"]}>
-              <input placeholder="Search enter store here ..." onChange={changeKeyword}/>
-              <button onClick={()=>router.push(`/shop?search=${keyword}`)}>
+              <input
+                placeholder={t('search_enter_store_here')}
+                onChange={changeKeyword}
+              />
+              <button onClick={() => router.push(`/shop?search=${keyword}`)}>
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>
@@ -123,7 +150,7 @@ const Header = (props) => {
                 />
               </div>
               <div className={styles["info-contact-header"]}>
-                <div>Customer Support</div>
+                <div>{t('customer_support')}</div>
                 <div>
                   <b>035 4512 411</b>
                 </div>
@@ -140,7 +167,7 @@ const Header = (props) => {
           </div>
         </div>
         <div className={styles["hidden-searchbar-header"]}>
-          <input placeholder="Search enter store here ..." />
+          <input placeholder={t('search_enter_store_here')} />
           <button>
             <i className="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -151,27 +178,27 @@ const Header = (props) => {
           <ul className={styles["navbar"]}>
             <li>
               <Link href="/">
-                <a>HOME</a>
+                <a>{t('home')}</a>
               </Link>
             </li>
             <li>
               <Link href="/shop">
-                <a>SHOP</a>
+                <a>{t('shop')}</a>
               </Link>
             </li>
             <li>
               <Link href="/blogs">
-                <a>BLOG</a>
+                <a>{t('blog')}</a>
               </Link>
             </li>
             <li>
               <Link href="/contact">
-                <a>CONTACT</a>
+                <a>{t('contact')}</a>
               </Link>
             </li>
             <li>
               <Link href="/about">
-                <a>ABOUT &nbsp; US</a>
+                <a>{t('about_us')}</a>
               </Link>
             </li>
           </ul>

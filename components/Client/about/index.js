@@ -1,36 +1,40 @@
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 
 import Breadcrumb from '../../common/Breadcrumb';
 import styles from './index.module.css';
-
-const features = [
-  {
-    id: 0,
-    title: 'OUR VISSION',
-    content: 'ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/banners/banner7.webp'
-  },
-  {
-    id: 1,
-    title: 'OUR MISSION',
-    content: 'ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/banners/banner8.webp'
-  },
-  {
-    id: 2,
-    title: 'OUR GOAL',
-    content: 'ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend',
-    image: 'https://template.hasthemes.com/alula/alula/assets/img/banners/banner9.webp'
-  }
-]
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const Index = props => {
+  const { t } = useContext(AuthContext);
+
+  const features = [
+    {
+      id: 0,
+      title: t('our_vission'),
+      content: 'ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend',
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/banners/banner7.webp'
+    },
+    {
+      id: 1,
+      title: t('our_mission'),
+      content: 'ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend',
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/banners/banner8.webp'
+    },
+    {
+      id: 2,
+      title: t('our_goal'),
+      content: 'ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend',
+      image: 'https://template.hasthemes.com/alula/alula/assets/img/banners/banner9.webp'
+    }
+  ]
+  
+
   return (
     <>
       <Container>
-        <Breadcrumb links={['Home', 'About']}/>
+        <Breadcrumb links={[t('home_brum'), t('about_brum')]}/>
       </Container>
       <hr />
       <Container>
@@ -46,9 +50,9 @@ const Index = props => {
                   />
               </Grid>
               <Grid item md={6} sm={12}>
-                <h1 className={styles['mb-2']}>WELCOME TO <span>ALULA.</span></h1>
+                <h1 className={styles['mb-2']}>{t('welcome_to')} <span>ALULA.</span></h1>
                 <p className={styles['mb-4']}>ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer of the truth, the mer of human.</p>
-                <h3 className={styles['mb-2']}>WIN BEST ONLINE SHOP AT 2019</h3>
+                <h3 className={styles['mb-2']}>{t('win_best')}</h3>
                 <p>ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer of the truth, the mer of human.</p>
               </Grid>
             </Grid>
@@ -74,7 +78,7 @@ const Index = props => {
           <div className={styles.group}>
               <Grid container spacing={5} columns={3}>
                 <Grid item md={2} xs={3}>
-                  <h2 className={styles['mb-2']}>YOU CAN CHOOSE US BECAUSE WE ALWAYS PROVIDE IMPORTANCE...</h2>
+                  <h2 className={styles['mb-2']}>{t('you_can_choose_us')}</h2>
                   <p>ALULA provide how all this mistaken idea of denouncing pleasure and sing pain was born will give you a complete account of the system, and expound the actual</p>
                 </Grid>
               </Grid>
@@ -83,33 +87,33 @@ const Index = props => {
             <Grid container spacing={5} columns={4}>
               <Grid item md={1} sm={2} xs={4}>
                 <div>
-                  <h3 className={styles['mb-1']}>FAST DELIVERY</h3>
+                  <h3 className={styles['mb-1']}>{t('fast_delivery')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
                 <div>
-                  <h3 className={styles['mb-1']}>SECURE PAYMENT</h3>
+                  <h3 className={styles['mb-1']}>{t('secure_payment')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
                 <div>
-                  <h3 className={styles['mb-1']}>EASY ORDER TRACKING</h3>
+                  <h3 className={styles['mb-1']}>{t('easy_order')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
                 <div>
-                  <h3 className={styles['mb-1']}>24/7 SUPPORT</h3>
+                  <h3 className={styles['mb-1']}>{t('24/7_support')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
               </Grid>
               <Grid item md={1} sm={2} xs={4}>
                 <div>
-                  <h3 className={styles['mb-1']}>QUALITY PRODUCT</h3>
+                  <h3 className={styles['mb-1']}>{t('quality_product')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
                 <div>
-                  <h3 className={styles['mb-1']}>MONEY BACK GUARNTEE</h3>
+                  <h3 className={styles['mb-1']}>{t('money_back')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
                 <div>
-                  <h3 className={styles['mb-1']}>FREE RETURN</h3>
+                  <h3 className={styles['mb-1']}>{t('free_return')}</h3>
                   <p className={styles['mb-3']}>ALULA provide how all this mistaken dea of denouncing pleasure and sing</p>
                 </div>
               </Grid>

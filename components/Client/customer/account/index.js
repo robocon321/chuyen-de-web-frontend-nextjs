@@ -7,10 +7,12 @@ import Sidebar from '../Sidebar';
 import AccountDetail from './AccountDetail';
 import Loading from '../../../common/Loading';
 import { AccountDetailContext } from '../../../../contexts/providers/AccountDetailProvider';
+import { AuthContext } from '../../../../contexts/providers/AuthProvider';
 
 const Index = (props) => {
   const { accountDetailState, router } = useContext(AccountDetailContext);
   const { user } = accountDetailState;
+  const { t } = useContext(AuthContext);
 
   if (accountDetailState.isLoading) {
     return (
@@ -27,7 +29,7 @@ const Index = (props) => {
   return (
     <div className={styles.contact}>
       <Container>
-        <Breadcrumb links={['Home', 'Account']}/>
+        <Breadcrumb links={[t('home_brum'), t('account_brum')]}/>
       </Container>
       <hr />
       <Container>

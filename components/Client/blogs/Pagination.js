@@ -3,9 +3,11 @@ import Link from 'next/link';
 
 import styles from './Pagination.module.css';
 import { BlogContext } from '../../../contexts/providers/BlogProvider';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const Pagination = (props) => {
   const { blogState, router } = useContext(BlogContext);
+  const { t } = useContext(AuthContext);
 
   const createQuery = (search, page, AND_taxomony) => {
     const query = {};
@@ -76,7 +78,7 @@ const Pagination = (props) => {
               }
             }><a><i className="fa-solid fa-forward-step"></i></a></Link>
           </div>
-        <div className={styles.info}>Showing {blogState.lastestBlogs.size * blogState.lastestBlogs.number + 1} to {blogState.lastestBlogs.size * (blogState.lastestBlogs.number + 1)} of {blogState.lastestBlogs.totalElements} ({blogState.lastestBlogs.totalPages} Pages)</div>
+        <div className={styles.info}>{t('showing')} {blogState.lastestBlogs.size * blogState.lastestBlogs.number + 1} {t('to')} {blogState.lastestBlogs.size * (blogState.lastestBlogs.number + 1)} {t('of')} {blogState.lastestBlogs.totalElements} ({blogState.lastestBlogs.totalPages} {t('pages')})</div>
       </div>
     );
   } else {

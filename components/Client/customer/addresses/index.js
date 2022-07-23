@@ -11,10 +11,12 @@ import Loading from "../../../common/Loading";
 import Notification from "../../../common/Notification";
 
 import { AddressesContext } from "../../../../contexts/providers/AddressesProvider";
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
 
 const Index = (props) => {
   const { router, addressesState, user, setError } = useContext(AddressesContext);
-  
+  const { t } = useContext(AuthContext);
+
   if (addressesState.isLoading) {
     return <Loading isLoading={true} />;
   }
@@ -34,7 +36,7 @@ const Index = (props) => {
       />
 
       <Container>
-        <Breadcrumb links={["Home", "Addresses"]} />
+        <Breadcrumb links={[t('home_brum'), t('address_brum')]} />
       </Container>
       <hr />
       <Container>

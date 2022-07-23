@@ -21,7 +21,7 @@ const Index = (props) => {
     onSubmit,
     setError,
   } = useContext(PostUpdateAdminContext);
-  const { authState } = useContext(AuthContext);
+  const { authState, t } = useContext(AuthContext);
 
   const tags = [
     {
@@ -51,15 +51,15 @@ const Index = (props) => {
         onClose={() => setError(null)}
       />
       <div className={styles.head}>
-        <Breadcrumb links={["Home", "Posts", "Update"]} />
+      <Breadcrumb links={[t('home_brum_admin'), t('post_brum_admin'), t('update_brum_admin')]} />
         <Grid container spacing={2} columns={12}>
           <Grid item xs={12} lg={8}>
             <Grid container spacing={2} columns={12}>
               <Grid item xs={12}>
                 <Input
                   id="title"
-                  title="Post name"
-                  placeholder="Enter post name"
+                  title={t('post_name_admin')}
+                  placeholder={t('post_name_placeholder_admin')}
                   isRequire={"true"}
                   name="title"
                   defaultValue={postUpdateAdminState.post.title}
@@ -69,8 +69,8 @@ const Index = (props) => {
               <Grid item xs={12}>
                 <Input
                   id="content"
-                  title="Post detail"
-                  placeholder=""
+                  title={t('post_detail_admin')}
+                  placeholder={t('post_detail_admin')}
                   isRequire={"true"}
                   name="content"
                   defaultValue={postUpdateAdminState.post.content}
@@ -81,8 +81,8 @@ const Index = (props) => {
               <Grid item xs={12}>
                 <Input
                   id="description"
-                  title="Short description"
-                  placeholder="Description..."
+                  title={t('short_description_admin')}
+                  placeholder={t('short_description_placeholder')}
                   name="description"
                   defaultValue={postUpdateAdminState.post.description}
                   onChange={onChangePost}
@@ -93,8 +93,8 @@ const Index = (props) => {
               <Grid item xs={12}>
                 <Input
                   id="slug"
-                  title="Slug"
-                  placeholder="Enter slug"
+                  title={t('slug_admin')}
+                  placeholder={t('slug_placeholder_admin')}
                   name="slug"
                   defaultValue={postUpdateAdminState.post.slug}
                   onChange={onChangePost}
@@ -103,8 +103,8 @@ const Index = (props) => {
               <Grid item xs={12}>
                 <Input
                   id="meta_title"
-                  title="Meta title"
-                  placeholder="Enter meta title"
+                  title={t('meta_title_admin')}
+                  placeholder={t('meta_title_placeholder_admin')}
                   name="meta_title"
                   defaultValue={postUpdateAdminState.post.meta_title}
                   onChange={onChangePost}
@@ -113,8 +113,8 @@ const Index = (props) => {
               <Grid item xs={12}>
                 <Input
                   id="meta_description"
-                  title="Meta description"
-                  placeholder="Enter meta description"
+                  title={t('meta_description_admin')}
+                  placeholder={t('meta_description_placeholder_admin')}
                   name="meta_description"
                   defaultValue={postUpdateAdminState.post.meta_description}
                   onChange={onChangePost}
@@ -125,7 +125,7 @@ const Index = (props) => {
           </Grid>
           <Grid item xs={12} lg={4}>
             <div className={styles.group}>
-              <h4>Choose Category</h4>
+            <h4>{t('choose_category_admin')}</h4>
               <div className={styles.categories}>
                 {postUpdateAdminState.categories.map((item) => (
                   <div className={styles.category} key={item.id}>
@@ -146,17 +146,17 @@ const Index = (props) => {
                     <span>
                       <i className="fa-solid fa-plus"></i>
                     </span>{" "}
-                    <span>Add new category</span>
+                    <span>{t('add_category_admin')}</span>
                   </a>
                 </Link>
               </div>
             </div>
             <div className={styles.group}>
-              <h4>Choose tags</h4>
+            <h4>{t('choose_tag_admin')}</h4>
               <div className={styles.tags}>
                 <AutoCompleteTag arrayObj={tags} valueObj={"name"} />
                 <div className={styles.choose}>
-                  Choose from the most used tags
+                  {t('choose_most_tag_admin')}
                 </div>
                 <div className={styles["most-tag"]}>
                   <span>tag 1</span> <span>tag 2</span>
@@ -164,7 +164,7 @@ const Index = (props) => {
               </div>
             </div>
             <div className={styles.group}>
-              <h4>Choose thumbnail</h4>
+            <h4>{t('choose_thumbnail_admin')}</h4>
               <div className={styles.image}>
                 <div>
                   {postUpdateAdminState.post.thumbnail && (
@@ -187,7 +187,7 @@ const Index = (props) => {
               </div>
             </div>
             <div className={styles.group}>
-              <h4>Choose gallery</h4>
+            <h4>{t('choose_gallery_admin')}</h4>
               <div className={styles.image}>
                 <div>
                   {postUpdateAdminState.post.galleryImage &&
@@ -216,7 +216,7 @@ const Index = (props) => {
               </div>
             </div>
             <button className={styles.complete} onClick={onSubmit}>
-              Hoàn tất
+            {t('submit_admin')}
             </button>
           </Grid>
         </Grid>
