@@ -298,6 +298,11 @@
   "reply_by_admin": "Reply by",
   "content_admin": "Content",
   "cancel_admin": "Cancel",
-  "reply_admin": "Reply" 
+  "reply_admin": "Reply",
  
+
+  "need_login": "You need to be logged in to perform this function",
+  "error": "Error",
+  "favorite_not_found": "Your favorite not found"
+
 }

@@ -21,7 +21,7 @@ const Index = (props) => {
   return (
     <div className={styles.contact}>
       <Notification
-        title="Error"
+        title={t('error')}
         content={contactState.error}
         open={contactState.error != null}
         onClose={() => setError(null)}

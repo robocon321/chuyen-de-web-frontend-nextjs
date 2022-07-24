@@ -64,7 +64,7 @@ const AccountDetail = (props) => {
   return (
     <div className={styles["account-detail"]}>
       <Notification
-        title="Error"
+        title={t('error')}
         content={accountDetailState.error}
         open={accountDetailState.error != null}
         onClose={() => setError(null)}

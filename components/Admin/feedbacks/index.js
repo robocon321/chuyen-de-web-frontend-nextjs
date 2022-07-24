@@ -133,7 +133,7 @@ const Feedback = (props) => {
   return (
     <div className={styles.container}>
       <Notification
-        title="Error"
+        title={t('error')}
         content={feedbackListAdminState.error}
         open={feedbackListAdminState.error != null}
         onClose={() => setError(null)}

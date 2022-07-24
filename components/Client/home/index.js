@@ -15,14 +15,16 @@ import SponorSubscribe from './SponorSubscribe';
 import NewProduct from './NewProduct';
 import Discover from './Discover';
 import SellerAndRelated from './SellerAndRelated';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
 
 const Home = (props) => {
   const { homeState, setError } = useContext(HomeContext);
+  const { t } = useContext(AuthContext);
 
   return (
     <main>
       <Notification
-        title="Error"
+        title={t('error')}
         content={homeState.error}
         open={homeState.error != null}
         onClose={() => setError(null)}

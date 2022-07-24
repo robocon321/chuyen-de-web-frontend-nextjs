@@ -9,6 +9,8 @@ const ACTIONS = {
   SET_LOADING: "SET_LOADING",
   SET_USER: "SET_USER",
   SET_ERROR: "SET_ERROR",
+  SET_FORGOT_PASS: "SET_FORGOT_PASS",
+  SET_MESSAGE: "SET_MESSAGE"
 };
 
 const loginAccountAction =({ username, password }) => async (dispatch) => {
@@ -190,6 +192,43 @@ const setLoadingAction = (isLoading) => (dispatch) => {
   });
 }
 
+const setForgotPassAction = (forgotPass) => (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_FORGOT_PASS,
+    payload: forgotPass
+  });
+}
+
+const resetPassAction = (username) => async (dispatch) => {
+  await axios({
+    method: 'POST',
+    url: `${backendUrl}/auth/reset`,
+    data: {
+      username
+    }
+  })
+    .then((response) => {
+      setMessageAction(response.data.message)(dispatch);
+    })
+    .catch((error) => {
+      handleError(error, dispatch, ACTIONS.SET_ERROR);
+    });  
+}
+
+const setMessageAction = (message) => (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_MESSAGE,
+    payload: message
+  });
+}
+
+const setErrorAction = (error) => (dispatch) => {
+  dispatch({
+    type: ACTIONS.SET_ERROR,
+    payload: error
+  })
+}
+
 export {
   ACTIONS,
   loginSocialAction,
@@ -199,5 +238,9 @@ export {
   registerAccountAction,
   registerSocialAction,
   logoutAction,
-  setLoadingAction
+  setLoadingAction,
+  setForgotPassAction,
+  resetPassAction,
+  setMessageAction,
+  setErrorAction
 };

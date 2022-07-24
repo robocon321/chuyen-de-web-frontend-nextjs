@@ -45,7 +45,7 @@ const Index = (props) => {
   return (
     <div className={styles["add-new"]}>
       <Notification
-        title="Error"
+        title={t('error')}
         content={postUpdateAdminState.error}
         open={postUpdateAdminState.error != null}
         onClose={() => setError(null)}

@@ -30,7 +30,7 @@ const BlogProvider = (props) => {
   const router = useRouter();
   const query = {...router.query};
   const [blogState, dispatch] = useReducer(BlogReducer, initState);
-  const { authState } = useContext(AuthContext);
+  const { authState, t } = useContext(AuthContext);
 
   useEffect(() => {
     loadData();
@@ -90,11 +90,15 @@ const BlogProvider = (props) => {
       await deleteFavoriteAction(id)(dispatch);
       setLoading(false);  
     } else {
-      setError('Your favorite not found');
+      setError(t('favorite_not_found'));
     }
   }
 
   const addFavorite = async (id) => {
+    if(authState.user == null) {
+      setError(t('need_login'));
+      return;
+    }
     setLoading(true);
     await addFavoriteAction(id)(dispatch);
     setLoading(false);

@@ -17,7 +17,7 @@ const Index = props => {
   return (
     <main>
       <Notification
-        title="Error"
+        title={t('error')}
         content={blogState.error}
         open={blogState.error != null}
         onClose={() => setError(null)}

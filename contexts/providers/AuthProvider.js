@@ -11,13 +11,22 @@ import {
   registerAccountAction,
   registerSocialAction,
   logoutAction,
-  setLoadingAction
+  setLoadingAction,
+  setForgotPassAction,
+  setMessageAction,
+  resetPassAction,
+  setErrorAction
 } from "../actions/AuthAction";
 
 const initState = {
   isLoading: true,
   user: null,
   error: null,
+  forgotPass: {
+    isShow: false,
+    username: null
+  },
+  message: null
 };
 
 export const AuthContext = createContext();
@@ -25,6 +34,10 @@ export const AuthContext = createContext();
 const AuthProvider = (props) => {
   const router = useRouter();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const loginAccount = (data) => {
     loginAccountAction(data)(dispatch);
@@ -57,9 +70,38 @@ const AuthProvider = (props) => {
     setLoadingAction(isLoading)(dispatch);
   }
 
+  const setMessage = (message) => {
+    setMessageAction(message)(dispatch);
+  }
+
+  const setError = (error) => {
+    setErrorAction(error)(dispatch);
+  }
+
+  const resetPass = () => {
+    resetPassAction(authState.forgotPass.username)(dispatch);
+  }
+
   const changeLang = (lang) => {
-    console.log(lang);
     i18n.changeLanguage(lang);
+  }
+
+  const setForgotPass = (forgotPass) => {
+    setForgotPassAction(forgotPass)(dispatch);
+  }
+
+  const submitForgotPass = async () => {
+    const usernameEle = document.getElementById("username");
+    if(!authState.forgotPass.username || authState.forgotPass.username == '') {
+      usernameEle.reportValidity();
+      return ;
+    }
+
+    setForgotPass({
+      ...authState.forgotPass,
+      isShow: false
+    });
+    resetPass();
   }
 
   const value = {
@@ -72,7 +114,12 @@ const AuthProvider = (props) => {
     loadAccount,
     logout,
     setLoading,
+    setForgotPass,
     changeLang,
+    submitForgotPass,
+    setMessage,
+    resetPass,
+    setError,
     t: props.t,
     lang: i18n.language    
   };

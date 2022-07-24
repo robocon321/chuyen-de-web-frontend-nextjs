@@ -34,7 +34,7 @@ const Feedback = (props) => {
             <Input 
               defaultValue={contactState.feedback.subject}
               onChange={onChange}
-              title={t('subject')}
+              title={t('your_subject')}
               isRequire='true'
               name='subject'
               id='subject'

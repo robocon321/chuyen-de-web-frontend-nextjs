@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 
 const clientId =
   "25721093997-t7m5rtq3hjpap509etu23fll02mbu4ej.apps.googleusercontent.com";
@@ -24,7 +25,8 @@ const Auth = (props) => {
     registerSocial,
     loginSocial,
     authState,
-    t
+    t,
+    setForgotPass
   } = useContext(AuthContext);
   const [isSignUp, setIsSignUp] = useState(false);
   const [loginAccountForm, setLoginAccountForm] = useState({
@@ -134,6 +136,7 @@ const Auth = (props) => {
 
   return (
     <div className={styles.center}>
+      <ForgotPasswordModal />
       <div
         className={
           (isSignUp ? styles["right-panel-active"] + " " : "") +
@@ -216,7 +219,10 @@ const Auth = (props) => {
               name="password"
               onChange={onChangeLoginAccountForm}
             />
-            <a href="#">{t('forgot_pass')}</a>
+            <a onClick={() => setForgotPass({
+              ...authState.forgotPass,
+              isShow: true   
+            })} href="#">{t('forgot_pass')}</a>
             <button>{t('sign_in_btn')}</button>
           </form>
         </div>

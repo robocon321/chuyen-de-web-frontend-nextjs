@@ -98,6 +98,7 @@
 
   "contact_brum": "Liên hệ",
   "tell_us_message": "Chúng tôi mong muốn sự góp ý chân thành từ bạn",
+  "your_email": "Email của bạn",
   "your_name": "Họ tên của bạn",
   "your_subject": "Chủ đề",
   "message": "Lời góp ý",
@@ -295,5 +296,10 @@
   "reply_by_admin": "Phản hồi bởi",
   "content_admin": "Nội dung",
   "cancel_admin": "Đóng",
-  "reply_admin": "Phản hồi"
+  "reply_admin": "Phản hồi",
+
+
+  "need_login": "Bạn cần phải đăng nhập để thực hiện chức năng này",
+  "error": "Lỗi",
+  "favorite_not_found": "Yêu thích bạn không tìm thấy"
 }
