@@ -4,8 +4,12 @@ import Bill from './Bill';
 
 import Breadcrumb from '../../common/Breadcrumb';
 import Total from './Total';
+import { useRouter } from 'next/router';
 
 const Checkout = props =>{
+    const router = useRouter()
+    const data = router.query
+    console.log(data)
     return(
         <>
         <Container>
@@ -18,7 +22,7 @@ const Checkout = props =>{
                     <Bill/>
                 </Grid>
                 <Grid item sm={12} md={5}>
-                    <Total/>
+                    <Total dataCheckout={data}/>
                 </Grid>
             </Grid>
         </Container>

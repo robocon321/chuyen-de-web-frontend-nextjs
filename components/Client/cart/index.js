@@ -1,11 +1,15 @@
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 import Breadcrumb from '../../common/Breadcrumb';
 import CartList from '../../Client/cart/CartList';
 import Payment from '../../Client/cart/Payment';
 
-const Index = props => {
+const Index = (props) => {
+  const [subTotal,setSubTotal] = useState(0)
+  const [cartId,setCartId] = useState([])
+  // console.log("index",carts)
+  console.log("SubTotal ",subTotal)
   return (
     <>
       <Container>
@@ -13,8 +17,8 @@ const Index = props => {
       </Container>
       <hr />
       <Container>
-        <CartList />
-        <Payment />
+        <CartList subTotal={subTotal} setSubTotal={setSubTotal} cartId={cartId} setCartId={setCartId}/>
+        <Payment subTotal={subTotal} cartId={cartId}/>
       </Container>
       <hr />
     </>

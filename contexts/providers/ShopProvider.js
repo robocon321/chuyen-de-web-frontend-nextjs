@@ -12,6 +12,7 @@ import {
   addFavoriteAction,
   setErrorAction,
   setLoadingAction,
+  addCartAction,
 } from "../actions/ShopAction";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -25,7 +26,8 @@ const initState = {
   message: "",
   success: false,
   infoPages: [],
-  favorites: null,
+  favorites: [],
+  cart:[],
 };
 export const ShopContext = createContext();
 
@@ -153,6 +155,11 @@ const ShopProvider = (props) => {
       return null;
     }
   };
+  const addCart = async (id)=>{
+    setLoading(true)
+    await addCartAction(id)(dispatch)
+    setLoading(false)
+  }
 
   const value = {
     shopState,
@@ -165,6 +172,7 @@ const ShopProvider = (props) => {
     deleteFavorite,
     includeFavoritePost,
     findFavoriteIdByPostId,
+    addCart
   };
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>

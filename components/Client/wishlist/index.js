@@ -17,8 +17,6 @@ const Index = props => {
     router.push("/auth");
     return ;
   }
-
-
   return (
     <>
       <Wishlist />
