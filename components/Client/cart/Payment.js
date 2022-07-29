@@ -3,11 +3,12 @@ import axios from 'axios';
 
 
 import styles from './Payment.module.css';
+import Link from "next/link";
 
 axios.defaults.baseURL = 'https://online-gateway.ghn.vn/shiip/public-api';
 axios.defaults.headers.common['token'] = process.env.SHIPPING_TOKEN;
 
-const Payment = (props) => {
+const Payment = ({subTotal,cartId}) => {
   const [shipping, setShipping] = useState({
     service_type_id: 2,
     insurance_value: 50000,
@@ -112,7 +113,11 @@ const Payment = (props) => {
       console.error(error);
     })
   }
-
+  const data = {cartId:cartId,
+                subTotal:subTotal,
+                shipTotal:cost.ship,
+  }
+  console.log('data send',data)
   return (
     <div className={styles.payment}>
       <div className={styles.calculate}>
@@ -149,14 +154,20 @@ const Payment = (props) => {
       <div className={styles.checkout}>
         <div className={styles['cart-summary']}>
           <h3>Cart Summary</h3>
-          <div><span>Sub Total</span><span>{cost.price} VNĐ</span></div>
+          <div><span>Sub Total</span><span>{subTotal} VNĐ</span></div>
           <div><span>Shipping Total</span><span>{cost.ship} VNĐ</span></div>
           <hr />
-          <div className={styles.total}><span>Grand Total</span><span>{cost.price + cost.ship} VNĐ</span></div>
+          <div className={styles.total}><span>Grand Total</span><span>{subTotal + cost.ship} VNĐ</span></div>
         </div>
         <div className={styles['btn-checkout']}>
           <button>Update Cart</button>
-          <button>CHECKOUT</button>
+          <Link 
+            href={{
+              pathname:'/checkout',
+              query:data,
+              }}>
+            <button>CHECKOUT</button>
+            </Link>
         </div>
       </div>
     </div>

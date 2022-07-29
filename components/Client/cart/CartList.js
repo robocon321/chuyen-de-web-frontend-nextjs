@@ -1,7 +1,9 @@
-import React, {useState, useContext } from "react";
+import React, {useState, useContext,useEffect } from "react";
 import Image from 'next/image';
 import { AuthContext } from "../../../contexts/providers/AuthProvider";
 import styles from './CartList.module.css';
+import { CartContext } from "../../../contexts/providers/CartProvider";
+import { ShopContext } from "../../../contexts/providers/ShopProvider";
 
 const products = [
   {
@@ -34,9 +36,49 @@ const products = [
   },
 ]
 
-const CartList = (props) => {
+const CartList = ({subTotal,setSubTotal,cartId,setCartId}) => {
   const { authState } = useContext(AuthContext);
-  console.log(authState)
+  const {cartState,loadCart,loadCartByUserId} = useContext(CartContext)
+  // const [totalCart,setTotalCart] = useState(0)
+  const [user,setUser] = useState()
+  const loadCartByUser =  (userId) =>{
+     loadCartByUserId(userId)
+    // if(cartState.cartByUserId)
+    // loadCart(cartState.cartByUserId.id)
+   
+  }
+  const loadCartData=(cartId)=>{
+    loadCart(cartId)
+    // handleTotalCart()
+  }
+  useEffect(() => {
+    setUser(authState.user)
+  }, [authState.isLoading===false]);
+  useEffect(()=>{
+    if(user)
+    return loadCartByUser(user.id)
+  },[user])
+  useEffect(()=>{
+    if(cartState.cartByUserId!==null){
+    loadCartData(cartState.cartByUserId.id)
+    setCartId(cartState.cartByUserId.id)
+  }
+  },[cartState.cartByUserId!==null])
+  // count total cart after render
+  useEffect(()=>{
+    handleTotalCart()
+    
+  })
+
+  //Get total cart
+  const handleTotalCart = () =>{
+    const total = cartState.carts.reduce((prev,next)=>{
+       return  (prev)
+    +(next.product.minPrice*next.quantity)
+  },0)
+    setSubTotal(total)
+  }
+ 
   return (
     <div className={styles.cartlist}>
     <table>
@@ -46,22 +88,27 @@ const CartList = (props) => {
           <th>PRODUCT</th>
           <th>PRICE</th>
           <th>QUANTITY</th>
-          <th>TOTAL</th>
+          {/* <th>TOTAL</th> */}
           <th>REMOVE</th>
         </tr>
-        {
-          products.map(item => (
+        {cartState.carts &&
+          cartState.carts.map(item => (
             <tr key={item.id}>
               <td>
                 <Image 
-                  src={item.image}
+                  src={item.product.post.thumbnail}
                   alt='Not found'
                   width={100}
                   height={100}
                 />
               </td>
-              <td>{item.name}</td>
-              <td>${item.price}</td>
+              <td>{item.product.post.title}</td>
+              <td>
+                {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(item.product.minPrice)}  
+              </td>
               <td>
                 <div className={styles['counter']}>
                   <input type='text' defaultValue={item.quantity}/>
@@ -69,8 +116,13 @@ const CartList = (props) => {
                   <button><i className="fa-solid fa-minus"></i></button>
                 </div>
               </td>
-              <td>${item.quantity * item.price}</td>
-              <td><span><i className="fa-solid fa-trash-can"></i></span></td>
+              {/* <td>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(item.quantity * item.product.minPrice)}  
+              </td> */}
+              <td><span ><i className="fa-solid fa-trash-can"></i></span></td>
             </tr>
           ))
         }     

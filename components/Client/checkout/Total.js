@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import styles from './Total.module.css'
+import { CartContext } from '../../../contexts/providers/CartProvider';
 
-const Total = props =>{
+const Total = ({dataCheckout}) =>{
+    const {cartState,loadCart} = useContext(CartContext)
+    console.log(cartState)
+    useEffect(() => {
+        loadCartData(dataCheckout.cartId)
+    }, [dataCheckout]);
+    const loadCartData=(cartId)=>{
+        loadCart(cartId)
+      }
+    // initState
+    const checkoutState = {
+      cart:{},
+      shippingPrice:0,
+      cartPrice:0,
+      contact:{},
+      paymentMethod:{},
+      status:1,
+      modifiedTime:''
+    }
     return( 
         <div className={styles['total-ship']}>
         <h3>Cart Total</h3>
@@ -10,16 +29,37 @@ const Total = props =>{
            
             <h4>Product <span>Total</span></h4>
             <ul>
-                <li>Cillum dolore tortor nisl X 01 <span>$25.00</span></li>
-                <li>Auctor gravida pellentesque X 02 <span>$50.00</span></li>
-                <li>Condimentum posuere consectetur X 01 <span>$25.00</span></li>
-                <li>Habitasse dictumst elementum X 01 <span>$15.00</span></li>
+            {cartState.carts&&
+                cartState.carts.map((item)=>(
+                <li key={item.id}>{item.product.post.title} x {item.quantity} <span>
+                    {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                    }).format(item.product.minPrice)}  
+                    </span></li>
+                )) 
+            }
             </ul>
             <hr/>
-            <p>Sub Total <span>$150.00</span></p>
+            <p>Sub Total <span>
+                {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(dataCheckout.subTotal)} 
+                   </span></p>
             <hr/>
-            <p>Shipping Fee <span>$00.00</span></p>
-            <h4>Grand Total <span>$150.00</span></h4>
+            <p>Shipping Fee <span>
+                {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(dataCheckout.shipTotal)}  
+                  </span></p>
+            <h4>Grand Total <span>
+                    {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                    }).format(parseInt(dataCheckout.subTotal)+parseInt(dataCheckout.shipTotal))} 
+                </span></h4>
         </div>
         <h3>Shipping Method</h3>
         <div className={styles.ship}>

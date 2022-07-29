@@ -10,7 +10,8 @@ const initState = {
     message: '',
     success: false,
     infoPages:[],
-    favorites: null
+    favorites: null,
+    cart:[]
   }
   const reducer = (state=initState,{type,payload})=>{
     switch(type){
@@ -58,30 +59,6 @@ const initState = {
                 categories: payload.data,
             }
             break;
-        // case ACTIONS.SET_PREVPAGE:
-        //     state={
-        //         ...state,
-        //         success:payload.success,
-        //         message:payload.message,
-        //         products4:payload.data
-        //     }
-        //     break;
-        // case ACTIONS.SET_NUMPAGE:
-        //     state={
-        //         ...state,
-        //         success:payload.success,
-        //         message:payload.message,
-        //         products4:payload.data
-        //     }
-        //     break;
-        // case ACTIONS.SET_PAGEASC:
-        //     state={
-        //         ...state,
-        //         success:payload.success,
-        //         message:payload.message,
-        //         products4:payload.data
-        //     }
-        //     break;
         case ACTIONS.SET_FAVORITES:
             state = {
               ...state,
@@ -108,6 +85,11 @@ const initState = {
               error: payload,
             };
             break;
+          case ACTIONS.ADD_CART:
+            state={
+              ...state,
+              cart:[...state.cart,...payload]
+            }
       
         default:break;
     }

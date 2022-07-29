@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 
 const ListProduct = (props) => {
-  const { shopState, addFavorite, deleteFavorite, includeFavoritePost, findFavoriteIdByPostId } = useContext(ShopContext);
+  const { shopState, addFavorite, deleteFavorite, includeFavoritePost, findFavoriteIdByPostId,addCart } = useContext(ShopContext);
   //router
   const router = useRouter();
   const [numCol, setNumCol] = useState(4);
@@ -157,7 +157,7 @@ const ListProduct = (props) => {
                         </div>
                         <Rating rating={item.post.averageRating} />
                         <div className={styles["cart"]}>
-                          <a href="">
+                          <a  onClick={()=>addCart(item.id)}>
                             <i className="fas fa-shopping-cart"></i>
                           </a>
                         </div>

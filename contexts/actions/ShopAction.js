@@ -15,6 +15,7 @@ const ACTIONS = {
   SET_FAVORITES: "SET_FAVORITES",
   DELETE_FAVORITE: "DELETE_FAVORITE",
   ADD_FAVORITE: "ADD_FAVORITE",
+  ADD_CART: "ADD_CART",
 };
 
 const loadPRODUCTS4Action = (search, page, size, sort, filters) => async (dispatch) => {
@@ -159,6 +160,7 @@ const addFavoriteAction = (id) => async (dispatch) => {
     data: [id],
   })
     .then((response) => {
+      console.log("favotites",response.data.data)
       dispatch({
         type: ACTIONS.ADD_FAVORITE,
         payload: response.data.data,
@@ -168,6 +170,22 @@ const addFavoriteAction = (id) => async (dispatch) => {
       handleError(error, dispatch, ACTIONS.SET_ERROR);
     });
 };
+const addCartAction = (id) => async (dispatch)=>{
+  await axios({
+    method:"POST",
+    url:`${backendUrl}/cartitems`,
+    data:[id],
+  })
+  .then((response)=>{
+    console.log("Data Cart",response.data.data)
+    dispatch({
+      type:ACTIONS.ADD_CART,
+      payload:response.data.data
+    })
+  }).catch(error=>{
+    handleError(error,dispatch,ACTIONS.SET_ERROR);
+  })
+}
 
 export {
   ACTIONS,
@@ -181,4 +199,5 @@ export {
   setLoadingAction,
   addFavoriteAction,
   deleteFavoriteAction,
+  addCartAction
 };
