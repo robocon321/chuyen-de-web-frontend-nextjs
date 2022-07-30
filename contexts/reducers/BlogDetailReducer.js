@@ -11,7 +11,8 @@ const initState = {
   isLoading: true,
   message: "",
   success: false,
-  error: null
+  error: null,
+  recommendPost: null
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -93,7 +94,13 @@ const reducer = (state = initState, { type, payload }) => {
           ...state,
           error: payload,
         };
-        break;      
+        break;
+      case ACTIONS.SET_RECOMMEND_POST:
+        state = {
+          ...state,
+          recommendPost: payload
+        }
+        break;
     default:
       break;
   }

@@ -3,6 +3,8 @@ import { handleError } from '../../utils/fn';
 
 const backendUrl = process.env.BACKEND_URL;
 
+const recommendSystem = process.env.RECOMMENDATION_SYSTEM;
+
 const ACTIONS = {
   SET_ERROR: 'SET_ERROR',
   SET_LOADING: 'SET_LOADING',
@@ -15,7 +17,8 @@ const ACTIONS = {
   SET_FAVORITES: "SET_FAVORITES",
   ADD_COMMENT: 'ADD_COMMENT',
   DELETE_FAVORITE: "DELETE_FAVORITE",
-  ADD_FAVORITE: "ADD_FAVORITE"
+  ADD_FAVORITE: "ADD_FAVORITE",
+  SET_RECOMMEND_POST: "SET_RECOMMEND_POST"
 }
 
 const loadCategoriesAction = () => async (dispatch) => {
@@ -184,6 +187,46 @@ const loadFavoriteBlogAction = () => async (dispatch) => {
   });
 }
 
+const loadPostRecommandAction = (user_id) => async (dispatch) => {
+  if(user_id) {
+    await axios({
+      method: 'GET',
+      url: `${recommendSystem}/posts`,
+      params: {
+        user_id,
+        amount: 3
+      }
+    }).then(async (responseRecommend) => {    
+      await axios({
+        method: 'GET',
+        url: `${backendUrl}/posts/ids?${responseRecommend.data.map(n => `ids=${n}`).join('&')}`
+      }).then((response) => {
+        dispatch({
+          type: ACTIONS.SET_RECOMMEND_POST,
+          payload: response.data.data
+        });
+      }).catch((error) => {
+        handleError(error, dispatch, ACTIONS.SET_ERROR);
+      });
+    }).catch((error) => {
+      handleError(error, dispatch, ACTIONS.SET_ERROR);
+    });  
+  } else {
+    await axios({
+      method: 'GET',
+      url: `${backendUrl}/posts?size=3&page=0&sort=totalView__DESC`
+    }).then((response) => {
+      dispatch({
+        type: ACTIONS.SET_RECOMMEND_POST,
+        payload: response.data.data.content,
+      });
+    }).catch((error) => {
+      handleError(error, dispatch, ACTIONS.SET_ERROR);
+    });
+      
+  }
+}
+
 const setErrorAction = (error) => (dispatch) => {
   dispatch({
     type: ACTIONS.SET_ERROR,
@@ -204,5 +247,6 @@ export {
   deleteFavoriteAction,
   addFavoriteAction,
   loadFavoriteBlogAction,
-  setErrorAction
+  setErrorAction,
+  loadPostRecommandAction
 }

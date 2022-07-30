@@ -12,7 +12,8 @@ const nextConfig = {
   },
   env: {
     SHIPPING_TOKEN: process.env.SHIPPING_TOKEN,
-    BACKEND_URL: process.env.BACKEND_URL
+    BACKEND_URL: process.env.BACKEND_URL,
+    RECOMMENDATION_SYSTEM: process.env.RECOMMENDATION_SYSTEM
   }
 };
 

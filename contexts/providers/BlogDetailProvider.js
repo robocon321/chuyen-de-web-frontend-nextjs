@@ -12,7 +12,8 @@ import {
   loadFavoriteBlogAction,
   deleteFavoriteAction,
   addFavoriteAction,
-  setErrorAction
+  setErrorAction,
+  loadPostRecommandAction
 } from '../actions/BlogDetailAction';
 import { AuthContext } from './AuthProvider';
 
@@ -27,7 +28,8 @@ const initState = {
   isLoading: true,
   message: '',
   success: false,
-  error: null
+  error: null,
+  recommendPost: null
 }
 
 export const BlogDetailContext = createContext();
@@ -43,11 +45,16 @@ const BlogDetailProvider = (props) => {
     loadData();
   }, [query]);
 
+  useEffect(() => {
+    console.log(blogState);
+  }, [blogState]);
+
   const loadData = async () => {
     setLoading(true);
     await loadCategories();
     await loadPopularBlogs();
     await loadDetailBlogs(query.slug);
+    await loadPostRecommand();
     await loadCommentsBlog(query.slug);
     if(!authState.isLoading && authState.user) {
       await loadFavoriteBlog();
@@ -77,6 +84,10 @@ const BlogDetailProvider = (props) => {
 
   const loadFavoriteBlog = async () => {
     await loadFavoriteBlogAction()(dispatch);
+  }
+
+  const loadPostRecommand = async () => {
+    await loadPostRecommandAction(authState.user ? authState.user.id : null)(dispatch);
   }
 
   const deleteFavorite = async (id) => {
