@@ -6,6 +6,8 @@ import { CheckoutContext } from '../../../contexts/providers/CheckoutProvider';
 import { AuthContext } from '../../../contexts/providers/AuthProvider';
 import Link from 'next/link';
 import Loading from '../../common/Loading';
+import {jsPDF} from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const Total = ({dataCheckout}) =>{
     // const {cartState,loadCart} = useContext(CartContext)
@@ -55,6 +57,40 @@ const Total = ({dataCheckout}) =>{
         }))
       }
     console.log(cartNew)
+    const savePDF = ()=>{
+        const doc = new jsPDF();
+        doc.setFontSize(22)
+        doc.setFillColor('red')
+        doc.text("Checkout", 80, 20);
+        doc.setFontSize(16);
+        doc.text("Full Name: "+checkoutState.address[0]?.fullname,120,40)
+        doc.text( "Cart Total: "+dataCheckout.subTotal,20,40)
+        doc.text("Ship Total: "+dataCheckout.shipTotal,20,50)
+        doc.text("Grand Total: "+(parseInt(dataCheckout.subTotal)+parseInt(dataCheckout.shipTotal)),20,60)
+       
+        const columns = [
+            {title: "Title", dataKey: "title"},
+            {title: "Quantity", dataKey: "quantity"}, 
+            {title: "Price", dataKey: "price"}, 
+        ]
+      
+        const datas = []
+        
+        checkoutState.carts&&checkoutState.carts.map((item)=>{
+            let data = {title:'',quantity:0,price:0}
+            data.title = item.product.post.title
+            data.quantity = item.quantity
+            data.price = item.product.minPrice
+            datas.push(data)
+        })
+
+        doc.autoTable(columns, datas, {
+            margin: {top: 70},
+           
+        });
+
+        doc.save("checkout.pdf");
+    }
     // const onCheckout = () =>{
     //     setCheckout(()=>({
     //         ...checkout,
@@ -120,11 +156,15 @@ const Total = ({dataCheckout}) =>{
         <Link href={'/shop'}>
         <button onClick={()=>{
             // onCheckout()
+            savePDF()
             addCheckout(checkout)
             addNewCart(cartNew)
             alert("Thanh toán thành công")
             }} className={styles['btn-order']}>PLACE ORDER</button>
             </Link>
+        <button onClick={()=>{
+           savePDF();
+            }} className={styles['btn-order']}>EXPORT PDF</button>
         </div>
     )
 }
