@@ -1,7 +1,10 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import styles from './Bill.module.css'
 import Input from '../../common/Input';
 import { Grid } from '@mui/material';
+import { useRouter } from 'next/router';
+import { CheckoutContext } from '../../../contexts/providers/CheckoutProvider';
+import Loading from '../../common/Loading';
 
 function funCheck(){
     var checkBox = document.getElementById("myCheck");
@@ -16,6 +19,12 @@ function funCheck(){
 }
 
 const Bill = props =>{
+    const router = useRouter()
+    console.log("Bill",router.query)
+    const {checkoutState} =useContext(CheckoutContext)
+    console.log(checkoutState)
+    if(checkoutState.address.length===0)
+    return <Loading isLoading={true}/>
     return(
         <div className={styles.bill}>
             <div className={styles['bill-add']}>
@@ -23,26 +32,28 @@ const Bill = props =>{
             <Grid  container columnSpacing={6}>
                 <Grid item xs={6} >
                     <Input
-                    title='First Name'
+                    title='Full Name'
                     require={true}
-                    name='firstname'
-                    placeholder='First Name'
+                    name='fullname'
+                    placeholder='Full Name'
+                    defaultValue={checkoutState.address[0]?.fullname}
                     /> 
                 </Grid>
-                <Grid  item  xs={6}>
+                {/* <Grid  item  xs={6}>
                     <Input
                     title='Last Name'
                     require={true}
                     name='lastname'
                     placeholder='Last Name'
                     />
-                </Grid>
+                </Grid> */}
                 <Grid item  xs={6}>
                     <Input
-                    title='Email Address'
+                    title='Detail Address'
                     require={true}
                     name='email'
-                    placeholder='Email Address'
+                    placeholder='Detail Address'
+                    defaultValue={checkoutState.address[0]?.detailAddress}
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -51,9 +62,10 @@ const Bill = props =>{
                     require={true}
                     name='phone'
                     placeholder='Phone Number'
+                    defaultValue={checkoutState.address[0]?.phone}
                     />
                 </Grid>
-                <Grid item  xs={12}>
+                {/* <Grid item  xs={12}>
                     <Input
                     title='Company Name'
                     require={false}
@@ -80,6 +92,7 @@ const Bill = props =>{
                     title='Country'
                     require={true}
                     name='country'
+                    defaultValue='Việt Nam'
                     />
                 </Grid>
                 <Grid item  xs={6}>
@@ -88,24 +101,27 @@ const Bill = props =>{
                     require={true}
                     name='town'
                     placeholder='Town/City'
+                    defaultValue={router.query.city}
                     />
                 </Grid>
                 <Grid item  xs={6}>
                     <Input
-                    title='State'
+                    title='District'
                     require={true}
-                    name='state'
+                    name='district'
                     placeholder='State'
+                    defaultValue={router.query.district}
                     />
                 </Grid>
                 <Grid item  xs={6}>
                     <Input
-                    title='Zip Code'
+                    title='Ward'
                     require={true}
-                    name='zipcode'
+                    name='ward'
                     placeholder='Zip Code'
+                    defaultValue={router.query.ward}
                     />
-                </Grid>
+                </Grid> */}
             </Grid>
             </div>
             <div className={styles['morechoose']}>

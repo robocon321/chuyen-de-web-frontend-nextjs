@@ -1,9 +1,10 @@
-import React, {useState, useContext,useEffect } from "react";
+import React, {useState, useContext,useEffect, useRef } from "react";
 import Image from 'next/image';
 import { AuthContext } from "../../../contexts/providers/AuthProvider";
 import styles from './CartList.module.css';
 import { CartContext } from "../../../contexts/providers/CartProvider";
 import { ShopContext } from "../../../contexts/providers/ShopProvider";
+import Loading from "../../common/Loading";
 
 const products = [
   {
@@ -38,37 +39,15 @@ const products = [
 
 const CartList = ({subTotal,setSubTotal,cartId,setCartId}) => {
   const { authState } = useContext(AuthContext);
-  const {cartState,loadCart,loadCartByUserId} = useContext(CartContext)
-  // const [totalCart,setTotalCart] = useState(0)
-  const [user,setUser] = useState()
-  const loadCartByUser =  (userId) =>{
-     loadCartByUserId(userId)
-    // if(cartState.cartByUserId)
-    // loadCart(cartState.cartByUserId.id)
-   
-  }
-  const loadCartData=(cartId)=>{
-    loadCart(cartId)
-    // handleTotalCart()
-  }
-  useEffect(() => {
-    setUser(authState.user)
-  }, [authState.isLoading===false]);
-  useEffect(()=>{
-    if(user)
-    return loadCartByUser(user.id)
-  },[user])
-  useEffect(()=>{
-    if(cartState.cartByUserId!==null){
-    loadCartData(cartState.cartByUserId.id)
-    setCartId(cartState.cartByUserId.id)
-  }
-  },[cartState.cartByUserId!==null])
-  // count total cart after render
+  const {cartState,deleteCartItem,onChangeQuantity} = useContext(CartContext)
+
+ 
   useEffect(()=>{
     handleTotalCart()
-    
-  })
+    setCartId(cartState.cartByUserId?.id)
+  },[cartState])
+ 
+  console.log("subtotal list",subTotal)
 
   //Get total cart
   const handleTotalCart = () =>{
@@ -76,9 +55,13 @@ const CartList = ({subTotal,setSubTotal,cartId,setCartId}) => {
        return  (prev)
     +(next.product.minPrice*next.quantity)
   },0)
+  console.log('total function',total)
     setSubTotal(total)
   }
- 
+  console.log("CartState",cartState)
+  if(cartState.cartByUserId===null)
+  return(<Loading isLoading={true}/>)
+  if(cartState.carts.length!==0)
   return (
     <div className={styles.cartlist}>
     <table>
@@ -111,9 +94,12 @@ const CartList = ({subTotal,setSubTotal,cartId,setCartId}) => {
               </td>
               <td>
                 <div className={styles['counter']}>
-                  <input type='text' defaultValue={item.quantity}/>
-                  <button><i className="fa-solid fa-plus"></i></button>
-                  <button><i className="fa-solid fa-minus"></i></button>
+                  <input type='number' onChange={(e)=>{
+                    handleTotalCart()
+                    onChangeQuantity(e,item,item.id)
+                    }} defaultValue={item.quantity}/>
+                  {/* <button><i className="fa-solid fa-plus"></i></button>
+                  <button><i className="fa-solid fa-minus"></i></button> */}
                 </div>
               </td>
               {/* <td>
@@ -122,7 +108,7 @@ const CartList = ({subTotal,setSubTotal,cartId,setCartId}) => {
                     currency: "VND",
                   }).format(item.quantity * item.product.minPrice)}  
               </td> */}
-              <td><span ><i className="fa-solid fa-trash-can"></i></span></td>
+              <td><span onClick={()=>deleteCartItem(item.id)}><i className="fa-solid fa-trash-can"></i></span></td>
             </tr>
           ))
         }     
@@ -131,6 +117,8 @@ const CartList = ({subTotal,setSubTotal,cartId,setCartId}) => {
 
     </div>
   )
+  return(<h1>Cart is Empty</h1>)
+  
 }
 
 export default CartList

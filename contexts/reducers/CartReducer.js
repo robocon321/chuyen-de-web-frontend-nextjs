@@ -7,6 +7,8 @@ const initState={
     error:null,
     carts:[],
     cartByUserId:null,
+    address:[],
+    cartItemUpdate:null,
 
 }
 const reducer = (state=initState,{type,payload})=>{
@@ -32,6 +34,14 @@ const reducer = (state=initState,{type,payload})=>{
                 message:payload.message,
                 cartByUserId:payload.data
             }
+            break;
+        case ACTIONS.SET_ADDRESSES:
+            state = {
+              ...state,
+              address: payload
+            };
+            break;
+        default:
             break;
     }
     return state;

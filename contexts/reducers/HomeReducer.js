@@ -10,6 +10,7 @@ const initState = {
   message: "",
   success: false,
   error: null,
+  cart:[]
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -78,6 +79,12 @@ const reducer = (state = initState, { type, payload }) => {
         favorites: [...state.favorites, ...payload],
       };
       break;
+      case ACTIONS.ADD_CART:
+        state={
+          ...state,
+          cart:[...state.cart,...payload]
+        }
+        break;
     default:
       break;
   }

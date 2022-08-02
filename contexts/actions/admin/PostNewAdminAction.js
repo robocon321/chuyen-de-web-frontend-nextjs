@@ -50,7 +50,7 @@ const savePostAction = (post) => async (dispatch) => {
     await axios({
       method: 'POST',
       url: `${backendUrl}/posts`,
-      data: [post]  
+      data: [post]
     }).then((response) => {
       setPostAction(response.data[0])(dispatch);
     }).catch((error) => {

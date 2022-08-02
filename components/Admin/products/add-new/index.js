@@ -6,15 +6,27 @@ import styles from './index.module.css';
 import Input from '../../../common/Input';
 import AutoCompleteTag from '../../../common/AutoCompleteTag';
 import Breadcrumb from '../../../common/Breadcrumb';
+import { AuthContext } from "../../../../contexts/providers/AuthProvider";
+import { ProductNewAdminContext } from '../../../../contexts/providers/admin/ProductNewAdminProvider';
+import Loading from '../../../common/Loading';
+import Notification from '../../../common/Notification';
 
-const Index = (props) => {
+const AddNew = (props) => {
   const [image, setImage] = useState('https://template.hasthemes.com/alula/alula/assets/img/products/medium6.webp');
-
+  // const [input,setInput] = useState('')
   const onImageChange = (event) => {
    if (event.target.files && event.target.files[0]) {
      setImage(URL.createObjectURL(event.target.files[0]));
    }
   }
+  const { productNewAdminState,
+    setError,
+    setLoading,
+    onChangePost,
+    onChangeProduct,
+    onChangeImagePost,
+    onSubmit} = useContext(ProductNewAdminContext)
+    const { authState,t } = useContext(AuthContext);
 
   const attributes = [
     {
@@ -79,11 +91,19 @@ const Index = (props) => {
       name: 'tag 3'
     }
   ]
-  
+  if (productNewAdminState.isLoading || authState.isLoading) {
+    return <Loading isLoading={true} />;
+  }
   return (
-    <div className={styles['add-new']}>
-      <div className={styles.head}>        
-        <Breadcrumb links={['Home', 'Products', 'Add New']} />
+    <div className={styles['add-new-product']}>
+      <Notification
+        title={'Error'}
+        content={productNewAdminState.error}
+        open={productNewAdminState.error != null}
+        onClose={() => setError(null)}
+      />
+      <div className={styles.headProduct}>        
+        <Breadcrumb className='addproduct' links={['Home', 'Products', 'Add New']} />
         <Grid container spacing={2} columns={12}>
           <Grid item xs={12} lg={8}>
             <Grid container spacing={2} columns={12}>
@@ -92,16 +112,24 @@ const Index = (props) => {
                   title='Product name'
                   placeholder='Enter product name'
                   isRequire={'true'}
+                  // onChange={(e) => {
+                  //   setInput(e.target.value);
+                  // }}
+                  id='title'
+                  name='title'
+                  defaultValue={productNewAdminState.post.title}
+                  onChange={onChangePost}
                 />
               </Grid>
               <Grid item xs={12}>
                 <Input 
                   title='Detail product'
                   placeholder=''
+                  id='content'
+                  name='content'
                   isRequire={'true'}
-                  onChange={(e) => {
-                    console.log(e);
-                  }}
+                  defaultValue={productNewAdminState.post.content}
+                  onChange={onChangePost}
                   type='ckeditor'
                 />
               </Grid>
@@ -110,45 +138,100 @@ const Index = (props) => {
                   title='Quantity'
                   placeholder='Enter your product quantity'
                   isRequire='true'
+                  name='stockQuantity'
+                  id='stockQuantity'
+                  type='number'
+                  defaultValue={productNewAdminState.product.stockQuantity}
+                  onChange={onChangeProduct}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
+                <Input 
+                  title='Max Price'
+                  placeholder='Enter your product Max Price'
+                  isRequire='true'
+                  name='maxPrice'
+                  id='maxPrice'
+                  type='number'
+                  defaultValue={productNewAdminState.product.maxPrice}
+                  onChange={onChangeProduct}
+                />
+                
+              </Grid>
+              <Grid item xs={6}>
+                <Input 
+                  title='Min Price'
+                  placeholder='Enter your product Min Price'
+                  isRequire='true'
+                  name='minPrice'
+                  id='minPrice'
+                  type='number'
+                  defaultValue={productNewAdminState.product.minPrice}
+                  onChange={onChangeProduct}
+                />
+                
+              </Grid>
+              {/* <Grid item xs={12}>
                 <Input 
                   title='Weight (kg)'
                   placeholder='0'
-                  isRequire='true'                  
+                  isRequire='true'   
+                  id='weight'   
+                  name='weight'  
+                  type='number'
+                  defaultValue={productNewAdminState.product.weight}
+                  onChange={onChangeProduct}          
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Grid container spacing={2} columns={12}>
                   <Grid item xs={12} md={4}>
                     <Input
-                      title='Length (cm)'
+                      title='Weight (kg)'
                       placeholder='0'
-                      isRequire='true'                      
+                      isRequire='true'   
+                      id='weight'   
+                      name='weight'  
+                      type='number'
+                      defaultValue={productNewAdminState.product.weight}
+                      onChange={onChangeProduct}               
                     />
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Input
                       title='Width (cm)'
                       placeholder='0'
-                      isRequire='true'                      
+                      isRequire='true' 
+                      id='width'   
+                      name='width'
+                      type='number'
+                      defaultValue={productNewAdminState.product.width}
+                      onChange={onChangeProduct}                    
                     />
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Input
                       title='Height (cm)'
                       placeholder='0'
-                      isRequire='true'                      
+                      isRequire='true'    
+                      id='height'  
+                      name='height'
+                      type='number'
+                      defaultValue={productNewAdminState.product.height}
+                      onChange={onChangeProduct}             
                     />
                   </Grid>                  
                 </Grid>
               </Grid>
               <Grid item xs={12}>
                 <Input 
-                  title='Linked product'
-                  isRequire='false'
-                  placeholder='Enter linked product name'
+                  title='Slug'
+                  isRequire='true'
+                  placeholder='Enter Slug'
+                  id='slug'
+                  name='slug'
+                  defaultValue={productNewAdminState.post.slug}
+                  onChange={onChangePost}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -271,15 +354,15 @@ const Index = (props) => {
                               <Grid container spacing={2} columns={12}>
                                 <Grid item xs={12} md={3}>
                                   <div>
-                                    <input type="file" onChange={onImageChange} className="filetype" />
+                                    {/* <input type="file" onChange={onImageChange} className="filetype" /> */}
                                     <br />
                                     <br />
-                                    <Image 
+                                    {/* <Image 
                                       src={image} 
                                       alt="preview image" 
                                       width={150}
                                       height={150}
-                                    />
+                                    /> */}
                                   </div>
                                 </Grid>
                                 <Grid item xs={12} md={9}>
@@ -364,6 +447,10 @@ const Index = (props) => {
                   placeholder='Description...'
                   isRequire='true'
                   type='textarea'
+                  id='description'
+                  name='description'
+                  defaultValue={productNewAdminState.post.description}
+                  onChange={onChangePost}
                 />
               </Grid>
             </Grid>
@@ -372,10 +459,16 @@ const Index = (props) => {
             <div className={styles.group}>
               <h4>Choose Category</h4>
               <div className={styles.categories}>
-                {
-                  categories.map((item) => (
+                {productNewAdminState.categories &&
+                  productNewAdminState.categories.map((item) => (
                     <div className={styles.category} key={item.id}>
-                      <input type="checkbox" id={'cate-'+item.id} name="category" />
+                      <input 
+                      type="checkbox" 
+                      id={'cate-'+item.id} 
+                      name="categories" 
+                      onChange={onChangePost}
+                      value={item.id}
+                      />
                       <label htmlFor={'cate-'+item.id}> {item.name}</label><br />
                     </div>
                   ))
@@ -384,31 +477,70 @@ const Index = (props) => {
               </div>
             </div>
             <div className={styles.group}>
-              <h4>Choose tags</h4>
+              <h4>{t('choose_tag_admin')}</h4>
               <div className={styles.tags}>
-                <AutoCompleteTag 
-                  arrayObj={tags}
-                  valueObj={'name'}
-                />
-                <div className={styles.choose}>Choose from the most used tags</div>
-                <div className={styles['most-tag']}><span>tag 1</span> <span>tag 2</span></div>
+                <AutoCompleteTag arrayObj={tags} valueObj={"name"} />
+                <div className={styles.choose}>
+                  {t('choose_most_tag_admin')}
+                </div>
+                <div className={styles["most-tag"]}>
+                  <span>tag 1</span> <span>tag 2</span> <span>tag 3</span>
+                </div>
               </div>
             </div>
             <div className={styles.group}>
-              <h4>Choose product image</h4>
+              <h4>{t('choose_thumbnail_admin')}</h4>
               <div className={styles.image}>
-                <div className={styles['image-product']}></div>
-                <div className={styles.choose}>Set product image</div>
+                <div>
+                  {productNewAdminState.post.thumbnail && (
+                    <Image
+                      className={styles["image-post"]}
+                      alt="Not found"
+                      src={productNewAdminState.post.thumbnail}
+                      width="200"
+                      height="200"
+                    />
+                  )}
+                </div>
+                <input
+                  type="file"
+                  id="thumbnail"
+                  name="thumbnail"
+                  accept="image/*"
+                  onChange={onChangeImagePost}
+                />
               </div>
             </div>
             <div className={styles.group}>
-              <h4>Choose product gallery</h4>
-              <div className={styles.gallery}>
-                <div className={styles['gallery-product']}></div>
-                <div className={styles.choose}>Add product gallery images</div>
+              <h4>{t('choose_gallery_admin')}</h4>
+              <div className={styles.image}>
+                <div>
+                  {productNewAdminState.post.galleryImage &&
+                    productNewAdminState.post.galleryImage.split(',').map((item, index) => (
+                      <Image
+                        key={index}
+                        className={styles["image-post"]}
+                        alt="Not found"
+                        src={
+                          item
+                            ? item
+                            : "https://template.hasthemes.com/alula/alula/assets/img/products/medium6.webp"
+                        }
+                        width="200"
+                        height="200"
+                      />
+                    ))}
+                </div>
+                <input
+                  type="file"
+                  name="gallery_image"
+                  accept="image/*"
+                  multiple
+                  onChange={onChangeImagePost}
+                />
               </div>
             </div>
-            <button className={styles.complete}>Hoàn tất</button>
+            <button onClick={onSubmit} className={styles.complete}>{t('submit_admin')}</button>
           </Grid>
         </Grid>
       </div>
@@ -416,4 +548,4 @@ const Index = (props) => {
   )
 }
 
-export default Index;
+export default AddNew;

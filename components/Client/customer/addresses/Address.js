@@ -26,7 +26,7 @@ const Address = (props) => {
         }>{t('add_new_address')}</button>
       </div>
       <div className={styles.addresses}>
-        {addressesState.addresses.map((item, index) => (
+        {addressesState.addresses&&addressesState.addresses.map((item, index) => (
           <div className={styles.address} key={item.id}>
             <div className={styles.row}>
               <p>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
 import { AuthContext } from "../../../contexts/providers/AuthProvider";
+import { Router, useRouter } from "next/router";
 
 const SellerAndRelated = (props) => {
   const {
@@ -14,9 +15,10 @@ const SellerAndRelated = (props) => {
     deleteFavorite,
     includeFavoritePost,
     findFavoriteIdByPostId,
+    addCart
   } = useContext(HomeContext);
-  const { t } = useContext(AuthContext);
-
+  const { authState,t } = useContext(AuthContext);
+  const router = useRouter()
   return (
     <div className={styles.seller}>
       <div className={styles["top"]}>
@@ -67,7 +69,13 @@ const SellerAndRelated = (props) => {
                       </div>
                       <Rating rating={item.post.averageRating} />
                       <div className={styles["cart"]}>
-                        <a href="">
+                        <a onClick={()=>{
+                          if(authState.user!==null)
+                          addCart(item.id)
+                          else{
+                            router.push('/auth')
+                          }
+                          }}>
                           <i className="fas fa-shopping-cart"></i>
                         </a>
                       </div>

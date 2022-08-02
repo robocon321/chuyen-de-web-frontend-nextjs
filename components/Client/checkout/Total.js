@@ -1,27 +1,71 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import styles from './Total.module.css'
 import { CartContext } from '../../../contexts/providers/CartProvider';
+import { CheckoutContext } from '../../../contexts/providers/CheckoutProvider';
+import { AuthContext } from '../../../contexts/providers/AuthProvider';
+import Link from 'next/link';
+import Loading from '../../common/Loading';
 
 const Total = ({dataCheckout}) =>{
-    const {cartState,loadCart} = useContext(CartContext)
-    console.log(cartState)
+    // const {cartState,loadCart} = useContext(CartContext)
+    const {checkoutState,loadCart,addCheckout,addNewCart} = useContext(CheckoutContext)
+    const { authState } = useContext(AuthContext);
+    const [checkout,setCheckout] = useState({
+        cart:{},
+        shippingPrice:0,
+        cartPrice:0,
+        contact:null,
+        paymentMethod:null,
+        status:1,
+        modifiedTime:''
+    })
+    const [cartNew,setCartNew] = useState({
+        modifiedUser:null,
+        status:1,
+        modifiedTime:''
+    })
+    console.log("checkout",checkout)
     useEffect(() => {
         loadCartData(dataCheckout.cartId)
-    }, [dataCheckout]);
-    const loadCartData=(cartId)=>{
-        loadCart(cartId)
+       
+    }, [checkout?.cart]);
+    useEffect(()=>{
+        if(checkoutState.cartByUserId!==null)
+        setCheckout(()=>({
+            ...checkout,
+            cart:checkoutState.cartByUserId,
+            shippingPrice:dataCheckout.shipTotal,
+            cartPrice:dataCheckout.subTotal,
+            contact:checkoutState.address[0]
+        }))
+        setCartNew(()=>({
+            ...cartNew,
+            modifiedUser:authState.user
+        }))
+    },[checkoutState.cartByUserId!==null])
+    const loadCartData= async (cartId)=>{
+        await loadCart(cartId)
+        setCheckout(()=>({
+            ...checkout,
+            cart:checkoutState.cartByUserId,
+            shippingPrice:dataCheckout.shipTotal,
+            cartPrice:dataCheckout.subTotal,
+            contact:checkoutState.address[0]
+        }))
       }
-    // initState
-    const checkoutState = {
-      cart:{},
-      shippingPrice:0,
-      cartPrice:0,
-      contact:{},
-      paymentMethod:{},
-      status:1,
-      modifiedTime:''
-    }
+    console.log(cartNew)
+    // const onCheckout = () =>{
+    //     setCheckout(()=>({
+    //         ...checkout,
+    //         cart:checkoutState.cartByUserId,
+    //         shippingPrice:dataCheckout.shipTotal,
+    //         cartPrice:dataCheckout.subTotal,
+        
+    //     }))
+    // }
+    if(checkoutState.carts.length===0)
+    return <Loading isLoading={true}/>
     return( 
         <div className={styles['total-ship']}>
         <h3>Cart Total</h3>
@@ -29,13 +73,13 @@ const Total = ({dataCheckout}) =>{
            
             <h4>Product <span>Total</span></h4>
             <ul>
-            {cartState.carts&&
-                cartState.carts.map((item)=>(
+            {checkoutState.carts&&
+                checkoutState.carts.map((item)=>(
                 <li key={item.id}>{item.product.post.title} x {item.quantity} <span>
                     {new Intl.NumberFormat("vi-VN", {
                         style: "currency",
                         currency: "VND",
-                    }).format(item.product.minPrice)}  
+                    }).format(item.product.minPrice*item.quantity)}  
                     </span></li>
                 )) 
             }
@@ -73,7 +117,14 @@ const Total = ({dataCheckout}) =>{
             <input type="radio" name="ship"/><label >I’ve Read And Accept The Terms & Conditions</label>
             </form>
         </div>
-        <button className={styles['btn-order']}>PLACE ORDER</button>
+        <Link href={'/shop'}>
+        <button onClick={()=>{
+            // onCheckout()
+            addCheckout(checkout)
+            addNewCart(cartNew)
+            alert("Thanh toán thành công")
+            }} className={styles['btn-order']}>PLACE ORDER</button>
+            </Link>
         </div>
     )
 }

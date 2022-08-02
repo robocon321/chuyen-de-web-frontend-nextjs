@@ -38,24 +38,24 @@ const ShopProvider = (props) => {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!router.isReady) return;
-    let search = "";
-    let page = 0;
-    let size = 10;
-    let sort = "post.modifiedTime__DESC";
-    let filters = {};
+    // if (!router.isReady) return;
+    // let search = "";
+    // let page = 0;
+    // let size = 10;
+    // let sort = "post.modifiedTime__DESC";
+    // let filters = {};
 
-    if (query.search != null) search = query.search;
-    delete query.search;
-    if (query.page != null) page = query.page;
-    delete query.page;
-    if (query.size != null) size = query.size;
-    delete query.size;
-    if (query.sort != null) sort = query.sort;
-    delete query.sort;
+    // if (query.search != null) search = query.search;
+    // delete query.search;
+    // if (query.page != null) page = query.page;
+    // delete query.page;
+    // if (query.size != null) size = query.size;
+    // delete query.size;
+    // if (query.sort != null) sort = query.sort;
+    // delete query.sort;
 
-    filters = { ...query };
-    console.log(router);
+    // filters = { ...query };
+    // console.log(router);
 
     loadData();
   }, [router.query]);
