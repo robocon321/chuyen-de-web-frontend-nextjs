@@ -231,7 +231,7 @@ const Transactions = (props) => {
   const {transactionState} = useContext(TransactionsContext)
   console.log(transactionState)
   const row = []
-  {transactionState.checkouts && transactionState.checkouts.map((item)=>{
+  {transactionState?.checkouts && transactionState.checkouts.map((item)=>{
     let data = {}
     data.id = item.id
     data.date = item.modifiedTime
