@@ -8,6 +8,7 @@ import { Navigation, Pagination, Grid } from "swiper";
 import { HomeContext } from "../../../contexts/providers/HomeProvider";
 import Rating from "../../common/Rating";
 import { AuthContext } from "../../../contexts/providers/AuthProvider";
+import { useRouter } from "next/router";
 
 const NewProduct = (props) => {
   const {
@@ -16,9 +17,10 @@ const NewProduct = (props) => {
     deleteFavorite,
     includeFavoritePost,
     findFavoriteIdByPostId,
+    addCart
   } = useContext(HomeContext);
-  const { t } = useContext(AuthContext);
-
+  const { authState,t } = useContext(AuthContext);
+  const router = useRouter()
   const [mainSwiperRef, setMainSwiperRef] = useState();
   const slideTo = (index) => {
     if (index >= homeState.newProducts.length) mainSwiperRef.slideTo(0, 0);
@@ -95,7 +97,12 @@ const NewProduct = (props) => {
                         </div>
                         <Rating rating={item.post.averageRating} />
                         <div className={styles["newProduct-cart"]}>
-                          <a href="">
+                          <a onClick={()=>{
+                            if(authState.user!==null)
+                            addCart(item.id)
+                            else{
+                              router.push('/auth')
+                            }}}>
                             <i className="fas fa-shopping-cart"></i>
                           </a>
                         </div>

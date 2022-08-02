@@ -6,19 +6,22 @@ import { ShopContext } from "../../../contexts/providers/ShopProvider";
 import Rating from "../../common/Rating";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Loading from "../../common/Loading";
+import { AuthContext } from "../../../contexts/providers/AuthProvider";
 
 
 const ListProduct = (props) => {
-  const { shopState, addFavorite, deleteFavorite, includeFavoritePost, findFavoriteIdByPostId,addCart } = useContext(ShopContext);
+  const { shopState,router, addFavorite, deleteFavorite, includeFavoritePost, findFavoriteIdByPostId,addCart } = useContext(ShopContext);
   //router
-  const router = useRouter();
+  // const router = useRouter();
+  const { authState } = useContext(AuthContext);
   const [numCol, setNumCol] = useState(4);
   const shop = shopState.data;
   //load product page
   const currentPage = shopState.infoPages.number;
   const totalPages = shopState.infoPages.totalPages;
   const arrNum = Array.from(Array(totalPages), (_, index) => index + 1);
-  const [size, setSize] = useState(12);
+  const [size, setSize] = useState(10);
   console.log(shopState);
   // useEffect(() => {
   //     loadPage(currentPage,size);
@@ -44,6 +47,10 @@ const ListProduct = (props) => {
     }
   };
 
+  const setSizeProduct = (num)=>{
+    setSize(num)
+  }
+
   const createQuery = (search, page, size, AND_taxomony) => {
     const query = {};
     if (search != null && search.length != 0) {
@@ -60,7 +67,8 @@ const ListProduct = (props) => {
     }
     return query;
   };
-
+  if(shopState.data.length===0)
+  return <Loading isLoading={true}/>
   return (
     <div className={styles.display}>
       <div
@@ -100,17 +108,20 @@ const ListProduct = (props) => {
             name="nums"
             id="nums"
             onChange={(e) => {
-              <Link
-                href={{
-                  pathname: "/shop",
-                  query: createQuery(
-                    router.query.search,
-                    currentPage,
-                    e,
-                    router.query.AND_taxomony
-                  ),
-                }}
-              ></Link>;
+              console.log(e.target.value);
+              setSizeProduct(e.target.value)
+              router.push(`/shop?size=${e.target.value}`)
+              // <Link
+              //   href={{
+              //     pathname: "/shop",
+              //     query: createQuery(
+              //       router.query.search,
+              //       currentPage,
+              //       e.target.value,
+              //       router.query.AND_taxomony
+              //     ),
+              //   }}
+              // ></Link>;
             }}
           >
             <option value="10">10</option>
@@ -121,11 +132,21 @@ const ListProduct = (props) => {
         </div>
         <div className={styles["sortby"]}>
           <span>Sort by:</span>
-          <select name="sort" id="sort">
+          <select name="sort" id="sort" onChange={(e)=>{
+            if(e.target.value==='default'){
+              router.push(`/shop?size=${size}`)
+            }
+            if(e.target.value==='name'){
+              router.push(`/shop?sort=post.title__ASC&size=${size}`)
+            }
+            if(e.target.value==='price'){
+              router.push(`/shop?sort=minPrice__ASC&size=${size}`)
+            }
+          }}>
             <option value="default">Default</option>
             <option value="name">Name (A-Z)</option>
             <option value="price">Price (min-max)</option>
-            <option value="color">Color</option>
+            {/* <option value="color">Color</option> */}
           </select>
         </div>
       </div>
@@ -157,7 +178,13 @@ const ListProduct = (props) => {
                         </div>
                         <Rating rating={item.post.averageRating} />
                         <div className={styles["cart"]}>
-                          <a  onClick={()=>addCart(item.id)}>
+                          <a  onClick={()=>{
+                            if(authState.user!==null)
+                            addCart(item.id)
+                            else{
+                              router.push('/auth')
+                            }
+                            }}>
                             <i className="fas fa-shopping-cart"></i>
                           </a>
                         </div>
@@ -271,7 +298,7 @@ const ListProduct = (props) => {
                       </span>
                     </div>
                     <div className={styles["btn-addcart"]}>
-                      <button>Add to cart</button>
+                      <button onClick={()=>addCart(item.id)}>Add to cart</button>
                     </div>
                     <div className={styles["item-option"]}>
                       <a className={styles[("icon-eye", "icon")]}>
@@ -299,7 +326,7 @@ const ListProduct = (props) => {
                 query: createQuery(
                   router.query.search,
                   (currentPage = shopState.infoPages.number - 1),
-                  10,
+                  size,
                   router.query.AND_taxomony
                 ),
               }}
@@ -321,7 +348,7 @@ const ListProduct = (props) => {
                     query: createQuery(
                       router.query.search,
                       item - 1,
-                      10,
+                      size,
                       router.query.AND_taxomony
                     ),
                   }}
@@ -340,7 +367,7 @@ const ListProduct = (props) => {
                     query: createQuery(
                       router.query.search,
                       item - 1,
-                      10,
+                      size,
                       router.query.AND_taxomony
                     ),
                   }}
@@ -357,7 +384,7 @@ const ListProduct = (props) => {
                 query: createQuery(
                   router.query.search,
                   (currentPage = shopState.infoPages.number + 1),
-                  10,
+                  size,
                   router.query.AND_taxomony
                 ),
               }}
@@ -376,7 +403,7 @@ const ListProduct = (props) => {
                 query: createQuery(
                   router.query.search,
                   (currentPage = totalPages - 1),
-                  10,
+                  size,
                   router.query.AND_taxomony
                 ),
               }}

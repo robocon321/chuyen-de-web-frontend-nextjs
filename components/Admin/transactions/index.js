@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { Grid, Button, Slider } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import styles from './index.module.css';
 import Input from '../../common/Input';
 import Breadscrum from '../../common/Breadcrumb';
+import { TransactionsContext } from '../../../contexts/providers/admin/TransactionsProvider';
 
 const renderAction = (params) => {
   return (
@@ -57,16 +58,16 @@ const columns = [
     editable: false,
   },
   {
-    field: 'order',
-    headerName: 'Order',
+    field: 'phone',
+    headerName: 'Phone',
     flex: 2 ,
     minWidth: 100,
     editable: false,
     renderCell: renderLink
   },
   {
-    field: 'email',
-    headerName: 'Email',
+    field: 'fullname',
+    headerName: 'Fullname',
     flex: 4,
     minWidth: 100,
     editable: false,
@@ -227,6 +228,19 @@ const rows = [{
 
 const Transactions = (props) => {
   const [value, setValue] = useState([20, 37]);
+  const {transactionState} = useContext(TransactionsContext)
+  console.log(transactionState)
+  const row = []
+  {transactionState.checkouts && transactionState.checkouts.map((item)=>{
+    let data = {}
+    data.id = item.id
+    data.date = item.modifiedTime
+    data.status="Complete"
+    data.total = (item.shippingPrice+item.cartPrice)
+    data.phone = item.contact.phone
+    data.fullname = item.contact.fullname
+    row.push(data)
+  })}
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -321,7 +335,7 @@ const Transactions = (props) => {
           autoHeight
           pageSize={5}
           rowsPerPageOptions={[5]}
-          rows={rows}
+          rows={row}
           columns={columns}
           checkboxSelection
           disableColumnSelector

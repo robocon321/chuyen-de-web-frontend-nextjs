@@ -11,7 +11,8 @@ import {
   loadLastestBlogsAction,
   loadFavoriteProductAction,
   addFavoriteAction,
-  deleteFavoriteAction
+  deleteFavoriteAction,
+  addCartAction
 } from '../actions/HomeAction';
 
 const initState = {
@@ -23,7 +24,8 @@ const initState = {
   favorites: null,
   message: '',
   success: false,
-  error:null
+  error:null,
+  cart:[]
 }
 
 import { AuthContext } from "../providers/AuthProvider";
@@ -119,6 +121,11 @@ const HomeProvider = (props) => {
       return null;
     }
   };
+  const addCart = async (id)=>{
+    setLoading(true)
+    await addCartAction(id)(dispatch)
+    setLoading(false)
+  }
 
 
   const value  = {
@@ -128,7 +135,8 @@ const HomeProvider = (props) => {
     addFavorite,
     deleteFavorite,
     includeFavoritePost,
-    findFavoriteIdByPostId
+    findFavoriteIdByPostId,
+    addCart
   };
 
   return (

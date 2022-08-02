@@ -8,6 +8,7 @@ import Input from '../../../common/Input';
 import { useRouter } from 'next/router';
 import { ShopContext } from "../../../../contexts/providers/ShopProvider";
 import Rating from "../../../common/Rating";
+import Loading from '../../../common/Loading';
 
 const listRatiting = [
     {
@@ -43,14 +44,14 @@ const listRatiting = [
 ]
 
 const ProductDetail = (props) =>{
-    const{shopState,loadProductDetail,loadPostDetail} = useContext(ShopContext)
+    const{shopState,loadProductDetail,loadPostDetail,addCart} = useContext(ShopContext)
     const router = useRouter();
     const {slug} = router.query;
     const product = shopState.productDetail
     const post = shopState.postDetail
     const listImgs = []
     const [imageSelected,setImageSelected]=useState();
-    const[quantity,setQuantity] = useState(1);
+    // const[quantity,setQuantity] = useState(1);
   const onChangeMainImage = (image) => {
     setImageSelected(image);
     // console.log(imageSelected)
@@ -107,7 +108,9 @@ const ProductDetail = (props) =>{
           <span>({num})</span>
       </span>)
   }
-  
+    if(shopState.data.length===0){
+        return <Loading isLoading={true}/>
+    }
     return(
       <div className={styles.container}> 
         <Grid container spacing={2}>
@@ -195,13 +198,13 @@ const ProductDetail = (props) =>{
                         </div>
                         <hr />
                         <div className={styles['quantity']}>
-                            <span className={styles['qty-text']}>Qty</span>
+                            {/* <span className={styles['qty-text']}>Qty</span>
                             <div className={styles['inc-dev']}>
                                 <input type="text" defaultValue={quantity}/>
                                 <button  className={styles['inc-btn']} onClick={()=>setQuantity(quantity+1)}>+</button>
                                 <button className={styles['dev-btn']} onClick={()=>quantity!=0?setQuantity(quantity-1):quantity}>-</button>
-                            </div>
-                            <button className={styles['add-cart']}>+ Add to cart</button>
+                            </div> */}
+                            <button onClick={()=>addCart(product.id)} className={styles['add-cart']}>+ Add to cart</button>
                         </div>
                         <div className={styles['compare-wish']}>
                             <span className={styles['compare']}><i className="fa-solid fa-sliders"></i>Compare This Product</span>

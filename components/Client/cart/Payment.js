@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 
 
 import styles from './Payment.module.css';
 import Link from "next/link";
+import { CartContext } from '../../../contexts/providers/CartProvider';
 
 axios.defaults.baseURL = 'https://online-gateway.ghn.vn/shiip/public-api';
 axios.defaults.headers.common['token'] = process.env.SHIPPING_TOKEN;
 
 const Payment = ({subTotal,cartId}) => {
+  const {cartState} = useContext(CartContext)
   const [shipping, setShipping] = useState({
     service_type_id: 2,
     insurance_value: 50000,
@@ -30,11 +32,16 @@ const Payment = ({subTotal,cartId}) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+  const [address,setAddress] = useState({
+    cityId:0,
+    districtsId:0,
+    wardId:0
+  })
 
   useEffect(() => {
     getProvinces();
-  }, []);
-
+    
+  }, [address]);
   const getProvinces = () => {
     axios.get('/master-data/province')
     .then(function (response) {
@@ -76,22 +83,53 @@ const Payment = ({subTotal,cartId}) => {
       console.error(error);
     })
   }
-
+  // const address ={
+  //   cityId:0,
+  //   districts:0,
+  //   wardId:0
+  // }
   const onChange = (e) => {
     const {name, value} = e.target;
     if(!name || !value) return ;
-    if(name == 'province') 
+    if(name == 'province'){
+      setAddress({
+        ...address,
+        cityId : value})
       getDistricts(value);
-    else if(name == 'district')
+    }
+    else if(name == 'district'){
+      // address.districts = value
+      setAddress({
+        ...address,
+        districtsId: value})
       getWards(value);
-    else 
+    }
+    else {  setAddress({
+      ...address,
+      wardId : value})
       setShipping({
         ...shipping,
         to_ward_code: value
-      })    
+      })}
   }
+  console.log("address",address)
+  console.log("cart ship",cartState.address[0])
+  // console.log(provinces.filter((item)=>item.ProvinceID==address.cityId))
 
   const onEstimate = () => {
+    if(shipping.to_district_id===-1){
+    setShipping({
+      ...shipping,
+      to_district_id:parseInt(cartState.address[0]?.district),
+      to_ward_code:parseInt(cartState.address[0]?.ward),
+    })
+    setAddress({
+      ...address,
+      cityId:parseInt(cartState.address[0]?.province),
+      districtsId:parseInt(cartState.address[0]?.district),
+      wardId:parseInt(cartState.address[0]?.ward)
+    })
+  }
     if(!shipping.from_district_id || 
       !shipping.to_district_id || 
       !shipping.insurance_value || 
@@ -116,6 +154,14 @@ const Payment = ({subTotal,cartId}) => {
   const data = {cartId:cartId,
                 subTotal:subTotal,
                 shipTotal:cost.ship,
+                city:'',
+                district:'',
+                ward:''
+  }
+  const getDataAddress = () =>{
+    data.city = provinces.filter((item)=>item.ProvinceID==address.cityId)[0]?.ProvinceName
+    data.district = districts.filter((item)=>item.DistrictID==address.districtsId)[0]?.DistrictName
+    data.ward = wards.filter((item)=>item.WardCode==address.wardId)[0]?.WardName
   }
   console.log('data send',data)
   return (
@@ -123,27 +169,30 @@ const Payment = ({subTotal,cartId}) => {
       <div className={styles.calculate}>
         <h3>Calculate Shipping</h3>
         <select id="province" name="province" onChange={onChange}>
-          <option value="" selected disabled hidden>Chọn Tỉnh/Thành Phố</option>
+          <option defaultValue={parseInt(cartState.address[0]?.province)} selected disabled hidden>{cartState.address[0]?.province_name}</option>
           {
-            provinces.map((item, index) => (
+            provinces.map((item, index) => {getDataAddress()
+              return(
               <option key={index} value={item.ProvinceID}>{item.ProvinceName}</option>              
-            ))
+            )})
           }
         </select>
         <select id="district" name="district" onChange={onChange}>
-          <option value="" selected disabled hidden>Chọn Quận/Huyện</option>
+          <option defaultValue={parseInt(cartState.address[0]?.district)} selected disabled hidden>{cartState.address[0]?.district_name}</option>
           {
-            districts.map((item, index) => (
-              <option key={index} value={item.DistrictID}>{item.DistrictName}</option>              
-            ))
+            districts.map((item, index) => {getDataAddress()
+              return(
+              <option onClick={()=>data.district = item.DistrictName} key={index} value={item.DistrictID}>{item.DistrictName}</option>              
+            )})
           }
         </select>
         <select id="ward" name="ward" onChange={onChange}>
-          <option value="" selected disabled hidden>Chọn Phường/Xã</option>
+          <option defaultValue={parseInt(cartState.address[0]?.ward)} selected disabled hidden>{cartState.address[0]?.ward_name}</option>
           {
-            wards.map((item, index) => (
-              <option key={index} value={item.WardCode}>{item.WardName}</option>              
-            ))
+            wards.map((item, index) => {getDataAddress()
+              return(
+              <option  key={index} value={item.WardCode}>{item.WardName}</option>              
+            )})
           }
         </select>
         <button onClick={onEstimate}>ESTIMATE</button>

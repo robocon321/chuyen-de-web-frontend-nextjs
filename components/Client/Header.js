@@ -161,7 +161,7 @@ const Header = (props) => {
                 <span>
                   <i className="fa-solid fa-cart-shopping"></i>
                 </span>
-                <span className={styles["total-item-cart-header"]}>1</span>
+               
               </a>
             </Link>
           </div>

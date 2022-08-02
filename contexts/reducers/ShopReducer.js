@@ -90,6 +90,7 @@ const initState = {
               ...state,
               cart:[...state.cart,...payload]
             }
+            break;
       
         default:break;
     }

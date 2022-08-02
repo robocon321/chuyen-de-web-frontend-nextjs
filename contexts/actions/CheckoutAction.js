@@ -1,49 +1,31 @@
 import axios from "axios";
-import { handleError } from '../../utils/fn';
+import { handleError } from "../../utils/fn";
 
 const backendUrl = process.env.BACKEND_URL;
 const SHIPPING_TOKEN = process.env.SHIPPING_TOKEN;
 const ACTIONS = {
-    SET_LOADING: 'SET_LOADING',
-    SET_MESSAGE: 'SET_MESSAGE',
-    SET_ERROR: 'SET_ERROR',
+    SET_ADDCHECKOUT: 'SET_ADDCHECKOUT',
+    SET_LOADING: "SET_LOADING",
+    SET_MESSAGE: "SET_MESSAGE",
     SET_LOADCART:'SET_LOADCART',
+    SET_ADDNEWCART: 'SET_ADDNEWCART',
+    SET_ERROR: "SET_ERROR",
+    SET_ADDRESSES:'SET_ADDRESSES',
     SET_LOADCARTBYUSERID:'SET_LOADCARTBYUSERID',
-    SET_DELETECARTITEM:'SET_DELETECARTITEM',
-    SET_UPDATEQUANTITY:'SET_UPDATEQUANTITY',
-    SET_ADDRESSES:'SET_ADDRESSES'
 }
-
-const updateCartItemAction = (cartItem,id) => async (dispatch)=>{
-  await axios({
-    method:'PUT',
-    url:`${backendUrl}/cartitems/${id}`,
-    data:cartItem
-  }).then((response)=>{
+const setLoadingAction = (isLoading) => async (dispatch) => {
     dispatch({
-      type:ACTIONS.SET_UPDATEQUANTITY,
-      payload:{
-        data:response.data.data
-      }
- }   )
-  }).catch((error) => {
-    handleError(error, dispatch, ACTIONS.SET_ERROR);
-  });
-}
-
-const deleteCartItemAction =(selected)=>async (dispatch)=>{
-  await axios({
-    method: 'DELETE',
-    url: `${backendUrl}/cartitems`,
-    data: [selected]
-  }).then((response) => {
-    console.log(response);
-  }).catch((error) => {
-    handleError(error, dispatch, ACTIONS.SET_ERROR);
-  });
-}
-
-const loadCartAction = (cartid) => async(dispatch) =>{
+      type: ACTIONS.SET_LOADING,
+      payload: isLoading
+    })
+  }
+  const setErrorAction = (error) => (dispatch) => {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: error
+    })
+  }
+  const loadCartAction = (cartid) => async(dispatch) =>{
     await axios({
         method:'GET',
         url:`${backendUrl}/cartitems/cartid/${cartid}`,
@@ -52,28 +34,29 @@ const loadCartAction = (cartid) => async(dispatch) =>{
             type:ACTIONS.SET_LOADCART,
             payload:{
                 data:response.data.data,
-                message:response.data.message,
-                success:response.data.success
+                // message:response.data.message,
+                // success:response.data.success
             }
         })
     }).catch((error)=>{
         handleError(error,dispatch,ACTIONS.SET_ERROR)
     })
 }
-const loadCartByUserIdAction = (userId) => async(dispatch)=>{
+const addCheckoutAction = (checkout) => async (dispatch)=>{
     await axios({
-        method:'GET',
-        url:`${backendUrl}/carts/${userId}`
+        method: 'POST',
+        url: `${backendUrl}/checkouts`,
+        data: [checkout]
     }).then((response)=>{
         dispatch({
-            type:ACTIONS.SET_LOADCARTBYUSERID,
+            type:ACTIONS.SET_ADDCHECKOUT,
             payload:{
-                data:response.data.data,
-                message:response.data.message,
-                success:response.data.message
+                data:response.data.data
             }
         })
-    })
+    }).catch((error) => {
+        handleError(error, dispatch, ACTIONS.SET_ERROR);
+      })
 }
 const loadAddressesAction = () => async (dispatch) => {
     await axios({
@@ -150,11 +133,43 @@ const loadAddressesAction = () => async (dispatch) => {
         handleError(error, dispatch, ACTIONS.SET_ERROR);
       });
   };
+  const loadCartByUserIdAction = (userId) => async(dispatch)=>{
+    await axios({
+        method:'GET',
+        url:`${backendUrl}/carts/${userId}`
+    }).then((response)=>{
+        dispatch({
+            type:ACTIONS.SET_LOADCARTBYUSERID,
+            payload:{
+                data:response.data.data,
+                message:response.data.message,
+                success:response.data.message
+            }
+        })
+    })
+}
+const addNewCartAction = (cart)=> async(dispatch)=>{
+  await axios({
+    method:'POST',
+    url:`${backendUrl}/carts`,
+    data:[cart]
+  }).then((response)=>{
+    console.log('new cart',response.data.data)
+    dispatch({
+      type:ACTIONS.SET_ADDNEWCART,
+      // payload:response.data.data
+    })
+  }).catch((error)=>{
+    handleError(error,dispatch,ACTIONS.SET_ERROR)
+  })
+}
 export {
     ACTIONS,
+    setLoadingAction,
+    setErrorAction,
     loadCartAction,
-    loadCartByUserIdAction,
+    addCheckoutAction,
     loadAddressesAction,
-    deleteCartItemAction,
-    updateCartItemAction
+    loadCartByUserIdAction,
+    addNewCartAction
 }
