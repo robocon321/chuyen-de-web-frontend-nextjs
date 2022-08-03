@@ -13,9 +13,7 @@ const BlogList = (props) => {
 
   const includeFavoritePost = (id) => {
     if (blogState.favorites) {
-      return (
-        blogState.favorites.filter((item) => item.post.id == id).length > 0
-      );
+      return blogState.favorites.filter((item) => item.post.id == id).length > 0;
     } else {
       return false;
     }

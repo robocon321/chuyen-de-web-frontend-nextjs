@@ -34,6 +34,7 @@ const FavoriteBlogProvider = (props) => {
     }
   }, [authState]);
 
+
   const loadData = async () => {
     setLoading(true);
     if (!authState.isLoading && authState.user) {

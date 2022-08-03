@@ -46,8 +46,10 @@ const BlogDetailProvider = (props) => {
   }, [query]);
 
   useEffect(() => {
-    console.log(blogState);
-  }, [blogState]);
+    if(!authState.isLoading && authState.user) {
+      loadFavoriteBlog();
+    }
+  }, [authState])
 
   const loadData = async () => {
     setLoading(true);
@@ -56,9 +58,6 @@ const BlogDetailProvider = (props) => {
     await loadDetailBlogs(query.slug);
     await loadPostRecommand();
     await loadCommentsBlog(query.slug);
-    if(!authState.isLoading && authState.user) {
-      await loadFavoriteBlog();
-    }
     setLoading(false);
   }
 

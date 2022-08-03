@@ -61,8 +61,10 @@ const ShopProvider = (props) => {
   }, [router.query]);
 
   useEffect(() => {
-    console.log(shopState);
-  }, [shopState]);
+    if(!authState.isLoading && authState.user) {
+      loadFavoriteBlog();
+    }
+  }, [authState])
 
   const loadData = async () => {
     if (!router.isReady) return;

@@ -11,16 +11,15 @@ import { AuthContext } from '../../../../contexts/providers/AuthProvider';
 
 const Index = (props) => {
   const { accountDetailState, router } = useContext(AccountDetailContext);
-  const { user } = accountDetailState;
-  const { t } = useContext(AuthContext);
+  const { t, authState } = useContext(AuthContext);
 
-  if (accountDetailState.isLoading) {
+  if (accountDetailState.isLoading || authState.isLoading) {
     return (
       <Loading isLoading={true} />
     );
   }
 
-  if (!user && !accountDetailState.isLoading) {
+  if (!authState.user) {
     router.push("/auth");
     return <div></div>;
   }

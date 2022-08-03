@@ -42,8 +42,11 @@ const HomeProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(homeState);
-  }, [homeState]);
+    if(!authState.isLoading && authState.user) {
+      loadFavoriteProduct();
+    }
+  }, [authState])
+
 
   const loadData = async () => {
     setLoading(true);
@@ -51,9 +54,6 @@ const HomeProvider = (props) => {
     await loadBestSellerProducts();
     await loadTodayProducts();
     await loadLastestBlogs();
-    if (!authState.isLoading && authState.user) {
-      await loadFavoriteProduct();
-    }
     setLoading(false);
   }
   

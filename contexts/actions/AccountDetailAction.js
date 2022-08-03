@@ -18,7 +18,7 @@ const updateUserAction = (user) => async (dispatch) => {
   }).then((response) => {
     dispatch({
       type: ACTIONS.SET_USER,
-      payload: response.data.data
+      payload: response.data.data[0]
     });
   }).catch((error) => {
     handleError(error, dispatch, ACTIONS.SET_ERROR);

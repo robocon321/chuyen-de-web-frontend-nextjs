@@ -58,11 +58,14 @@ const BlogProvider = (props) => {
         await loadCategories();
         await loadPopularBlogs();
         await loadLastestBlogs(search, page, size, sort, filters);
-        if(!authState.isLoading && authState.user) {
-          await loadFavoriteBlog();
-        }
         setLoading(false);
   }
+
+  useEffect(() => {
+    if(!authState.isLoading && authState.user) {
+      loadFavoriteBlog();
+    }
+  }, [authState])
 
   const loadCategories = async () => {
     await loadCategoriesAction()(dispatch);

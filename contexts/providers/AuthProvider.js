@@ -35,10 +35,6 @@ const AuthProvider = (props) => {
   const router = useRouter();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
 
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
   const loginAccount = (data) => {
     loginAccountAction(data)(dispatch);
   };

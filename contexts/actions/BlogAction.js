@@ -84,7 +84,7 @@ const loadCategoriesAction = () => async (dispatch) => {
 const loadLastestBlogsAction = (search, page, size, sort, filters) => async (dispatch) => {
   await axios({
     method: 'GET',
-    url: `${backendUrl}/posts`,
+    url: `${backendUrl}/posts?AND_type=post`,
     params: {
       search, page, size, sort, ...filters
     }
@@ -105,7 +105,7 @@ const loadLastestBlogsAction = (search, page, size, sort, filters) => async (dis
 const loadPopularBlogsAction = () => async (dispatch) => {
   await axios({
     method: 'GET',
-    url: `${backendUrl}/posts?size=4&page=0&sort=totalComment__DESC`
+    url: `${backendUrl}/posts?size=4&page=0&sort=totalComment__DESC&AND_type=post`
   }).then((response) => {
     dispatch({
       type: ACTIONS.SET_POPULARBLOGS,
